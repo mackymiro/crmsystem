@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
+use Session; 
+use Validator;
+
 class UserProfileController extends Controller
 {
     /**
@@ -16,8 +19,9 @@ class UserProfileController extends Controller
     {
         //get user id by login
 		$id =  Auth::user()->id;
+		$user = User::find($id);
 		
-		return view('userprofile', compact('crud','id'));	
+		return view('userprofile', compact('crud','id', 'user'));	
     }
 
     /**
@@ -65,7 +69,8 @@ class UserProfileController extends Controller
 		return view('editprofile', compact('user','id'));
 		
     }
-
+	
+	
     /**
      * Update the specified resource in storage.
      *
@@ -76,7 +81,128 @@ class UserProfileController extends Controller
     public function update(Request $request, $id)
     {
         //
-		echo "sod"; exit;
+		
+		
+		$photo = $request->file('photo');
+		
+		if($photo == ""){
+			// if user update without uploading profile picture
+			$user = User::find($id);
+			$year = $request->get('year');
+			$month = $request->get('month');
+			$day = $request->get('day');
+			
+			$birthday = $year."-".$month."-".$day;
+			
+			$user->first_name = $request->get('firstName');
+			$user->last_name = $request->get('lastName');
+			$user->dob = $birthday;
+			$user->facebook_address = $request->get('facebookAddress');
+			$user->save();
+			
+			Session::flash('updated', 'Profile successfully updated.');
+			
+			return redirect('user-profile/id/'.$user->id);
+		}else{
+			$photo = $request->file('photo');
+			
+			$profileImageSaveAsName = time() . "." .$photo->getClientOriginalExtension();
+			
+			if($photo->getClientOriginalExtension() == "jpg"){
+							
+				//upload the file to uploads folder
+					$upload_path = 'uploads/';
+					$image = $upload_path . $profileImageSaveAsName;
+					
+					//move the image to uploads folder
+					$success = $photo->move($upload_path, $profileImageSaveAsName);
+					
+					$user = User::find($id);
+					$year = $request->get('year');
+					$month = $request->get('month');
+					$day = $request->get('day');
+					
+					$birthday = $year."-".$month."-".$day;
+					
+					$user->first_name = $request->get('firstName');
+					$user->last_name = $request->get('lastName');
+					$user->dob = $birthday;
+					$user->facebook_address = $request->get('facebookAddress');
+		
+					$user->profile_photo = $profileImageSaveAsName;
+					$user->save();
+					
+					Session::flash('updated', 'Profile successfully updated.');
+					
+					return redirect('user-profile/id/'.$user->id);
+			}else if($photo->getClientOriginalExtension() == "png"){
+					//upload the file to uploads folder
+
+					$upload_path = 'uploads/';
+					$image = $upload_path . $profileImageSaveAsName;
+					
+					//move the image to uploads folder
+					$success = $photo->move($upload_path, $profileImageSaveAsName);
+					
+					$user = User::find($id);
+					$year = $request->get('year');
+					$month = $request->get('month');
+					$day = $request->get('day');
+					
+					$birthday = $year."-".$month."-".$day;
+					
+					$user->first_name = $request->get('firstName');
+					$user->last_name = $request->get('lastName');
+					$user->dob = $birthday;
+					$user->facebook_address = $request->get('facebookAddress');
+					$user->role_type = $request->get('roleType');
+					$user->department = $request->get('department');
+					$user->profile_photo = $profileImageSaveAsName;
+					$user->save();
+					
+					Session::flash('updated', 'Profile successfully updated.');
+					
+					return redirect('user-profile/id/'.$user->id);
+			}else if($photo->getClientOriginalExtension() == "jpeg"){
+				//upload the file to uploads folder
+					$upload_path = 'uploads/';
+					$image = $upload_path . $profileImageSaveAsName;
+					
+					//move the image to uploads folder
+					$success = $photo->move($upload_path, $profileImageSaveAsName);
+					
+					$user = User::find($id);
+					$year = $request->get('year');
+					$month = $request->get('month');
+					$day = $request->get('day');
+					
+					$birthday = $year."-".$month."-".$day;
+					
+					$user->first_name = $request->get('firstName');
+					$user->last_name = $request->get('lastName');
+					$user->dob = $birthday;
+					$user->facebook_address = $request->get('facebookAddress');
+					$user->role_type = $request->get('roleType');
+					$user->department = $request->get('department');
+					$user->profile_photo = $profileImageSaveAsName;
+					$user->save();
+					
+					Session::flash('updated', 'Profile successfully updated.');
+					
+					return redirect('user-profile/id/'.$user->id);
+			}else{
+				$user = User::find($id);
+				Session::flash('err', 'Invalid file type.');
+			
+				return redirect('user-profile/id/'.$user->id);
+			}
+			
+			
+			
+		}
+		
+		
+		
     }
 
     /**

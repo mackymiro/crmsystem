@@ -1,7 +1,7 @@
+<?php error_reporting(0);?>
 @extends('layouts.app')
 @section('title', 'User Profile | RMTG')
 @section('content')
-
 <div id="content-wrapper">
 	 <div class="container-fluid">
 		  <!-- Breadcrumbs-->
@@ -19,7 +19,11 @@
                   <i class="fa fa-user"></i>
                   Profile</div>
                 <div class="card-body">
-					<img src="{{ asset('images/profile-placeholder.gif')}}"  class="img-responsive" alt="RMTG">
+					<?php if($user->profile_photo == NULL ): ?>
+						<img src="{{ asset('images/profile-placeholder.gif')}}"  class="img-responsive" alt="">
+					<?php else: ?>
+						<img src="/uploads/<?php echo $user->profile_photo; ?>"  width="284" height="295" class="img-responsive" alt="RMTG">
+					<?php endif; ?>
 					
 				</div>
 				
@@ -59,8 +63,34 @@
 					<p>{{ Auth::user()->first_name }}</p>
 				  <label>Last Name;</label>
 					<p>{{ Auth::user()->last_name }}</p>
-				  <label>Birthday;</label>
-					<p>{{ Auth::user()->dob }}</p>
+				  <label>Birthday;
+					<?php
+						$dob = explode("-", $user->dob);
+						$year = isset($dob[0]);
+						$month = isset($dob[1]);
+						$day = isset($dob[2]); 
+						
+						if(isset($year)){
+						   $year = $dob[0];
+						}else{
+						   $year = $dob[0];
+						}
+						
+						if(isset($month)){
+						   $month = $dob[1];
+						}else{
+							$month = $dob[1];
+						}
+						
+						if(isset($day)){
+						  $day = $dob[2]; 
+						}else{
+						   $day = $dob[2]; 
+						}
+									
+					  ?>
+				  </label>
+					<p>{{ $day }}-{{ $month }}-{{ $year }}</p>
 				  <label>Email Address;</label>
 				  <p>{{ Auth::user()->email }}</p>
 				  <label>Facebook Address;</label>
@@ -80,7 +110,16 @@
 					<br>
 					<a href="{{ url('user-profile/id', $id) }}" class="btn btn-success pull-right" />Edit</a>
 				</div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+				<?php 
+					
+					$updatedAt = date('d F, Y H:i:s', strtotime($user->updated_at));
+					if(isset($updatedAt)){
+						$updatedAt = date('d F, Y H:i:s', strtotime($user->updated_at));
+					}else{
+						$updatedAt = date('d F, Y H:i:s', strtotime($user->updated_at));
+					}
+				?>
+                <div class="card-footer small text-muted">Updated at <?php echo $updatedAt; ?></div>
               </div>
             </div>
            

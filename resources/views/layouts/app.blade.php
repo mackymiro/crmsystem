@@ -23,6 +23,7 @@
     <link href="{{ asset('css/sb-admin.css') }}" rel="stylesheet">
 	
 	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 </head>
 <body id="page-top">
 	<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -104,7 +105,7 @@
 			  </strong>
 			</div>
 			<a href="{{ url('user-profile') }}" class="dropdown-item"><i class="fa fa-user"></i> User Profile</a>
-			<a href="" class="dropdown-item"><i class="fa fa-key" aria-hidden="true"></i> Change Password</a>
+			<a href="{{ url('change-password') }}" class="dropdown-item"><i class="fa fa-key" aria-hidden="true"></i> Change Password</a>
 			<a class="dropdown-item" href="{{ route('logout') }}"
 				onclick="event.preventDefault();
 						 document.getElementById('logout-form').submit();">
@@ -130,8 +131,13 @@
           </a>
         </li>
 		<li class="nav-item active">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="{{ url('leads') }}">
             <i class="fa fa-line-chart" ></i> Leads
+          </a>
+        </li>
+		<li class="nav-item active">
+          <a class="nav-link" href="{{ url('leads') }}">
+            <i class="fa fa-black-tie"></i> Clients
           </a>
         </li>
 		<li class="nav-item active">
@@ -159,7 +165,7 @@
         </footer>
 	</div>
 	
-	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	
 	<!-- Bootstrap core JavaScript-->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
