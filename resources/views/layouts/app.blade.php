@@ -136,7 +136,7 @@
           </a>
         </li>
 		<li class="nav-item active">
-          <a class="nav-link" href="{{ url('leads') }}">
+          <a class="nav-link" href="{{ url('clients') }}">
             <i class="fa fa-black-tie"></i> Clients
           </a>
         </li>

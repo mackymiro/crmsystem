@@ -31,7 +31,7 @@
 									  <th>Created Date</th>
 									  <th>Owner</th>
 									</tr>
-								  </thead>
+								</thead>
 								  <tfoot>
 									<tr>
 									  <th>Action</th>
@@ -51,7 +51,7 @@
 									  <td>
 									    <a title="Edit" href="{{ action('LeadController@edit', $lead['id'])}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 									    @if(Auth::user()->role_type == 2)
-											<a title="Assign to Owner" href="{{ url('leads/assign') }}"><i class="fa fa-tasks"></i></a>
+											<a title="Assign to Owner" href="{{ url('leads/assign/id', $lead['id']) }}"><i class="fa fa-tasks"></i></a>
 										@endif
 									  </td>
 									  <td>{{ $lead['first_name']}} {{ $lead['middle_name'] }} {{ $lead['last_name'] }}</td>

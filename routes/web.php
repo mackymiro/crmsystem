@@ -35,9 +35,9 @@ Route::patch('/change-password/update/{id}', 'ChangePasswordController@update')-
 // Route for user profile
 Route::get('/user-profile', 'UserProfileController@index')->name('userprofile');
 
-Route::get('/user-profile/id/{id}', 'UserProfileController@edit')->name('editprofile');
+Route::get('/user-profile/id/{id}', 'UserProfileController@edit')->name('editprofile.edit');
 
-Route::post('/user-profile/update/{id}', 'UserProfileController@update')->name('updateprofile');
+Route::post('/user-profile/update/{id}', 'UserProfileController@update')->name('updateprofile.update');
 
 // Route for leads
 
@@ -51,4 +51,12 @@ Route::get('/leads/edit/id/{id}', 'LeadController@edit')->name('createlead.edit'
 
 Route::patch('/leads/update/{id}', 'LeadController@update')->name('createlead.update');
 
-Route::get('/leads/assign', 'LeadController@assign')->name('assignlead');
+Route::get('/leads/assign/id/{id}', 'LeadController@assign')->name('assignlead');
+
+Route::patch('/leads/update-assign/{id}', 'LeadController@updateAssign')->name('assignlead.updateAssign');
+
+Route::get('/clients', 'ClientController@index')->name('client');
+
+Route::get('/clients/create', 'ClientController@create')->name('createclient');
+
+Route::post('/clients/store', 'ClientController@store')->name('createclient.store');

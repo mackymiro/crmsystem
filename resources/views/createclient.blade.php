@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Create Leads | RMTG')
+@section('title', 'Create Clients | RMTG')
 @section('content')
 <div id="content-wrapper">
 	<div class="container-fluid">
@@ -8,41 +8,38 @@
             <li class="breadcrumb-item">
               <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Create Leads</li>
+            <li class="breadcrumb-item active">Create Clients</li>
 			
           </ol>
 		  <div class="row">
 			<div class="col-lg-12">
 				<div class="card mb-3">
 					<div class="card-header">
-					  <i class="fa fa-line-chart"></i>
-					  Create New Leads
-					  <a href="{{ url('leads') }}" class="pull-right">Back to Leads</a>
+					  <i class="fa fa-black-tie"></i>
+					  Create New Clients
+					  <a href="{{ url('clients') }}" class="pull-right">Back to Clients</a>
 					</div>
-					<form action="{{ action('LeadController@store') }}" method="POST">
+					<form action="{{ action('ClientController@store') }}" method="POST">
 					{{csrf_field()}}
-					 <div class="card-body">
+					<div class="card-body">
 						<div class="form-group">
-							<p>Lead Information</p>
+							<p>Client Information</p>
 							<div class="pull-right">
 								<button type="submit" class="btn btn-success">
-									<i class="fa fa-plus" aria-hidden="true"></i> Add Lead
+									<i class="fa fa-plus" aria-hidden="true"></i> Add Client
 								</button>
 							</div>
 							<br>
 							<br>
-							@if(session('leadCreated'))
-									<p class="alert alert-success">{{ Session::get('leadCreated') }}</p>
-							@endif	
 							<div style="clear:both; "></div>
 							<div class="form-row">
 								<div class="col-md-2">
 									<label>Title; </label>
 									<div id="app-title">
 										<select name="title" class="form-control">
-										  <option v-for="option in options" v-bind:value="option.value">
-											@{{ option.text }}
-										  </option>
+											<option v-for="option in options" v-bind:value="option.value">
+												@{{ option.text }}
+											</option>
 										</select>
 									</div>
 								</div>
@@ -77,7 +74,6 @@
 						</div>
 						<div class="form-group">
 							<div class="form-row">
-								
 								<div class="col-md-6">
 									<label>Company; </label>
 									<input type="text" name="company" class="form-control"  required />
@@ -88,7 +84,6 @@
 									@endif
 								</div>
 								<div class="col-md-2">
-									
 									<label>Birthday; </label>
 									<select name="day" class="form-control">
 										<option value="1" >1</option>
@@ -125,7 +120,6 @@
 									</select>
 								</div>
 								<div class="col-md-2">
-									
 									<label>Month; </label>
 									<select name="month" class="form-control">
 										<option value="1">January</option>
@@ -142,7 +136,6 @@
 										<option value="12">December</option>
 									</select>
 								</div>
-								
 								<div class="col-md-2">
 									
 									<label>Year; </label>
@@ -198,65 +191,45 @@
 										<option value="2018">2018</option>
 									</select>
 								</div>
-								
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="form-row">
 								<div class="col-md-4">
-									<label>Phone Number; </label>
-									<input type="text" name="phoneNumber" class="form-control"  />
-								</div>
-								<div class="col-md-4">
-									<label>Email Address; </label>
-									<input type="text" name="email" class="form-control"  required />
-									@if ($errors->has('email'))
-										<div class="alert alert-danger">
-											<strong>{{ $errors->first('email') }}</strong>
-										</div>
-									@endif
-								</div>
-								<div class="col-md-4">
-									<label>Mobile Number; </label>
-									<input type="text" name="mobileNumber" class="form-control" required />
-									@if ($errors->has('mobileNumber'))
-										<div class="alert alert-danger">
-											<strong>{{ $errors->first('mobileNumber') }}</strong>
-										</div>
-									@endif
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="form-row">
-								<div class="col-md-4">
-									<label>Lead Source; </label>
-									
-									<div id="app-leadSource">
-										<select name="leadSource" class="form-control">
-										  <option v-for="leadSource in leadSources" v-bind:value="leadSource.value">
-												@{{ leadSource.text }}
-										  </option>
-										</select>
-									
-									</div>
-								</div>
-								<div class="col-md-4">
-									<label>Referral; </label>
-									<select name="referral" class="form-control">
-										<option value="test">test</option>
-									</select>
-								</div>
-								<div class="col-md-4">
-									<label>Lead Status; </label>
-									<div id="app-leadStatus">
-										<select name="leadStatus" class="form-control">
-											<option v-for="leadStatus in leadStatuses" v-bind:value="leadStatus.value">
-												@{{ leadStatus.text }}
+									<label>Profession; </label>
+									<div id="app-profession">
+										<select name="profession" class="form-control">
+											<option v-for="profession in professions" v-bind:value="profession.value" >
+												@{{ profession.text }}
 											</option>
 										</select>
 									</div>
-									
+								</div>
+								<div class="col-md-4">
+									<label>Phone Number; </label>
+									<input type="text" name="phoneNumber" class="form-control" />
+								</div>
+								<div class="col-md-4">
+									<label>Email Address; </label>
+									<input type="text" name="email" class="form-control" required />
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-row">
+								<div class="col-md-4">
+									<label>Mobile Number; </label>
+									<input type="text" name="mobileNumber" class="form-control" required/>
+								</div>
+								<div class="col-md-4">
+									<label>Referral </label>
+									<select name="referral" class="form-control">
+										<option></option>
+									</select>	
+								</div>
+								<div class="col-md-4">
+									<label>Commission </label>
+									<input type="text" name="commission" class="form-control" />
 								</div>
 							</div>
 						</div>
@@ -266,26 +239,19 @@
 									<label>Employment Type; </label>
 									<div id="app-employmentType">
 										<select name="employmentType" class="form-control">
-											<option v-for="employmentType in employmentTypes" v-bind:value="employmentType.value" >
+											<option v-for="employmentType in employmentTypes" v-bind:value="employmentType.value">
 												@{{ employmentType.text }}
 											</option>
-											
 										</select>
 									</div>
-				
 								</div>
 								<div class="col-md-4">
 									<label>National Insurance; </label>
-									<input type="text" name="nationalInsurance" class="form-control"  required />
-									@if ($errors->has('nationalInsurance'))
-										<div class="alert alert-danger">
-											<strong>{{ $errors->first('nationalInsurance') }}</strong>
-										</div>
-									@endif
+									<input type="text" name="nationalInsurance" class="form-control" required />
 								</div>
 								<div class="col-md-4">
 									<label>UTR; </label>
-									<input type="text" name="utr" class="form-control"  />
+									<input type="text" name="utr" class="form-control" />
 								</div>
 							</div>
 						</div>
@@ -293,48 +259,44 @@
 							<div class="form-row">
 								<div class="col-md-4">
 									<label>648-Registered; </label>
-									<div id="app-648Reg">
-										<select name="648Reg" class="form-control">
-											<option v-for="reg in regs" v-bind="reg.value">
-												@{{ reg.text }}
+									<div id="app-registered">
+										<select name="648reg" class="form-control">
+											<option v-for="register in registers" v-bind:value="register.value">
+												@{{ register.text }}
 											</option>
 										</select>
 									</div>
-									
 								</div>
 								<div class="col-md-4">
-									<label>Authority Letter; </label>
-									<div id="app-authLetter">
+									<label>Authority Letter </label>
+									<div id="app-authLetter">	
 										<select name="authLetter" class="form-control">
-											<option v-for="authLetter in authLetters" v-bind="authLetter.value">
+											<option v-for="authLetter in authLetters" v-bind:value="authLetter.value">
 												@{{ authLetter.text }}
 											</option>
 										</select>
 									</div>
-									
 								</div>
 								<div class="col-md-4">
-									<label>Bank Authority; </label>
+									<label>Bank Authority </label>
 									<div id="app-bankAuth">
 										<select name="bankAuth" class="form-control">
-											<option v-for="bankAuth in bankAuths" v-bind="bankAuth.value">
+											<option v-for="bankAuth in bankAuths" v-bind:value="bankAuth.value">
 												@{{ bankAuth.text }}
 											</option>
 										</select>
 									</div>
-									
 								</div>
 							</div>
 						</div>
-				  </div>
-				  
+					</div>
 				</div>
 				<div class="card mb-3">
 					<div class="card-header">
 					  <i class="fa fa-address-card-o" aria-hidden="true"></i>
 						Address Information
 					 </div>
-					 <div class="card-body">
+					<div class="card-body">
 						<div class="form-group">
 							<div class="form-row">
 								<div class="col-md-4">
@@ -616,23 +578,17 @@
 
 									</select>	
 								</div>
-								<div class="col-md-4">
-									<label>Lead Assignment;</label>
-									<select name="leadAssignment" class="form-control">
-										<option value="test">test</option>
-									</select>	
-								</div>
+								
 							</div>
 						</div>
-					 </div>
+					</div>
 				</div>
-				
 				<div class="card mb-3">
 					<div class="card-header">
 					 <i class="fa fa-info"></i>
 						Description
 					 </div>
-					<div class="col-md-12">
+					 <div class="col-md-12">
 						<br>
 						<textarea name="description" class="form-control" rows="10" cols="10"></textarea>
 						<br>
@@ -640,136 +596,140 @@
 					<div class="col-md-12">
 						<div class="pull-right">
 							<button type="submit" class="btn btn-success">
-								<i class="fa fa-plus" aria-hidden="true"></i> Add Lead
-							</button>
+									<i class="fa fa-plus" aria-hidden="true"></i> Add Client
+								</button>
+								<br>
+								<br>
+								<br>
 						</div>
-						<br>
-						<br>
-						<br>
 					</div>
-				
 				</div>
-				
-				
 				</form>
-			</div>
 		  </div>
-	</div>
+	</div>	
 </div>
 <script>
 	//Title data
 	new Vue({
 	el: '#app-title',
-	  data: {
-		options: [
-		  { text: 'Mr', value: 'Mr' },
-		  { text: 'Mrs', value: 'Mrs' }
-		]
-	  }
+		data: {
+			options:[
+				{ text:'Mr', value: 'Mr' },
+				{ text:'Mrs', value: 'Mrs'}
+			]
+		}
 	})
 	
-	//Lead source data
+	//Profession data
 	new Vue({
-	el: '#app-leadSource',
-	  data: {
-		leadSources: [
-		  { text: 'Referral', value: 'Referral' },
-		  { text: 'Website', value: 'Website' },
-		  { text: 'Internet Marketing', value: 'Internet Marketing' },
-		  { text: 'Site Visits', value: 'Site Visits' },
-		  { text: 'Resourcing', value: 'Resourcing' },
-		  { text: 'Creditsafe', value: 'Creditsafe' }
-		  
-		]
-	  }
-	})
-	
-	//Lead status data
-	new Vue({
-	el: '#app-leadStatus',
-	  data: {
-		leadStatuses: [
-		  { text: 'Open', value: 'Open' },
-		  { text: 'Interested/Follow up', value: 'Interested/Follow up' },
-		  { text: 'Callback', value: 'Callback' },
-		  { text: 'Unavailable', value: 'Unavailable' },
-		  { text: 'Close/Converted', value: 'Close/Converted' },
-		  { text: 'Not Interested', value: 'Not Interested' },
-		  { text: 'Not Qualified', value: 'Not Qualified' },
-		  { text: 'Do Not Call', value: 'Do Not Call' },
-		  { text: 'Ringing', value: 'Ringing' },
-		  { text: 'Busy', value: 'Busy' },
-		  { text: 'Voicemail', value: 'Voicemail' },
-		  { text: 'Fax Machine', value: 'Fax Machine' },
-		  { text: 'Invalid Number', value: 'Invalid Number' },
-		  { text: 'Re-order prompt', value: 'Re-order prompt' },
-		  { text: 'No Number', value: 'No Number' },
-		  { text: 'No Contact Info', value: 'No Contact Info' },
-		  { text: 'Foreign Number', value: 'Foreign Number' },
-		  { text: 'Duplicate', value: 'Duplicate' },
-		  { text: 'Wrong Number', value: 'Wrong Number' },
-		  { text: 'Processing Tax Return', value: 'Processing Tax Return' },
-		  { text: 'Waiting Next Tax Year', value: 'Waiting Next Tax Year'},
-		  { text: 'Ceased', value: 'Ceased'},
-		  { text: 'First Stage', value: 'First Stage'},
-		  { text: 'Second Stage', value: 'Second Stage'},
-		  { text: 'Third Stage', value: 'Third Stage'},
-		  { text: 'Fourth Stage', value: 'Fourth Stage'},
-		  { text: 'Fifth Stage', value: 'Fifth Stage'}
-		]
-	  }
+	el: '#app-profession',
+		data: {
+			professions:[
+				{ text:'Boiler Maker', value: 'Boiler Maker' },
+				{ text:'Brick Layer', value: 'Brick Layer'},
+				{ text:'Building Inspector', value: 'Building Inspector' },
+				{ text:'Carpenter', value: 'Carpenter' },
+				{ text:'Concrete Finisher', value: 'Concrete Finisher' },
+				{ text:'Construction Project Director', value: 'Construction Project Director' },
+				{ text:'Construction Site Manager', value: 'Construction Site Manager' },
+				{ text:'Contract Manager', value: 'Contract Manager' },
+				{ text:'Crane Operator', value: 'Crane Operator' },
+				{ text:'Demolition', value: 'Demolition' },
+				{ text:'Distribution', value: 'Distribution' },
+				{ text:'Drywall Installer', value: 'Drywall Installer' },
+				{ text:'Electrician', value: 'Electrician' },
+				{ text:'Elevator', value: 'Elevator' },
+				{ text:'Engineer', value: 'Engineer' },
+				{ text:'Equipment Inspector', value: 'Equipment Inspector' },
+				{ text:'Exterior Finisher', value: 'Exterior Finisher' },
+				{ text:'Field/Project Engineer', value: 'Field/Project Engineer' },
+				{ text:'Fire and Security Engineer', value: 'Fire and Security Engineer' },
+				{ text:'Framer', value: 'Framer' },
+				{ text:'Gasfitter', value: 'Gasfitter' },
+				{ text:'Glazier', value: 'Glazier' },
+				{ text:'Groundworker', value: 'Groundworker' },
+				{ text:'Heat and Frost Insulator', value: 'Heat and Frost Insulator' },
+				{ text:'Heavy Duty Equipment Mechanic', value: 'Heavy Duty Equipment Mechanic' },
+				{ text:'Home and Property Inpector', value: 'Home and Property Inpector' },
+				{ text:'Industrial Mechanic', value: 'Industrial Mechanic' },
+				{ text:'Interior Finisher', value: 'Interior Finisher' },
+				{ text:'Iron Worker/Structural metal fabricator and fitter', value: 'Iron Worker/Structural metal fabricator and fitter' },
+				{ text:'Labourer', value: 'Labourer' },
+				{ text:'Landscapert', value: 'Landscapert' },
+				{ text:'Line Worker', value: 'Line Worker' },
+				{ text:'Machine Operator', value: 'Machine Operator' },
+				{ text:'Others', value: 'Others' },
+				{ text:'Painter and Decorator', value: 'Painter and Decorator' },
+				{ text:'Plasterer', value: 'Plasterer' },
+				{ text:'Plumber', value: 'Plumber' },
+				{ text:'Production Manager', value: 'Production Manager' },
+				{ text:'Project Manager/Project Coordinator', value: 'Project Manager/Project Coordinator' },
+				{ text:'Quality Control Officer', value: 'Quality Control Officer' },
+				{ text:'Refrigeration and Air Conditioning Mechanic', value: 'Refrigeration and Air Conditioning Mechanic' },
+				{ text:'Roofer', value: 'Roofer' },
+				{ text:'Rotating Equipment Inpector', value: 'Rotating Equipment Inpector' },
+				{ text:'Safety Inspector/Consultant', value: 'Safety Inspector/Consultant' },
+				{ text:'Scaffolder', value: 'Scaffolder' },
+				{ text:'Sheet Metal Worker', value: 'Sheet Metal Worker' },
+				{ text:'Shingler', value: 'Shingler' },
+				{ text:'Shop Foreman', value: 'Shop Foreman' },
+				{ text:'Site Manager', value: 'Site Manager' },
+				{ text:'Steamfitter/pipefitter', value: 'Steamfitter/pipefitter' },
+				{ text:'Stone Mason', value: 'Stone Mason' },
+				{ text:'Surveyor', value: 'Surveyor' },
+				{ text:'Tile Setter', value: 'Tile Setter' },
+				{ text:'Tiling Operative', value: 'Tiling Operative' },
+				{ text:'Tradesman', value: 'Tradesman' },
+				{ text:'Truckman', value: 'Truckman' },
+				{ text:'Welder', value: 'Truckman' }
+				
+			]
+		}
 	})
 	
 	//Employment type data
 	new Vue({
 	el: '#app-employmentType',
-	  data: {
-		employmentTypes: [
-		  { text: 'Self-Employed', value: 'Self-Employed' },
-		  { text: 'Employed', value: 'Employed' }
-		  
-		]
-	  }
-	})
-
-	//648Registered data
-	new Vue({
-	el: '#app-648Reg',
-	  data: {
-		regs: [
-		  { text: 'Yes', value: 'Yes' },
-		  { text: 'No', value: 'No' }
-		  
-		]
-	  }
+		data: {
+			employmentTypes:[
+				{ text:'Self-Employed', value: 'Self-Employed' },
+				{ text:'Employed', value: 'Employed'}
+			]
+		}
 	})
 	
-	//authority letter data
+	//648-Registered data
+	new Vue({
+	el: '#app-registered',
+		data: {
+			registers:[
+				{ text:'Yes', value: 'Yes' },
+				{ text:'No', value: 'No'}
+			]
+		}
+	})
+	
+	//auth letter data
 	new Vue({
 	el: '#app-authLetter',
-	  data: {
-		authLetters: [
-		  { text: 'Yes', value: 'Yes' },
-		  { text: 'No', value: 'No' }
-		  
-		]
-	  }
+		data: {
+			authLetters:[
+				{ text:'Yes', value: 'Yes' },
+				{ text:'No', value: 'No'}
+			]
+		}
 	})
 	
 	//bank authority data
 	new Vue({
 	el: '#app-bankAuth',
-	  data: {
-		bankAuths: [
-		  { text: 'Yes', value: 'Yes' },
-		  { text: 'No', value: 'No' }
-		  
-		]
-	  }
+		data: {
+			bankAuths:[
+				{ text:'Yes', value: 'Yes' },
+				{ text:'No', value: 'No'}
+			]
+		}
 	})
-	
-	
-	
-	
+
 </script>
 @endsection

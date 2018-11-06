@@ -21,11 +21,19 @@
 					</div>
 					<div class="card-body">
 						<label>All Users; </label>
-						<select name="users" class="form-control">
-							@foreach($users as $user)
-							 <option>{{ $user['first_name'] }} {{ $user['last_name']}}</option>
-							@endforeach()
-						</select>
+						<form action="{{ action('LeadController@updateAssign', $leadID) }}" method="POST">
+							{{csrf_field()}}
+							<input name="_method" type="hidden" value="PATCH">
+							
+							<select name="users" class="form-control">
+								@foreach($users as $user)
+								 <option value="{{ $user['first_name'] }} {{ $user['last_name']}}">{{ $user['first_name'] }} {{ $user['last_name']}}</option>
+								@endforeach()
+							</select>
+							<br>
+							<br>
+							<input type="submit" class="pull-right btn btn-success" value="Assign" />
+						</form>
 					</div>
 				</div>
 			</div>

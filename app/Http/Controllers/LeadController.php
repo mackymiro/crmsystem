@@ -190,12 +190,29 @@ class LeadController extends Controller
         //
     }
 	
+	
+	//update assign to owners 
+	public function updateAssign(Request $request, $id){
+	  
+		$lead = Lead::find($id);
+		
+		$lead->owner = $request->get('users');
+		$lead->save();
+		
+		
+		return redirect('/leads');
+		
+	}
+	
+	
 	//assign to owners
-	public function assign(){
+	public function assign($id){
 		//get all users 
 		$users = User::all()->toArray();
-
 		
-		return view('assignlead', compact('users'));
+		//get lead id
+		$leadID  = Lead::find($id);
+		
+		return view('assignlead', compact('users', 'leadID'));
 	}
 }
