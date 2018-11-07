@@ -42,13 +42,27 @@
 									  <th>Company</th>
 									  <th>Email</th>
 									  <th>Phone</th>
-									  <th>Lead Status</th>
+									  <th>Mobile</th>
 									  <th>Created Date</th>
 									  <th>Owner</th>
 									</tr>
 								</tfoot>
 								<tbody>
 									
+									@foreach($clients as $client)
+									<tr>
+										<td>
+											<a href="{{ action('ClientController@edit', $client['id']) }}" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+										</td>
+										<td>{{ $client['first_name'] }} {{ $client['middle_name'] }} {{ $client['last_name'] }}</td>
+										<td>{{ $client['company'] }}</td>
+										<td>{{ $client['email'] }}</td>
+										<td>{{ $client['phone_number'] }}</td>
+										<td>{{ $client['mobile_number'] }}</td>
+										<td>{{ $client['created_at'] }}</td>
+										<td>{{ $client['owner'] }}</td>
+									</tr>
+									@endforeach
 								</tbody>
 							</table>
 						</div>

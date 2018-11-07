@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Edit Leads | RMTG')
 @section('content')
+<?php error_reporting(0);?>
 <div id="content-wrapper">
 	<div class="container-fluid">
 		<!-- Breadcrumbs-->
@@ -26,7 +27,9 @@
 						<div class="form-group">
 							<p>Lead Information</p>
 							<div class="pull-right">
-								<i class="fa fa-plus" aria-hidden="true"></i> <input type="submit" class="btn btn-success" value="Update Lead">
+								<button type="submit" class="btn btn-success">
+									<i class="fa fa-plus" aria-hidden="true"></i> Update Lead
+								</button>
 							</div>
 							<br>
 							<br>
@@ -219,8 +222,14 @@
 								</div>
 								<div class="col-md-4">
 									<label>Referral; </label>
+									<?php
+										$ref = explode(" ", $lead->referral);
+										$refName = $ref[0]." ".$ref[1];
+									?>
 									<select name="referral" class="form-control">
-										<option value="test">test</option>
+										@foreach($referralPersons as $referralPerson)
+										 <option value="{{$referralPerson['first_name']}} {{$referralPerson['last_name']}}" <?php echo ($refName == $referralPerson['first_name']." ".$referralPerson['last_name']) ? 'selected="selected"' : '' ?> >{{ $referralPerson['first_name']}} {{ $referralPerson['last_name']}}</option>
+										@endforeach
 									</select>
 								</div>
 								<div class="col-md-4">
@@ -607,12 +616,14 @@
 					</div>
 					<div class="col-md-12">
 						<br>
-						<textarea name="description" class="form-control" rows="10" cols="10"></textarea>
+						<textarea name="description" class="form-control" rows="10" cols="10">{{ $lead->description }}</textarea>
 						<br>
 					</div>
 					<div class="col-md-12">
 						<div class="pull-right">
-							<i class="fa fa-plus" aria-hidden="true"></i> <input type="submit" class="btn btn-success" value="Update Lead">
+							<button type="submit" class="btn btn-success">
+								<i class="fa fa-plus" aria-hidden="true"></i> Update Lead
+							</button>
 						</div>
 						<br>
 						<br>

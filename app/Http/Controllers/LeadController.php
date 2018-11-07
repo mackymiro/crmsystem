@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lead; 
+use App\Client;
 
 use App\User;
 use Session; 
@@ -32,8 +33,14 @@ class LeadController extends Controller
     public function create()
     {
         //
+		$referralPersons = Client::all()->toArray();
 		
-		return view('createlead');
+		$users = User::all()->toArray();
+		echo "<pre>";
+		print_r($users);
+		echo "</pre>";
+			
+		return view('createlead', compact('referralPersons'));
     }
 
     /**
@@ -127,7 +134,9 @@ class LeadController extends Controller
         //
 		$lead  = Lead::find($id);
 		
-		return view('editlead', compact('lead', 'id'));
+		$referralPersons = Client::all()->toArray();
+		
+		return view('editlead', compact('lead', 'id', 'referralPersons'));
     }
 
     /**

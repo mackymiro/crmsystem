@@ -55,8 +55,14 @@ Route::get('/leads/assign/id/{id}', 'LeadController@assign')->name('assignlead')
 
 Route::patch('/leads/update-assign/{id}', 'LeadController@updateAssign')->name('assignlead.updateAssign');
 
+// Route for clients
+
 Route::get('/clients', 'ClientController@index')->name('client');
 
 Route::get('/clients/create', 'ClientController@create')->name('createclient');
 
 Route::post('/clients/store', 'ClientController@store')->name('createclient.store');
+
+Route::get('/clients/edit/id/{id}', 'ClientController@edit')->name('createclient.edit');
+
+Route::patch('/clients/update/{id}', 'ClientController@update')->name('ceateclient.update');
