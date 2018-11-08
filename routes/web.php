@@ -42,36 +42,27 @@ Route::post('/user-profile/update/{id}', 'UserProfileController@update')->name('
 // Route for leads
 
 Route::get('/leads', 'LeadController@index')->name('lead');
-
 Route::get('/leads/create', 'LeadController@create')->name('createlead');
-
 Route::post('/leads/store', 'LeadController@store')->name('createlead.store');
-
 Route::get('/leads/edit/id/{id}', 'LeadController@edit')->name('createlead.edit');
-
 Route::patch('/leads/update/{id}', 'LeadController@update')->name('createlead.update');
-
 Route::get('/leads/assign/id/{id}', 'LeadController@assign')->name('assignlead');
-
 Route::patch('/leads/update-assign/{id}', 'LeadController@updateAssign')->name('assignlead.updateAssign');
 
 // Route for clients
 
 Route::get('/clients', 'ClientController@index')->name('client');
-
 Route::get('/clients/create', 'ClientController@create')->name('createclient');
-
 Route::post('/clients/store', 'ClientController@store')->name('createclient.store');
-
 Route::get('/clients/edit/id/{id}', 'ClientController@edit')->name('createclient.edit');
-
 Route::patch('/clients/update/{id}', 'ClientController@update')->name('ceateclient.update');
+
+Route::get('/clients/client-details/id/{id}', 'ClientController@clientDetails')->name('clientdetails.clientDetails');
 
 // Route for tasks
 Route::get('/tasks', 'TaskController@index')->name('task');
-
 Route::get('/tasks/create', 'TaskController@create')->name('createtask');
-
 Route::post('/tasks/store', 'TaskController@store')->name('createtask.store');
-
 Route::get('/tasks/edit/id/{id}', 'TaskController@edit')->name('createtask.edit');
+Route::patch('/tasks/update/{id}', 'TaskController@update')->name('createtask.update');
+Route::delete('/tasks/delete/{id}', 'TaskController@destroy')->name('createtask.delete');

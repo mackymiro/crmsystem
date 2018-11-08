@@ -60,9 +60,9 @@
                   Profile Details</div>
                 <div class="card-body">
                   <label>First Name;</label>
-					<p>{{ Auth::user()->first_name }}</p>
+					<p>{{ ucfirst(Auth::user()->first_name) }}</p>
 				  <label>Last Name;</label>
-					<p>{{ Auth::user()->last_name }}</p>
+					<p>{{ ucfirst(Auth::user()->last_name) }}</p>
 				  <label>Birthday;
 					<?php
 						$dob = explode("-", $user->dob);

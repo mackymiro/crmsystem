@@ -11,6 +11,18 @@ use Auth;
 
 class ClientController extends Controller
 {
+	
+	//client details
+	public function clientDetails($id){
+		
+		$client = Client::find($id);
+		//echo "<pre>";
+		//echo $client;
+		//echo "</pre>";
+		
+		return view('clientdetails', compact('client'));
+	}
+	
     /**
      * Display a listing of the resource.
      *

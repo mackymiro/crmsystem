@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Lead;
 use App\Client;
 use App\User; 
-
 use App\Task;
-
 use Session; 
 use Auth;
 
@@ -62,10 +61,12 @@ class TaskController extends Controller
 		$leads = $request->get('leads');
 		$clients = $request->get('clients');
 	
+		//if clients is not 0
 		if($request->get('clients') != "0"){
 			$name =  $request->get('clients');
 		}
 		
+		//if leads is not 0
 		if($request->get('leads') != "0"){
 			$name = $request->get('leads'); 
 		}
@@ -123,7 +124,7 @@ class TaskController extends Controller
 		
 		$users = User::all()->toArray();
 		
-		return view('edittask', compact('task''leads', 'clients', 'users'));
+		return view('edittask', compact('task', 'leads', 'clients', 'users', 'id'));
     }
 
     /**
@@ -136,7 +137,36 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         //
+		$task = Task::find($id);
+		
+		$leads = $request->get('leads');
+		$clients = $request->get('clients');
+		
+		//if clients is not 0
+		if($request->get('clients') != "0"){
+			$name =  $request->get('clients');
+			
+		}
+		
+		//if leads is not 0
+		if($request->get('leads') != "0"){
+			$name = $request->get('leads'); 
+		}
+		
+		$task->name = $name;
+		$task->assigned_to = $request->get('assignedTo');
+		$task->status = $request->get('status');
+		$task->subject = $request->get('subject');
+		$task->due_date = $request->get('dueDate');
+		$task->priority = $request->get('priority');
+		$task->type = $request->get('type');
+		
+		$task->save();
+		
+		Session::flash('taskUpdated', 'Task Information has been updated.');
+		return redirect('tasks/edit/id/'.$task->id);
     }
+	
 
     /**
      * Remove the specified resource from storage.
@@ -147,5 +177,8 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //
+		$task = Task::find($id);
+		$task->delete();
+		
     }
 }

@@ -32,7 +32,7 @@
 								</div>
 								<br>
 								<br>
-								 @if(session('clientUpdated'))
+								@if(session('clientUpdated'))
 									<p class="alert alert-success">{{ Session::get('clientUpdated') }}</p>
 								@endif
 								<div class="form-row">

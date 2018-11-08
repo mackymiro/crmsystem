@@ -1,6 +1,32 @@
 @extends('layouts.app')
 @section('title', 'Tasks | RMTG')
 @section('content')
+<script type="text/javascript">
+	function confirmDelete(id){
+		var x =confirm("Do you want to delete this?");
+		if(x){
+			$.ajax({
+				type: "DELETE",
+				url: '/tasks/delete/' + id,
+				data: {
+					_method: 'delete', 
+					"_token": "{{ csrf_token() }}",
+					"id": id
+				},
+				success: function (data) {
+					console.log(data);
+					$("#deletedId"+id).fadeOut('slow');
+				},
+				error: function (data) {
+					console.log('Error:', data);
+				}
+			});
+		}else{
+			return false; 
+		}
+	}
+	
+</script>
 <div id="content-wrapper">
 	<div class="container-fluid">
 		<!-- Breadcrumbs-->
@@ -50,13 +76,15 @@
 								</tfoot>
 								<tbody>
 									@foreach($tasks as $task)
-									<tr>
+									<tr id="deletedId<?php echo $task['id']?>">
 										<td>
 											<a title="Edit" href="{{ action('TaskController@edit', $task['id']) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-											<a title="Delete" href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
+							
+											<a title="Delete" onclick="confirmDelete('<?php echo $task['id']?>');" href="javascript:void(0);" ><i class="fa fa-trash" aria-hidden="true"></i></a>
+											
 										</td>
-										<td>{{ $task['assigned_to'] }}</td>
-										<td>{{ $task['name'] }}</td>
+										<td>{{ ucfirst($task['assigned_to']) }}</td>
+										<td>{{ ucfirst($task['name']) }}</td>
 										<td>{{ $task['subject'] }}</td>
 										<td>{{ $task['type'] }}</td>
 										<td>{{ $task['due_date'] }}</td>
@@ -88,4 +116,5 @@
 		  </div>
 	</div>
 </div>
+
 @endsection

@@ -47,7 +47,7 @@
 		<li class="nav-item dropdown no-arrow mx-1">
          
 		  <a class="nav-link dropdown-toggle" href="#" aria-haspopup="true" aria-expanded="false">
-			Welcome! {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} <span class="caret"></span>
+			Welcome! {{ ucfirst(Auth::user()->first_name) }} {{ ucfirst(Auth::user()->last_name) }} <span class="caret"></span>
           </a>
         </li>
         <li class="nav-item dropdown no-arrow mx-1">
@@ -189,8 +189,7 @@
     <script src="{{ asset('js/datatables-demo.js') }}"></script>
     <script src="{{ asset('js/chart-area-demo.js') }} "></script>
     <!-- Scripts -->
-    <!--<script src="{{ asset('js/app.js') }}"></script>-->
-	
+    <!--<script src="{{ asset('js/app.js') }}"></script>-->	
 	@if(Request::is('tasks/create'))
 		
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
@@ -207,5 +206,22 @@
 		</script>  
 	
 	@endif
+	
+	<?php $req = request()->route('id'); ?>
+	<?php if(Request::is('tasks/edit/id/'.$req)): ?>		
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+		<script type="text/javascript">
+
+			$('.date').datepicker({  
+				format: 'dd-mm-yyyy',
+				todayHighlight: true,
+				
+			 });  
+
+		</script>  
+	
+	<?php endif; ?>
 </body>
 </html>
