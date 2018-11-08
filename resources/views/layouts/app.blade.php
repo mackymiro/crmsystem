@@ -23,7 +23,10 @@
     <link href="{{ asset('css/sb-admin.css') }}" rel="stylesheet">
 	
 	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="{{ asset('js/jquery.min.js') }}"></script>
+	
 </head>
 <body id="page-top">
 	<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -124,30 +127,31 @@
 	<div id="wrapper">
 		 <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
-        <li class="nav-item active">
+		
+        <li class="nav-item {{ Request::is('home') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('home') }}">
             <i class="fa fa-tachometer"></i>
             <span>Dashboard</span>
           </a>
         </li>
-		<li class="nav-item active">
+		<li class="nav-item {{ Request::is('leads') ? 'active' : '' }}">
           <a class="nav-link" href="{{ url('leads') }}">
             <i class="fa fa-line-chart" ></i> Leads
           </a>
         </li>
-		<li class="nav-item active">
+		<li class="nav-item {{ Request::is('clients') ? 'active' : '' }}">
           <a class="nav-link" href="{{ url('clients') }}">
             <i class="fa fa-black-tie"></i> Clients
           </a>
         </li>
-		<li class="nav-item active">
+		<li class="nav-item {{ Request::is('cases') ? 'active' : '' }}">
           <a class="nav-link" href="index.html">
             <i class="fa fa-archive" ></i> Cases
           </a>
         </li>
-		<li class="nav-item active">
-          <a class="nav-link" href="index.html">
-           <i class="fa fa-archive" ></i> Tasks
+		<li class="nav-item {{ Request::is('tasks') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ url('tasks') }}">
+           <i class="fa fa-tasks" aria-hidden="true"></i> Tasks
           </a>
         </li>
        
@@ -167,7 +171,7 @@
 	
 	
 	<!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
+   
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
@@ -187,6 +191,21 @@
     <!-- Scripts -->
     <!--<script src="{{ asset('js/app.js') }}"></script>-->
 	
+	@if(Request::is('tasks/create'))
+		
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+		<script type="text/javascript">
 
+			$('.date').datepicker({  
+				format: 'dd-mm-yyyy',
+				todayHighlight: true,
+				
+			 });  
+
+		</script>  
+	
+	@endif
 </body>
 </html>

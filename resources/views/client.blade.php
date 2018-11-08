@@ -54,7 +54,7 @@
 										<td>
 											<a href="{{ action('ClientController@edit', $client['id']) }}" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 										</td>
-										<td>{{ $client['first_name'] }} {{ $client['middle_name'] }} {{ $client['last_name'] }}</td>
+										<td><a href="">{{ $client['first_name'] }} {{ $client['middle_name'] }} {{ $client['last_name'] }}</a></td>
 										<td>{{ $client['company'] }}</td>
 										<td>{{ $client['email'] }}</td>
 										<td>{{ $client['phone_number'] }}</td>

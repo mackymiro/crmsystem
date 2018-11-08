@@ -214,13 +214,12 @@
 									</div>
 									<div class="col-md-4">
 										<label>Referral; </label>
-									
 										<?php
 											$ref = explode(" ", $client->referral);
 											$refName = $ref[0]." ".$ref[1];
 										?>
 										<select name="referral" class="form-control">
-											
+											<option value="0">--Please Select--</option>
 											@foreach($referralPersons as $referralPerson)
 												<option value="{{$referralPerson['first_name']}} {{$referralPerson['last_name']}}" <?php echo ($refName == $referralPerson['first_name']." ".$referralPerson['last_name']) ? 'selected="selected"' : '' ?> >{{ $referralPerson['first_name']}} {{ $referralPerson['last_name']}}</option>
 											@endforeach

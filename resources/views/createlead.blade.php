@@ -244,6 +244,7 @@
 								<div class="col-md-4">
 									<label>Referral; </label>
 									<select name="referral" class="form-control">
+										<option value="0">--Please Select--</option>
 										@foreach($referralPersons as $referralPerson)
 										<option  value="{{ $referralPerson['first_name']}} {{$referralPerson['last_name']}}">{{ $referralPerson['first_name']}} {{$referralPerson['last_name']}}</option>
 										@endforeach
@@ -621,8 +622,10 @@
 								<div class="col-md-4">
 									<label>Lead Assignment;</label>
 									<select name="leadAssignment" class="form-control">
-									
-										<option value=""></option>
+										<option value="0">--Please Select--</option>
+										@foreach($users as $user)
+											<option value="{{ $user['first_name']}} {{ $user['last_name']}}">{{ $user['first_name']}} {{ $user['last_name']}}</option>
+										@endforeach
 									</select>	
 								</div>
 							</div>

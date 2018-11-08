@@ -227,6 +227,7 @@
 										$refName = $ref[0]." ".$ref[1];
 									?>
 									<select name="referral" class="form-control">
+										 <option value="0">--Please Select--</option>
 										@foreach($referralPersons as $referralPerson)
 										 <option value="{{$referralPerson['first_name']}} {{$referralPerson['last_name']}}" <?php echo ($refName == $referralPerson['first_name']." ".$referralPerson['last_name']) ? 'selected="selected"' : '' ?> >{{ $referralPerson['first_name']}} {{ $referralPerson['last_name']}}</option>
 										@endforeach
@@ -601,8 +602,15 @@
 								</div>
 								<div class="col-md-4">
 									<label>Lead Assignment;</label>
+									<?php
+										$ref = explode(" ", $lead->lead_assignment);
+										$refName = $ref[0]." ".$ref[1];
+									?>
 									<select name="leadAssignment" class="form-control">
-										<option value="test">test</option>
+										<option value="0">--Please Select--</option>
+										@foreach($users as $user)
+											<option value="{{ $user['first_name']}} {{ $user['last_name']}}" <?php echo ($refName == $user['first_name']." ".$user['last_name']) ? 'selected="selected"' : '' ?>>{{ $user['first_name']}} {{ $user['last_name']}}</option>
+										@endforeach
 									</select>	
 								</div>
 							</div>

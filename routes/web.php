@@ -66,3 +66,12 @@ Route::post('/clients/store', 'ClientController@store')->name('createclient.stor
 Route::get('/clients/edit/id/{id}', 'ClientController@edit')->name('createclient.edit');
 
 Route::patch('/clients/update/{id}', 'ClientController@update')->name('ceateclient.update');
+
+// Route for tasks
+Route::get('/tasks', 'TaskController@index')->name('task');
+
+Route::get('/tasks/create', 'TaskController@create')->name('createtask');
+
+Route::post('/tasks/store', 'TaskController@store')->name('createtask.store');
+
+Route::get('/tasks/edit/id/{id}', 'TaskController@edit')->name('createtask.edit');

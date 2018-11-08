@@ -36,11 +36,9 @@ class LeadController extends Controller
 		$referralPersons = Client::all()->toArray();
 		
 		$users = User::all()->toArray();
-		echo "<pre>";
-		print_r($users);
-		echo "</pre>";
+		
 			
-		return view('createlead', compact('referralPersons'));
+		return view('createlead', compact('referralPersons', 'users'));
     }
 
     /**
@@ -136,7 +134,9 @@ class LeadController extends Controller
 		
 		$referralPersons = Client::all()->toArray();
 		
-		return view('editlead', compact('lead', 'id', 'referralPersons'));
+		$users = User::all()->toArray();
+		
+		return view('editlead', compact('lead', 'id', 'referralPersons', 'users'));
     }
 
     /**
