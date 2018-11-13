@@ -22,6 +22,7 @@ class CreateLeadsTable extends Migration
 				$table->string('last_name');
 				$table->string('company');
 				$table->date('dob');
+				$table->string('profession');
 				$table->string('phone_number');
 				$table->string('email')->unique();
 				$table->string('mobile_number');

@@ -108,7 +108,7 @@
 				  </label>
 			
 					<br>
-					<a href="{{ url('user-profile/id', $id) }}" class="btn btn-success pull-right" />Edit</a>
+					<a href="{{ url('user-profile/id', $id) }}" class="btn btn-success pull-right" /><i class="fa fa-pencil" aria-hidden="true" style="font-size:24px"></i> Edit</a>
 				</div>
 				<?php 
 					

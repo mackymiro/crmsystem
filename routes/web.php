@@ -48,6 +48,10 @@ Route::get('/leads/edit/id/{id}', 'LeadController@edit')->name('createlead.edit'
 Route::patch('/leads/update/{id}', 'LeadController@update')->name('createlead.update');
 Route::get('/leads/assign/id/{id}', 'LeadController@assign')->name('assignlead');
 Route::patch('/leads/update-assign/{id}', 'LeadController@updateAssign')->name('assignlead.updateAssign');
+Route::get('/leads/lead-details/id/{id}', 'LeadController@leadDetails')->name('leaddetails.leadDetails');
+
+Route::get('/leads/add-new-notes/id/{id}', 'LeadController@addNewNotes')->name('addnewnoteslead');
+Route::post('/leads/store-notes/id/{id}', 'LeadController@storeNotes')->name('addnewnoteslead.storeNotes');
 
 // Route for clients
 
@@ -58,6 +62,11 @@ Route::get('/clients/edit/id/{id}', 'ClientController@edit')->name('createclient
 Route::patch('/clients/update/{id}', 'ClientController@update')->name('ceateclient.update');
 
 Route::get('/clients/client-details/id/{id}', 'ClientController@clientDetails')->name('clientdetails.clientDetails');
+
+Route::get('/clients/add-new-notes/id/{id}', 'ClientController@addNewNotes')->name('addnewnotes');
+Route::post('/clients/store-notes/id/{id}', 'ClientController@storeNotes')->name('addnewnotes.storeNotes');
+
+
 
 // Route for tasks
 Route::get('/tasks', 'TaskController@index')->name('task');

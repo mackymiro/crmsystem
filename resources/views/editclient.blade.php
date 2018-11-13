@@ -27,7 +27,7 @@
 								<p>Client Information</p>
 								<div class="pull-right">
 									<button type="submit" class="btn btn-success">
-										<i class="fa fa-plus" aria-hidden="true"></i> Update Client
+										<i class="fa fa-refresh" aria-hidden="true" style="font-size:24px"></i> Update Client
 									</button>
 								</div>
 								<br>
@@ -64,8 +64,16 @@
 							<div class="form-group">
 								<div class="form-row">
 									<div class="col-md-6">
-										<label>Company; </label>
-										<input type="text" name="company" class="form-control" value="{{ $client->company }}" />
+										<label>Contact Status; </label>
+										<div id="app-contactStatus">
+											<select name="contactStatus" class="form-control">
+												<option value="0">--Please Select--</option>
+												<option v-for="contactStatus in contactStatuses" v-bind:value="contactStatus.value"
+													:selected="contactStatus.value=={{json_encode($client->contact_status)}}?true : false">
+													@{{ contactStatus.text }}
+												</option>
+											</select>
+										</div>
 									</div>
 									<div class="col-md-2">
 										<?php
@@ -289,6 +297,51 @@
 												</option>
 											</select>
 										</div>
+									</div>
+									
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="form-row">
+									<div class="col-md-4">
+										<label>Change Percentage;</label>
+										<input type="text" name="changePercentage" class="form-control" value="{{ $client->change_percentage }}" />
+									</div>
+									<div class="col-md-4">
+										<label>Payment Frequency;</label>
+										<input type="text" name="paymentFrequency" class="form-control" value="{{ $client->payment_frequency }}" />
+									</div>
+									<div class="col-md-4">
+										<label>Commission; </label>
+										<input type="text" name="comission" class="form-control" value="{{ $client->commission }}" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="form-row">
+									<div class="col-md-4">
+										<label>Bank Name;</label>
+										<input type="text" name="bankName" class="form-control" value="{{ $client->bank_name }}" />
+									</div>
+									<div class="col-md-4">
+										<label>Bank Accnt Number;</label>
+										<input type="text" name="bankAcctNum" class="form-control" value="{{ $client->bank_acct_number}}" />
+									</div>
+									<div class="col-md-4">
+										<label>Bank Shortcode;</label>
+										<input type="text" name="bankShortCode" class="form-control" value="{{ $client->bank_shorcode}}" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="form-row">
+									<div class="col-md-4">
+										<label>Monthly Percentage;</label>
+										<input type="text" name="monthlyPercentage" class="form-control" value="{{ $client->monthly_percentage}}" />
+									</div>
+									<div class="col-md-4">
+										<label>Pay Day;</label>
+										<input type="text" name="payDay" class="form-control" value="{{ $client->pay_day}}" />
 									</div>
 								</div>
 							</div>
@@ -597,11 +650,11 @@
 						<div class="col-md-12">
 							<div class="pull-right">
 								<button type="submit" class="btn btn-success">
-										<i class="fa fa-plus" aria-hidden="true"></i> Update Client
-									</button>
-									<br>
-									<br>
-									<br>
+									<i class="fa fa-refresh" aria-hidden="true" style="font-size:24px"></i> Update Client
+								</button>
+								<br>
+								<br>
+								<br>
 							</div>
 						</div>
 					</div>
@@ -731,6 +784,43 @@
 				{ text:'No', value: 'No'}
 			]
 		}
+	})
+	
+	
+	//Contact status data
+	new Vue({
+	el: '#app-contactStatus',
+	  data: {
+		contactStatuses: [
+		  { text: 'Open', value: 'Open' },
+		  { text: 'Interested/Follow up', value: 'Interested/Follow up' },
+		  { text: 'Callback', value: 'Callback' },
+		  { text: 'Unavailable', value: 'Unavailable' },
+		  { text: 'Close/Converted', value: 'Close/Converted' },
+		  { text: 'Not Interested', value: 'Not Interested' },
+		  { text: 'Not Qualified', value: 'Not Qualified' },
+		  { text: 'Do Not Call', value: 'Do Not Call' },
+		  { text: 'Ringing', value: 'Ringing' },
+		  { text: 'Busy', value: 'Busy' },
+		  { text: 'Voicemail', value: 'Voicemail' },
+		  { text: 'Fax Machine', value: 'Fax Machine' },
+		  { text: 'Invalid Number', value: 'Invalid Number' },
+		  { text: 'Re-order prompt', value: 'Re-order prompt' },
+		  { text: 'No Number', value: 'No Number' },
+		  { text: 'No Contact Info', value: 'No Contact Info' },
+		  { text: 'Foreign Number', value: 'Foreign Number' },
+		  { text: 'Duplicate', value: 'Duplicate' },
+		  { text: 'Wrong Number', value: 'Wrong Number' },
+		  { text: 'Processing Tax Return', value: 'Processing Tax Return' },
+		  { text: 'Waiting Next Tax Year', value: 'Waiting Next Tax Year'},
+		  { text: 'Ceased', value: 'Ceased'},
+		  { text: 'First Stage', value: 'First Stage'},
+		  { text: 'Second Stage', value: 'Second Stage'},
+		  { text: 'Third Stage', value: 'Third Stage'},
+		  { text: 'Fourth Stage', value: 'Fourth Stage'},
+		  { text: 'Fifth Stage', value: 'Fifth Stage'}
+		]
+	  }
 	})
 	
 </script>

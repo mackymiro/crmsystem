@@ -81,8 +81,6 @@ class UserProfileController extends Controller
     public function update(Request $request, $id)
     {
         //
-		
-		
 		$photo = $request->file('photo');
 		
 		if($photo == ""){

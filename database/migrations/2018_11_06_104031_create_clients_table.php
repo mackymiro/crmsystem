@@ -21,6 +21,7 @@ class CreateClientsTable extends Migration
 				$table->string('middle_name');
 				$table->string('last_name');
 				$table->string('company');
+				$table->string('contact_status');
 				$table->date('dob');
 				$table->string('profession');
 				$table->string('phone_number');
@@ -33,7 +34,14 @@ class CreateClientsTable extends Migration
 				$table->string('utr');
 				$table->string('registered');
 				$table->string('authority_letter');
+				$table->string('monthly_percentage');
+				$table->string('pay_day');
 				$table->string('bank_authority');
+				$table->string('bank_name');
+				$table->string('bank_acct_number');
+				$table->string('bank_shortcode');
+				$table->string('change_percentage');
+				$table->string('payment_frequency');
 				$table->string('street');
 				$table->string('city');
 				$table->string('province');

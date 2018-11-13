@@ -26,7 +26,10 @@
 							<p>Client Information</p>
 							<div class="pull-right">
 								<button type="submit" class="btn btn-success">
-									<i class="fa fa-plus" aria-hidden="true"></i> Add Client
+									<i class="fa fa-save" style="font-size:24px"></i> Add Client
+								</button>
+								<button type="reset" class="btn btn-danger">
+									<i class="fa fa-eraser" style="font-size:24px"></i>Clear 
 								</button>
 							</div>
 							<br>
@@ -78,13 +81,15 @@
 						<div class="form-group">
 							<div class="form-row">
 								<div class="col-md-6">
-									<label>Company; </label>
-									<input type="text" name="company" class="form-control"  required />
-									@if ($errors->has('company'))
-										<div class="alert alert-danger">
-											<strong>{{ $errors->first('company') }}</strong>
-										</div>
-									@endif
+									<label>Contact Status; </label>
+									<div id="app-contactStatus">
+										<select name="contactStatus" class="form-control">
+											<option value="0">--Please Select--</option>
+											<option v-for="contactStatus in contactStatuses" v-bind:value="contactStatus.value">
+												@{{ contactStatus.text }}
+											</option>
+										</select>
+									</div>
 								</div>
 								<div class="col-md-2">
 									<label>Birthday; </label>
@@ -201,6 +206,7 @@
 									<label>Profession; </label>
 									<div id="app-profession">
 										<select name="profession" class="form-control">
+											<option value="0">--Please Select--</option>
 											<option v-for="profession in professions" v-bind:value="profession.value" >
 												@{{ profession.text }}
 											</option>
@@ -273,7 +279,7 @@
 									</div>
 								</div>
 								<div class="col-md-4">
-									<label>Authority Letter </label>
+									<label>Authority Letter;</label>
 									<div id="app-authLetter">	
 										<select name="authLetter" class="form-control">
 											<option v-for="authLetter in authLetters" v-bind:value="authLetter.value">
@@ -283,7 +289,7 @@
 									</div>
 								</div>
 								<div class="col-md-4">
-									<label>Bank Authority </label>
+									<label>Bank Authority;</label>
 									<div id="app-bankAuth">
 										<select name="bankAuth" class="form-control">
 											<option v-for="bankAuth in bankAuths" v-bind:value="bankAuth.value">
@@ -291,6 +297,50 @@
 											</option>
 										</select>
 									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-row">
+								<div class="col-md-4">
+									<label>Change Percentage;</label>
+									<input type="text" name="changePercentage" class="form-control" />
+								</div>
+								<div class="col-md-4">
+									<label>Payment Frequency;</label>
+									<input type="text" name="paymentFrequency" class="form-control" />
+								</div>
+								<div class="col-md-4">
+									<label>Commission; </label>
+									<input type="text" name="comission" class="form-control" />
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-row">
+								<div class="col-md-4">
+									<label>Bank Name;</label>
+									<input type="text" name="bankName" class="form-control" />
+								</div>
+								<div class="col-md-4">
+									<label>Bank Accnt Number;</label>
+									<input type="text" name="bankAcctNum" class="form-control" />
+								</div>
+								<div class="col-md-4">
+									<label>Bank Shortcode;</label>
+									<input type="text" name="bankShortCode" class="form-control" />
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-row">
+								<div class="col-md-4">
+									<label>Monthly Percentage;</label>
+									<input type="text" name="monthlyPercentage" class="form-control" />
+								</div>
+								<div class="col-md-4">
+									<label>Pay Day;</label>
+									<input type="text" name="payDay" class="form-control" />
 								</div>
 							</div>
 						</div>
@@ -600,11 +650,14 @@
 						<div class="col-md-12">
 							<div class="pull-right">
 								<button type="submit" class="btn btn-success">
-										<i class="fa fa-plus" aria-hidden="true"></i> Add Client
-									</button>
-									<br>
-									<br>
-									<br>
+									<i class="fa fa-save" style="font-size:24px"></i> Add Client
+								</button>
+								<button type="reset" class="btn btn-danger">
+									<i class="fa fa-eraser" style="font-size:24px"></i>Clear 
+								</button>
+								<br>
+								<br>
+								<br>
 							</div>
 						</div>
 					</div>
@@ -735,5 +788,40 @@
 		}
 	})
 
+	//Contact status data
+	new Vue({
+	el: '#app-contactStatus',
+	  data: {
+		contactStatuses: [
+		  { text: 'Open', value: 'Open' },
+		  { text: 'Interested/Follow up', value: 'Interested/Follow up' },
+		  { text: 'Callback', value: 'Callback' },
+		  { text: 'Unavailable', value: 'Unavailable' },
+		  { text: 'Close/Converted', value: 'Close/Converted' },
+		  { text: 'Not Interested', value: 'Not Interested' },
+		  { text: 'Not Qualified', value: 'Not Qualified' },
+		  { text: 'Do Not Call', value: 'Do Not Call' },
+		  { text: 'Ringing', value: 'Ringing' },
+		  { text: 'Busy', value: 'Busy' },
+		  { text: 'Voicemail', value: 'Voicemail' },
+		  { text: 'Fax Machine', value: 'Fax Machine' },
+		  { text: 'Invalid Number', value: 'Invalid Number' },
+		  { text: 'Re-order prompt', value: 'Re-order prompt' },
+		  { text: 'No Number', value: 'No Number' },
+		  { text: 'No Contact Info', value: 'No Contact Info' },
+		  { text: 'Foreign Number', value: 'Foreign Number' },
+		  { text: 'Duplicate', value: 'Duplicate' },
+		  { text: 'Wrong Number', value: 'Wrong Number' },
+		  { text: 'Processing Tax Return', value: 'Processing Tax Return' },
+		  { text: 'Waiting Next Tax Year', value: 'Waiting Next Tax Year'},
+		  { text: 'Ceased', value: 'Ceased'},
+		  { text: 'First Stage', value: 'First Stage'},
+		  { text: 'Second Stage', value: 'Second Stage'},
+		  { text: 'Third Stage', value: 'Third Stage'},
+		  { text: 'Fourth Stage', value: 'Fourth Stage'},
+		  { text: 'Fifth Stage', value: 'Fifth Stage'}
+		]
+	  }
+	})
 </script>
 @endsection

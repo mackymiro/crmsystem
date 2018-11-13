@@ -7,11 +7,50 @@ use App\Lead;
 use App\Client;
 
 use App\User;
+use App\Note;
 use Session; 
 
 use Auth;
 class LeadController extends Controller
 {
+	public function storeNotes(Request $request, $id){
+		date_default_timezone_set('Europe/London');
+		
+		//get the date and time UK
+		$date = date('l jS \of F Y h:i:s A');
+		
+		
+		$fName =  Auth::user()->first_name;
+		$lName = Auth::user()->last_name;
+		
+		$postedBy = $fName." ".$lName; 
+		
+		//request a file
+		$file = $request->file('files');
+		
+		$fileName = $request->file('files')->getClientOriginalName();
+				
+		$fileSaveAsName = $fileName;
+		
+		echo $fileSaveAsName; exit;
+		
+		if($file == ""){
+			
+		}
+	}
+	
+	public function addNewNotes($id){	
+		$lead = Lead::find($id);
+		
+		return view('addnewnoteslead', compact('id'));
+	}
+
+	//lead detail profile
+	public function leadDetails($id){
+		$lead = Lead::find($id);
+		
+		return view('leaddetails', compact('lead'));
+	}
     /**
      * Display a listing of the resource.
      *
@@ -80,6 +119,7 @@ class LeadController extends Controller
 			'last_name' =>$request->get('lastName'),
 			'company' =>$request->get('company'),
 			'dob' =>$birthday,
+			'profession'=>$request->get('profession'),
 			'phone_number' =>$request->get('phoneNumber'),
 			'email' =>$request->get('email'),
 			'mobile_number' =>$request->get('mobileNumber'),
@@ -162,6 +202,7 @@ class LeadController extends Controller
 		$lead->last_name = $request->get('lastName');
 		$lead->company = $request->get('company');
 		$lead->dob = $birthday;
+		$lead->profession = $request->get('profession');
 		$lead->phone_number = $request->get('phoneNumber');
 		$lead->email = $request->get('email');
 		$lead->mobile_number = $request->get('mobileNumber');

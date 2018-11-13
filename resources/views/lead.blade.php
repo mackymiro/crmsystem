@@ -54,7 +54,7 @@
 											<a title="Assign to Owner" href="{{ url('leads/assign/id', $lead['id']) }}"><i class="fa fa-tasks"></i></a>
 										@endif
 									  </td>
-									  <td>{{ ucfirst($lead['first_name']) }} {{ ucfirst($lead['middle_name']) }} {{ ucfirst($lead['last_name']) }}</td>
+									  <td><a href="{{ url('leads/lead-details/id', $lead['id']) }}">{{ ucfirst($lead['first_name']) }} {{ ucfirst($lead['middle_name']) }} {{ ucfirst($lead['last_name']) }}</a></td>
 									  <td>{{ $lead['company'] }}</td>
 									  <td>{{ $lead['email'] }}</td>
 									  <td>{{ $lead['phone_number'] }}</td>

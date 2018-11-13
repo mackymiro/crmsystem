@@ -3,24 +3,118 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Client; 
 use App\User;
+use App\Note;
+
 use Session;
 use Auth;
 
 class ClientController extends Controller
 {
+	//store notes
+	public function storeNotes(Request $request, $id){
+		date_default_timezone_set('Europe/London');
+		//get the date and time UK
+		$date = date('l jS \of F Y h:i:s A');
+		
+
+		
+		$fName =  Auth::user()->first_name;
+		$lName = Auth::user()->last_name;
+		
+		$postedBy = $fName." ".$lName; 
+		
+		//request a file
+		$file = $request->file('files');
+		
+		if($file ==	 ""){
+			// if user update without a file 
+			$client = Client::find($id);
+			
+			$id = json_encode($client->id);
+		
+			$note = new Note([
+				'client_id' => $id,
+				'notes_date_time' =>$date,
+				'notes'=>$request->get('description'),
+				'posted_by'=>$postedBy,		
+			
+			]);
+			
+			$note->save();	
+	
+			Session::flash('notesAdded', 'Successfully added notes.');
+			return redirect('clients/add-new-notes/id/'.$id);
+			
+		}else{
+			//validate fields
+			$this->validate($request, [
+				'files' =>'required|mimes:pdf,csv,xls,doc,docx,txt',
+			]);
+			
+			
+			//get the filename 
+			$fileName = $request->file('files')->getClientOriginalName();
+			
+			$fileSaveAsName = $fileName;
+			
+
+			//upload the file to uploads folder
+			$upload_path = 'uploads/notes';
+			$filePath  = $upload_path . $file;
+
+			//move the pdf,docs  to uploads folder
+			$success = $file->move($upload_path, $fileName);
+			
+			$client = Client::find($id);
+			$id = json_encode($client->id);
+		
+			$note = new Note([
+				'client_id' => $id,
+				'notes_date_time' =>$date,
+				'notes'=>$request->get('description'),
+				'posted_by'=>$postedBy,		
+				'filename'=>$fileName,
+			]);
+			
+			$note->save(); 
+			Session::flash('notesAdded', 'Successfully added notes.');
+			return redirect('clients/add-new-notes/id/'.$id);
+		}
+		
+		
+	
+		
+		exit; 
+	}
+	
+	
+	//client add new notes
+	public function addNewNotes($id){
+		$client = Client::find($id);
+		
+	
+		return view('addnewnotes', compact('id'));
+	}
 	
 	//client details
 	public function clientDetails($id){
 		
 		$client = Client::find($id);
-		//echo "<pre>";
-		//echo $client;
-		//echo "</pre>";
 		
-		return view('clientdetails', compact('client'));
+		$clientId = json_encode($client->id);
+		
+	
+		//query to notes table to get the client id per client profile
+		$notes = DB::table('notes')->where('client_id', $clientId)->get()->toArray();
+		
+		
+
+		return view('clientdetails', compact('client', 'notes'));
+		
 	}
 	
     /**
@@ -63,7 +157,6 @@ class ClientController extends Controller
 			'firstName'=>'required|string|max:255',
 			'middleName'=>'required|string|max:255',
 			'lastName'=>'required|string|max:255',
-			'company'=>'required|string|max:255',
 			'mobileNumber'=>'required|string|max:255',
 			'nationalInsurance'=>'required|string|max:255',
 			'street'=>'required|string|max:255',
@@ -87,8 +180,8 @@ class ClientController extends Controller
 			'first_name' =>$request->get('firstName'),
 			'middle_name' =>$request->get('middleName'),
 			'last_name' =>$request->get('lastName'),
-			'company' =>$request->get('company'),
 			'dob'=>$birthday,
+			'contact_status'=>$request->get('contactStatus'),
 			'profession' =>$request->get('profession'),
 			'phone_number'=>$request->get('phoneNumber'),
 			'email'=>$request->get('email'),
@@ -101,6 +194,13 @@ class ClientController extends Controller
 			'registered'=>$request->get('648reg'),
 			'authority_letter'=>$request->get('authLetter'),
 			'bank_authority'=>$request->get('bankAuth'),
+			'change_percentage'=>$request->get('changePercentage'),
+			'payment_frequency'=>$request->get('paymentFrequency'),		
+			'bank_name'=>$request->get('bankName'),
+			'bank_acct_number'=>$request->get('bankAcctNum'),
+			'bank_shortcode'=>$request->get('bankShortCode'),
+			'monthly_percentage'=>$request->get('monthlyPercentage'),
+			'pay_day'=>$request->get('payDay'),
 			'street'=>$request->get('street'),
 			'city'=>$request->get('city'),
 			'province'=>$request->get('province'),
@@ -169,8 +269,8 @@ class ClientController extends Controller
 		$client->first_name = $request->get('firstName');
 		$client->middle_name = $request->get('middleName');
 		$client->last_name = $request->get('lastName');
-		$client->company = $request->get('company');
 		$client->dob = $birthday;
+		$client->contact_status = $request->get('contactStatus');
 		$client->profession = $request->get('profession');
 		$client->phone_number = $request->get('phoneNumber');
 		$client->email = $request->get('email');
@@ -183,6 +283,13 @@ class ClientController extends Controller
 		$client->registered = $request->get('648reg');
 		$client->authority_letter = $request->get('authLetter');
 		$client->bank_authority = $request->get('bankAuth');
+		$client->change_percentage = $request->get('changePercentage');
+		$client->payment_frequency = $request->get('paymentFrequency');
+		$client->bank_name = $request->get('bankName');
+		$client->bank_acct_number = $request->get('bankAcctNum');
+		$client->bank_shortcode = $request->get('bankShortCode');
+		$client->monthly_percentage = $request->get('monthlyPercentage');
+		$client->pay_day = $request->get('payDay');
 		$client->street = $request->get('street');
 		$client->city = $request->get('city');
 		$client->province = $request->get('province');

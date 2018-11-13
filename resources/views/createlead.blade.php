@@ -26,7 +26,10 @@
 							<p>Lead Information</p>
 							<div class="pull-right">
 								<button type="submit" class="btn btn-success">
-									<i class="fa fa-plus" aria-hidden="true"></i> Add Lead
+									<i class="fa fa-save" style="font-size:24px"></i> Add Lead
+								</button>
+								<button type="reset" class="btn btn-danger">
+									<i class="fa fa-eraser" style="font-size:24px"></i>Clear 
 								</button>
 							</div>
 							<br>
@@ -204,6 +207,17 @@
 						<div class="form-group">
 							<div class="form-row">
 								<div class="col-md-4">
+									<label>Profession; </label>
+									<div id="app-profession">
+										<select name="profession" class="form-control">
+											<option value="0">--Please Select--</option>
+											<option v-for="profession in professions" v-bind:value="profession.value" >
+												@{{ profession.text }}
+											</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-4">
 									<label>Phone Number; </label>
 									<input type="text" name="phoneNumber" class="form-control"  />
 								</div>
@@ -216,6 +230,11 @@
 										</div>
 									@endif
 								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-row">
+								
 								<div class="col-md-4">
 									<label>Mobile Number; </label>
 									<input type="text" name="mobileNumber" class="form-control" required />
@@ -225,10 +244,6 @@
 										</div>
 									@endif
 								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="form-row">
 								<div class="col-md-4">
 									<label>Lead Source; </label>
 									
@@ -250,6 +265,10 @@
 										@endforeach
 									</select>
 								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-row">
 								<div class="col-md-4">
 									<label>Lead Status; </label>
 									<div id="app-leadStatus">
@@ -261,10 +280,6 @@
 									</div>
 									
 								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="form-row">
 								<div class="col-md-4">
 									<label>Employment Type; </label>
 									<div id="app-employmentType">
@@ -286,14 +301,14 @@
 										</div>
 									@endif
 								</div>
-								<div class="col-md-4">
-									<label>UTR; </label>
-									<input type="text" name="utr" class="form-control"  />
-								</div>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="form-row">
+								<div class="col-md-4">
+									<label>UTR; </label>
+									<input type="text" name="utr" class="form-control"  required />
+								</div>
 								<div class="col-md-4">
 									<label>648-Registered; </label>
 									<div id="app-648Reg">
@@ -316,6 +331,10 @@
 									</div>
 									
 								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-row">
 								<div class="col-md-4">
 									<label>Bank Authority; </label>
 									<div id="app-bankAuth">
@@ -646,7 +665,10 @@
 					<div class="col-md-12">
 						<div class="pull-right">
 							<button type="submit" class="btn btn-success">
-								<i class="fa fa-plus" aria-hidden="true"></i> Add Lead
+								<i class="fa fa-save" style="font-size:24px"></i> Add Lead
+							</button>
+							<button type="reset" class="btn btn-danger">
+								<i class="fa fa-eraser" style="font-size:24px"></i>Clear 
 							</button>
 						</div>
 						<br>
@@ -772,6 +794,73 @@
 		  
 		]
 	  }
+	})
+	
+	//Profession data
+	new Vue({
+	el: '#app-profession',
+		data: {
+			professions:[
+				{ text:'Boiler Maker', value: 'Boiler Maker' },
+				{ text:'Brick Layer', value: 'Brick Layer'},
+				{ text:'Building Inspector', value: 'Building Inspector' },
+				{ text:'Carpenter', value: 'Carpenter' },
+				{ text:'Concrete Finisher', value: 'Concrete Finisher' },
+				{ text:'Construction Project Director', value: 'Construction Project Director' },
+				{ text:'Construction Site Manager', value: 'Construction Site Manager' },
+				{ text:'Contract Manager', value: 'Contract Manager' },
+				{ text:'Crane Operator', value: 'Crane Operator' },
+				{ text:'Demolition', value: 'Demolition' },
+				{ text:'Distribution', value: 'Distribution' },
+				{ text:'Drywall Installer', value: 'Drywall Installer' },
+				{ text:'Electrician', value: 'Electrician' },
+				{ text:'Elevator', value: 'Elevator' },
+				{ text:'Engineer', value: 'Engineer' },
+				{ text:'Equipment Inspector', value: 'Equipment Inspector' },
+				{ text:'Exterior Finisher', value: 'Exterior Finisher' },
+				{ text:'Field/Project Engineer', value: 'Field/Project Engineer' },
+				{ text:'Fire and Security Engineer', value: 'Fire and Security Engineer' },
+				{ text:'Framer', value: 'Framer' },
+				{ text:'Gasfitter', value: 'Gasfitter' },
+				{ text:'Glazier', value: 'Glazier' },
+				{ text:'Groundworker', value: 'Groundworker' },
+				{ text:'Heat and Frost Insulator', value: 'Heat and Frost Insulator' },
+				{ text:'Heavy Duty Equipment Mechanic', value: 'Heavy Duty Equipment Mechanic' },
+				{ text:'Home and Property Inpector', value: 'Home and Property Inpector' },
+				{ text:'Industrial Mechanic', value: 'Industrial Mechanic' },
+				{ text:'Interior Finisher', value: 'Interior Finisher' },
+				{ text:'Iron Worker/Structural metal fabricator and fitter', value: 'Iron Worker/Structural metal fabricator and fitter' },
+				{ text:'Labourer', value: 'Labourer' },
+				{ text:'Landscapert', value: 'Landscapert' },
+				{ text:'Line Worker', value: 'Line Worker' },
+				{ text:'Machine Operator', value: 'Machine Operator' },
+				{ text:'Others', value: 'Others' },
+				{ text:'Painter and Decorator', value: 'Painter and Decorator' },
+				{ text:'Plasterer', value: 'Plasterer' },
+				{ text:'Plumber', value: 'Plumber' },
+				{ text:'Production Manager', value: 'Production Manager' },
+				{ text:'Project Manager/Project Coordinator', value: 'Project Manager/Project Coordinator' },
+				{ text:'Quality Control Officer', value: 'Quality Control Officer' },
+				{ text:'Refrigeration and Air Conditioning Mechanic', value: 'Refrigeration and Air Conditioning Mechanic' },
+				{ text:'Roofer', value: 'Roofer' },
+				{ text:'Rotating Equipment Inpector', value: 'Rotating Equipment Inpector' },
+				{ text:'Safety Inspector/Consultant', value: 'Safety Inspector/Consultant' },
+				{ text:'Scaffolder', value: 'Scaffolder' },
+				{ text:'Sheet Metal Worker', value: 'Sheet Metal Worker' },
+				{ text:'Shingler', value: 'Shingler' },
+				{ text:'Shop Foreman', value: 'Shop Foreman' },
+				{ text:'Site Manager', value: 'Site Manager' },
+				{ text:'Steamfitter/pipefitter', value: 'Steamfitter/pipefitter' },
+				{ text:'Stone Mason', value: 'Stone Mason' },
+				{ text:'Surveyor', value: 'Surveyor' },
+				{ text:'Tile Setter', value: 'Tile Setter' },
+				{ text:'Tiling Operative', value: 'Tiling Operative' },
+				{ text:'Tradesman', value: 'Tradesman' },
+				{ text:'Truckman', value: 'Truckman' },
+				{ text:'Welder', value: 'Truckman' }
+				
+			]
+		}
 	})
 	
 </script>

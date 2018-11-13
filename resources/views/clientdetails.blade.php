@@ -1,6 +1,12 @@
 @extends('layouts.app')
 @section('title', 'Client Detail Profile | RMTG')
 @section('content')
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('table.display').DataTable();
+	});
+
+</script>
 <div id="content-wrapper">
 	<div class="container-fluid">
 		<!-- Breadcrumbs-->
@@ -56,6 +62,10 @@
 							<strong>Personal Info</strong>
 							<br>
 							<br>
+							<a href="{{ action('ClientController@edit', $client['id']) }}" class="pull-right btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</a>
+							<br>
+							<br>
+							<div style="clear:both"></div>
 							<div class="form-group">
 								<div class="form-row">
 									<div class="col-md-6">
@@ -114,20 +124,18 @@
 													</tr>
 													<tr>
 													  <th>Contact Status: </th>
-													  <td></td>					
+													  <td>{{ $client->contact_status }}</td>					
 													</tr>
 													<tr>
 													  <th>Country: </th>
-													  <td></td>					
+													  <td>{{ $client->country }}</td>					
 													</tr>
 													<tr>
 													  <th>Description: </th>
 													  <td>{{ $client->description }}</td>					
 													</tr>
 												</thead>
-												<tbody>
-													
-												</tbody>
+												
 											</table>
 										</div>
 										
@@ -152,11 +160,11 @@
 												<thead>
 													<tr>
 													  <th width="150px;">Bank Name: </th>
-													  <td></td>					
+													  <td>{{ $client->bank_name }}</td>					
 													</tr>
 													<tr>
 													  <th>Bank Accnt. Number</th>
-													  <td></td>					
+													  <td>{{ $client->bank_acct_number }}</td>					
 													</tr>
 												</thead>
 												
@@ -171,7 +179,7 @@
 												<thead>
 													<tr>
 													  <th width="150px;">Bank Shortcode: </th>
-													  <td></td>					
+													  <td>{{ $client->bank_shortcode }}</td>					
 													</tr>
 													
 												</thead>
@@ -211,15 +219,15 @@
 													</tr>
 													<tr>
 													  <th>Change Percentage: </th>
-													  <td></td>					
+													  <td>{{ $client->change_percentage }}</td>					
 													</tr>
 													<tr>
 													  <th>Payment Frequency: </th>
-													  <td></td>					
+													  <td>{{ $client->payment_frequency }}</td>					
 													</tr>
 													<tr>
 													  <th>Commission: </th>
-													  <td></td>					
+													  <td>{{ $client->commission }}</td>					
 													</tr>
 													<tr>
 													  <th>Date Converted: </th>
@@ -250,11 +258,11 @@
 													</tr>
 													<tr>
 													  <th>Monthly Percentage: </th>
-													  <td></td>					
+													  <td>{{ $client->monthly_percentage }}</td>					
 													</tr>
 													<tr>
 													  <th>Pay Day: </th>
-													  <td></td>					
+													  <td>{{ $client->pay_day }}</td>					
 													</tr>
 												</thead>
 											</table>
@@ -267,7 +275,119 @@
 					<div class="card mb-3">
 						<div class="card-header">
 						  <i class="fa fa-file" aria-hidden="true"></i>
-						  Invoices</div>
+							Invoices
+						  </div>
+						  <div class="card-body">
+								<div class="col-md-12">
+									
+									<div class="table-responsive">
+										<table class="table table-bordered display" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+												  <th>Invoice Number</th>
+												  <th>Item Code</th>
+												  <th>Reference</th>
+												  <th>Amount</th>
+												  <th>VAT Amount</th>
+												  <th>Total Amount</th>
+												  <th>Amount Due</th>
+												  <th>Status</th>
+												  <th>Created Date</th>
+												  <th>Created By</th>
+												  <th>Action</th>
+												</tr>
+											</thead>
+											<tfoot>
+												<tr>
+												  <th>Invoice Number</th>
+												  <th>Item Code</th>
+												  <th>Reference</th>
+												  <th>Amount</th>
+												  <th>VAT Amount</th>
+												  <th>Total Amount</th>
+												  <th>Amount Due</th>
+												  <th>Status</th>
+												  <th>Created Date</th>
+												  <th>Created By</th>
+												  <th>Action</th>
+												</tr>
+											</tfoot>
+											<tbody>
+												<tr>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td>
+													  <a href="" class="btn btn-success"><i class="fa fa-file"></i> Pay Invoices</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+						  </div>
+					</div>
+					<div class="card mb-3">
+						<div class="card-header">
+						  <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
+							Notes
+						  </div>
+						<div class="card-body">
+							<div class="col-md-12">
+								<div class="pull-right">
+									<a href="{{ url('clients/add-new-notes/id', $client['id']) }}" class="btn btn-success pull-right"><i class="fa fa-sticky-note-o" aria-hidden="true"></i> Add New Notes</a>
+								</div>
+								<div class="table-responsive">
+									<table class="table table-bordered display"  width="100%" cellspacing="0">
+										<thead>
+											<tr>
+											  <th width="250px;">Date & Time</th>
+											  <th>Notes</th>
+											  <th width="100px;">Attachments</th>
+											 
+											  <th>Posted By</th>
+											  
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+											  <th>Date & Time</th>
+											  <th>Notes</th>
+											  <th>Attachments</th>
+										
+											  <th>Posted By</th>
+											  
+											</tr>
+										</tfoot>
+										<tbody>
+											@foreach($notes as $note)
+											<tr>
+												<td>{{ $note->notes_date_time }}</td>
+												<td>{{ $note->notes }}</td>
+												<td>
+													<a href="{{ url('/') }}/uploads/notes/{{ $note->filename }}" target="_blank">
+														<?php if($note->filename != NULL): ?>
+														 <i class="fa fa-paperclip" aria-hidden="true"></i> 
+														<?php endif; ?>
+														{{ $note->filename }}</a>
+													<br>
+													
+												</td>
+												<td>{{ $note->posted_by }}</td>
+											</tr>
+											@endforeach
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 

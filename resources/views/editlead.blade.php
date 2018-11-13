@@ -28,7 +28,7 @@
 							<p>Lead Information</p>
 							<div class="pull-right">
 								<button type="submit" class="btn btn-success">
-									<i class="fa fa-plus" aria-hidden="true"></i> Update Lead
+									<i class="fa fa-refresh" aria-hidden="true" style="font-size:24px"></i> Update Lead
 								</button>
 							</div>
 							<br>
@@ -39,10 +39,14 @@
 							<div class="form-row">
 								<div class="col-md-2">
 									<label>Title; </label>
-									<select name="title" class="form-control">
-										<option value="Mr" {{ ("Mr" == $lead->title) ? 'selected' : '' }}>Mr</option>
-										<option value="Mrs" {{ ("Mrs" == $lead->title) ? 'selected' : '' }}>Mrs</option>
-									</select>
+									<div id="app-title">
+										<select name="title" class="form-control">
+										  <option v-for="option in options" v-bind:value="option.value"
+											:selected="option.value=={{json_encode($lead->title)}}?true : false">
+											@{{ option.text }}
+										  </option>
+										</select>
+									</div>
 								</div>
 								<div class="col-md-4">
 									<label>First Name; </label>
@@ -189,6 +193,18 @@
 						<div class="form-group">
 							<div class="form-row">
 								<div class="col-md-4">
+									<label>Profession; </label>
+									<div id="app-profession">
+										<select name="profession" class="form-control">
+											<option value="0">--Please Select--</option>
+											<option v-for="profession in professions" v-bind:value="profession.value" 
+												:selected="profession.value=={{json_encode($lead->profession)}}?true : false">
+												@{{ profession.text }}
+											</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-4">
 									<label>Phone Number; </label>
 									<input type="text" name="phoneNumber" class="form-control" value="{{ $lead->phone_number }}" />
 								</div>
@@ -197,27 +213,26 @@
 									<input type="text" name="email" class="form-control"  value="{{ $lead->email }}" />
 									
 								</div>
-								<div class="col-md-4">
-									<label>Mobile Number; </label>
-									<input type="text" name="mobileNumber" class="form-control" value="{{ $lead->mobile_number }}" />
 								
-								</div>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="form-row">
 								<div class="col-md-4">
+									<label>Mobile Number; </label>
+									<input type="text" name="mobileNumber" class="form-control" value="{{ $lead->mobile_number }}" />
+								
+								</div>
+								<div class="col-md-4">
 									<label>Lead Source; </label>
+									<div id="app-leadSource">
+										<select name="leadSource" class="form-control">
+										  <option v-for="leadSource in leadSources" v-bind:value="leadSource.value"
+											:selected="leadSource.value=={{json_encode($lead->lead_source)}}?true : false">
+												@{{ leadSource.text }}
+										  </option>
+										</select>
 									
-									<div id="app-7">
-									  <select name="leadSource" class="form-control">
-										 <option value="Referral" {{ ("Referral" == $lead->lead_source) ? 'selected' : '' }}>Referral</option>
-										 <option value="Website" {{ ("Website" == $lead->lead_source) ? 'selected' : '' }}>Website</option>
-										 <option value="Internet Marketing" {{ ("Internet Marketing" == $lead->lead_source) ? 'selected' : '' }}>Internet Marketing</option>
-										 <option value="Site Visits" {{ ("Site Visits" == $lead->lead_source) ? 'selected' : '' }}>Site Visits</option>
-										 <option value="Resourcing" {{ ("Resourcing" == $lead->lead_source) ? 'selected' : '' }}>Resourcing</option>
-										 <option value="Creditsafe" {{ ("Creditsafe" == $lead->lead_source) ? 'selected' : '' }}>Creditsafe</option>
-									  </select>
 									</div>
 								</div>
 								<div class="col-md-4">
@@ -233,42 +248,22 @@
 										@endforeach
 									</select>
 								</div>
-								<div class="col-md-4">
-									<label>Lead Status; </label>
-									<select name="leadStatus" class="form-control">
-										<option value="Open" {{ ("Open" == $lead->lead_status) ? 'selected' : '' }}>Open</option>
-										<option value="Interested/Follow up" {{ ("Interested/Follow up" == $lead->lead_status) ? 'selected' : '' }}>Interested/Follow up</option>
-										<option value="Callback" {{ ("Callback" == $lead->lead_status) ? 'selected' : '' }}>Callback</option>
-										<option value="Unavailable" {{ ("Unavailable" == $lead->lead_status) ? 'selected' : '' }}>Unavailable</option>
-										<option value="Close/Converted" {{ ("Close/Converted" == $lead->lead_status) ? 'selected' : '' }}>Close/Converted</option>
-										<option value="Not Interested" {{ ("Not Interested" == $lead->lead_status) ? 'selected' : '' }}>Not Interested</option>
-										<option value="Not Qualified" {{ ("Not Qualified" == $lead->lead_status) ? 'selected' : '' }}>Not Qualified</option>
-										<option value="Do Not Call" {{ ("Do Not Call" == $lead->lead_status) ? 'selected' : '' }}>Do Not Call</option>
-										<option value="Ringing" {{ ("Ringing" == $lead->lead_status) ? 'selected' : '' }}>Ringing</option>
-										<option value="Busy" {{ ("Busy" == $lead->lead_status) ? 'selected' : '' }}>Busy</option>
-										<option value="Voicemail" {{ ("Voicemail" == $lead->lead_status) ? 'selected' : '' }}>Voicemail</option>
-										<option value="Fax Machine" {{ ("Fax Machine" == $lead->lead_status) ? 'selected' : '' }}>Fax Machine</option>
-										<option value="Invalid Number" {{ ("Invalid Number" == $lead->lead_status) ? 'selected' : '' }}>Invalid Number</option>
-										<option value="Re-order prompt" {{ ("Re-order prompt" == $lead->lead_status) ? 'selected' : '' }}>Re-order prompt</option>
-										<option value="No Number" {{ ("No Number" == $lead->lead_status) ? 'selected' : '' }}>No Number</option>
-										<option value="No Contact Info" {{ ("No Contact Info" == $lead->lead_status) ? 'selected' : '' }}>No Contact Info</option>
-										<option value="Foreign Number" {{ ("Foreign Number" == $lead->lead_status) ? 'selected' : '' }}>Foreign Number</option>
-										<option value="Duplicate" {{ ("Duplicate" == $lead->lead_status) ? 'selected' : '' }}>Duplicate</option>
-										<option value="Wrong Number" {{ ("Wrong Number" == $lead->lead_status) ? 'selected' : '' }}>Wrong Number</option>
-										<option value="Processing Tax Return" {{ ("Processing Tax Return" == $lead->lead_status) ? 'selected' : '' }}>Processing Tax Return</option>
-										<option value="Waiting Next Tax Year" {{ ("Waiting Next Tax Year" == $lead->lead_status) ? 'selected' : '' }}>Waiting Next Tax Year</option>
-										<option value="Ceased" {{ ("Ceased" == $lead->lead_status) ? 'selected' : '' }}>Ceased</option>
-										<option value="First Stage" {{ ("First Stage" == $lead->lead_status) ? 'selected' : '' }}>First Stage</option>
-										<option value="Second Stage" {{ ("Second Stage" == $lead->lead_status) ? 'selected' : '' }}>Second Stage</option>
-										<option value="Third Stage" {{ ("Third Stage" == $lead->lead_status) ? 'selected' : '' }}>Third Stage</option>
-										<option value="Fourth Stage" {{ ("Fourth Stage" == $lead->lead_status) ? 'selected' : '' }}>Fourth Stage</option>
-										<option value="Fifth Stage" {{ ("Fifth Stage" == $lead->lead_status) ? 'selected' : '' }}>Fifth Stage</option>
-									</select>
-								</div>
+								
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="form-row">
+								<div class="col-md-4">
+									<label>Lead Status; </label>
+									<div id="app-leadStatus">
+										<select name="leadStatus" class="form-control">
+											<option v-for="leadStatus in leadStatuses" v-bind:value="leadStatus.value"
+												:selected="leadStatus.value=={{json_encode($lead->lead_status)}}?true : false">
+												@{{ leadStatus.text }}
+											</option>
+										</select>
+									</div>
+								</div>
 								<div class="col-md-4">
 									<label>Employment Type; </label>
 									<select name="employmentType" class="form-control">
@@ -281,14 +276,15 @@
 									<input type="text" name="nationalInsurance" class="form-control" value="{{ $lead->national_insurance }}"  />
 									
 								</div>
-								<div class="col-md-4">
-									<label>UTR; </label>
-									<input type="text" name="utr" class="form-control"  value="{{ $lead->utr }}"/>
-								</div>
+								
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="form-row">
+								<div class="col-md-4">
+									<label>UTR; </label>
+									<input type="text" name="utr" class="form-control"  value="{{ $lead->utr }}"/>
+								</div>
 								<div class="col-md-4">
 									<label>648-Registered; </label>
 									<select name="648Reg" class="form-control">
@@ -630,7 +626,7 @@
 					<div class="col-md-12">
 						<div class="pull-right">
 							<button type="submit" class="btn btn-success">
-								<i class="fa fa-plus" aria-hidden="true"></i> Update Lead
+								<i class="fa fa-refresh" aria-hidden="true" style="font-size:24px"></i> Update Lead
 							</button>
 						</div>
 						<br>
@@ -643,4 +639,135 @@
 		  </div>
 	</div>
 </div>
+<script>
+	//Title data
+	new Vue({
+	el: '#app-title',
+	  data: {
+		options: [
+		  { text: 'Mr', value: 'Mr' },
+		  { text: 'Mrs', value: 'Mrs' }
+		]
+	  }
+	})
+	
+	//Lead source data
+	new Vue({
+	el: '#app-leadSource',
+	  data: {
+		leadSources: [
+		  { text: 'Referral', value: 'Referral' },
+		  { text: 'Website', value: 'Website' },
+		  { text: 'Internet Marketing', value: 'Internet Marketing' },
+		  { text: 'Site Visits', value: 'Site Visits' },
+		  { text: 'Resourcing', value: 'Resourcing' },
+		  { text: 'Creditsafe', value: 'Creditsafe' }
+		  
+		]
+	  }
+	})
+	
+	//Lead status data
+	new Vue({
+	el: '#app-leadStatus',
+	  data: {
+		leadStatuses: [
+		  { text: 'Open', value: 'Open' },
+		  { text: 'Interested/Follow up', value: 'Interested/Follow up' },
+		  { text: 'Callback', value: 'Callback' },
+		  { text: 'Unavailable', value: 'Unavailable' },
+		  { text: 'Close/Converted', value: 'Close/Converted' },
+		  { text: 'Not Interested', value: 'Not Interested' },
+		  { text: 'Not Qualified', value: 'Not Qualified' },
+		  { text: 'Do Not Call', value: 'Do Not Call' },
+		  { text: 'Ringing', value: 'Ringing' },
+		  { text: 'Busy', value: 'Busy' },
+		  { text: 'Voicemail', value: 'Voicemail' },
+		  { text: 'Fax Machine', value: 'Fax Machine' },
+		  { text: 'Invalid Number', value: 'Invalid Number' },
+		  { text: 'Re-order prompt', value: 'Re-order prompt' },
+		  { text: 'No Number', value: 'No Number' },
+		  { text: 'No Contact Info', value: 'No Contact Info' },
+		  { text: 'Foreign Number', value: 'Foreign Number' },
+		  { text: 'Duplicate', value: 'Duplicate' },
+		  { text: 'Wrong Number', value: 'Wrong Number' },
+		  { text: 'Processing Tax Return', value: 'Processing Tax Return' },
+		  { text: 'Waiting Next Tax Year', value: 'Waiting Next Tax Year'},
+		  { text: 'Ceased', value: 'Ceased'},
+		  { text: 'First Stage', value: 'First Stage'},
+		  { text: 'Second Stage', value: 'Second Stage'},
+		  { text: 'Third Stage', value: 'Third Stage'},
+		  { text: 'Fourth Stage', value: 'Fourth Stage'},
+		  { text: 'Fifth Stage', value: 'Fifth Stage'}
+		]
+	  }
+	})
+	
+	//Profession data
+	new Vue({
+	el: '#app-profession',
+		data: {
+			professions:[
+				{ text:'Boiler Maker', value: 'Boiler Maker' },
+				{ text:'Brick Layer', value: 'Brick Layer'},
+				{ text:'Building Inspector', value: 'Building Inspector' },
+				{ text:'Carpenter', value: 'Carpenter' },
+				{ text:'Concrete Finisher', value: 'Concrete Finisher' },
+				{ text:'Construction Project Director', value: 'Construction Project Director' },
+				{ text:'Construction Site Manager', value: 'Construction Site Manager' },
+				{ text:'Contract Manager', value: 'Contract Manager' },
+				{ text:'Crane Operator', value: 'Crane Operator' },
+				{ text:'Demolition', value: 'Demolition' },
+				{ text:'Distribution', value: 'Distribution' },
+				{ text:'Drywall Installer', value: 'Drywall Installer' },
+				{ text:'Electrician', value: 'Electrician' },
+				{ text:'Elevator', value: 'Elevator' },
+				{ text:'Engineer', value: 'Engineer' },
+				{ text:'Equipment Inspector', value: 'Equipment Inspector' },
+				{ text:'Exterior Finisher', value: 'Exterior Finisher' },
+				{ text:'Field/Project Engineer', value: 'Field/Project Engineer' },
+				{ text:'Fire and Security Engineer', value: 'Fire and Security Engineer' },
+				{ text:'Framer', value: 'Framer' },
+				{ text:'Gasfitter', value: 'Gasfitter' },
+				{ text:'Glazier', value: 'Glazier' },
+				{ text:'Groundworker', value: 'Groundworker' },
+				{ text:'Heat and Frost Insulator', value: 'Heat and Frost Insulator' },
+				{ text:'Heavy Duty Equipment Mechanic', value: 'Heavy Duty Equipment Mechanic' },
+				{ text:'Home and Property Inpector', value: 'Home and Property Inpector' },
+				{ text:'Industrial Mechanic', value: 'Industrial Mechanic' },
+				{ text:'Interior Finisher', value: 'Interior Finisher' },
+				{ text:'Iron Worker/Structural metal fabricator and fitter', value: 'Iron Worker/Structural metal fabricator and fitter' },
+				{ text:'Labourer', value: 'Labourer' },
+				{ text:'Landscapert', value: 'Landscapert' },
+				{ text:'Line Worker', value: 'Line Worker' },
+				{ text:'Machine Operator', value: 'Machine Operator' },
+				{ text:'Others', value: 'Others' },
+				{ text:'Painter and Decorator', value: 'Painter and Decorator' },
+				{ text:'Plasterer', value: 'Plasterer' },
+				{ text:'Plumber', value: 'Plumber' },
+				{ text:'Production Manager', value: 'Production Manager' },
+				{ text:'Project Manager/Project Coordinator', value: 'Project Manager/Project Coordinator' },
+				{ text:'Quality Control Officer', value: 'Quality Control Officer' },
+				{ text:'Refrigeration and Air Conditioning Mechanic', value: 'Refrigeration and Air Conditioning Mechanic' },
+				{ text:'Roofer', value: 'Roofer' },
+				{ text:'Rotating Equipment Inpector', value: 'Rotating Equipment Inpector' },
+				{ text:'Safety Inspector/Consultant', value: 'Safety Inspector/Consultant' },
+				{ text:'Scaffolder', value: 'Scaffolder' },
+				{ text:'Sheet Metal Worker', value: 'Sheet Metal Worker' },
+				{ text:'Shingler', value: 'Shingler' },
+				{ text:'Shop Foreman', value: 'Shop Foreman' },
+				{ text:'Site Manager', value: 'Site Manager' },
+				{ text:'Steamfitter/pipefitter', value: 'Steamfitter/pipefitter' },
+				{ text:'Stone Mason', value: 'Stone Mason' },
+				{ text:'Surveyor', value: 'Surveyor' },
+				{ text:'Tile Setter', value: 'Tile Setter' },
+				{ text:'Tiling Operative', value: 'Tiling Operative' },
+				{ text:'Tradesman', value: 'Tradesman' },
+				{ text:'Truckman', value: 'Truckman' },
+				{ text:'Welder', value: 'Truckman' }
+				
+			]
+		}
+	})
+</script>
 @endsection

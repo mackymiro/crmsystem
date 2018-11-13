@@ -233,7 +233,9 @@
 						<option value="4" {{ ( 4 == $user->department) ? 'selected' : '' }}>Purple Buffalo/Support</option>
 					</select>
 					<br>
-					<input type="submit" class="btn btn-success pull-right"  value="Update" />
+					<button type="submit" class="btn btn-success pull-right">
+						<i class="fa fa-refresh" aria-hidden="true" style="font-size:24px"></i> Update Lead
+					</button>
 				</div>
 				  
 				</div>
