@@ -22,8 +22,11 @@
 							<div class="form-group">
 								<div class="form-row">
 									<div class="col-md-8">
-										<form action="{{ action('LeadController@storeNotes', $id) }}" method="POST">
+										<form action="{{ action('LeadController@storeNotes', $id) }}" method="POST" enctype="multipart/form-data">
 											<label>Description of Notes;</label>
+											@if(session('notesLeadAdded'))
+												<p class="alert alert-success">{{ Session::get('notesLeadAdded') }}</p>
+											@endif
 											<textarea name="description" class="form-control" rows="10" cols="10" required></textarea>
 											<br>
 											<br>

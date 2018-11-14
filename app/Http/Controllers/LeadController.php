@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 use App\Lead; 
 use App\Client;
 
@@ -11,6 +13,7 @@ use App\Note;
 use Session; 
 
 use Auth;
+
 class LeadController extends Controller
 {
 	public function storeNotes(Request $request, $id){
@@ -28,13 +31,62 @@ class LeadController extends Controller
 		//request a file
 		$file = $request->file('files');
 		
-		$fileName = $request->file('files')->getClientOriginalName();
-				
-		$fileSaveAsName = $fileName;
 		
-		echo $fileSaveAsName; exit;
 		
-		if($file == ""){
+		if($file ==  ""){
+			//if user update without a file
+			$lead = Lead::find($id);
+			$id = json_encode($lead->id);
+			
+			$note = new Note([
+				'lead_id' =>$id,
+				'notes_date_time'=>$date,
+				'notes'=>$request->get('description'),
+				'posted_by'=>$postedBy,
+			]);
+			
+			$note->save();
+			
+			Session::flash('notesLeadAdded', 'Successfully added notes.');
+			return redirect('leads/add-new-notes/id/'.$id);
+			
+		}else{
+			//validate fields
+			$this->validate($request, [
+				'files' =>'required|mimes:pdf,csv,xlsx,doc,docx,txt',
+			]);
+			
+			//get the filename 
+			$fileName = $request->file('files')->getClientOriginalName();
+			
+			$fileSaveAsName = $fileName;
+			
+
+			//upload the file to uploads folder
+			$upload_path = 'uploads/notes';
+			$filePath  = $upload_path . $file;
+			
+	
+			
+			//move the pdf,docs  to uploads folder
+			$success = $file->move($upload_path, $fileName);
+			
+			$lead = Lead::find($id);
+			
+			$id = json_encode($lead->id);
+			
+			$note = new Note([
+				'lead_id'=>$id,
+				'notes_date_time'=>$date,
+				'notes'=>$request->get('description'),
+				'posted_by'=>$postedBy,
+				'filename'=>$fileName,
+			]);
+			
+			$note->save();
+			
+			Session::flash('notesLeadAdded', 'Successfully added notes.');
+			return redirect('leads/add-new-notes/id/'.$id);
 			
 		}
 	}
@@ -49,7 +101,13 @@ class LeadController extends Controller
 	public function leadDetails($id){
 		$lead = Lead::find($id);
 		
-		return view('leaddetails', compact('lead'));
+		$leadId = json_encode($lead->id);
+		
+		//query to notes table to get the lead id per lead profile
+		$notes = DB::table('notes')->where('lead_id', $leadId)->get()->toArray();
+		
+		
+		return view('leaddetails', compact('lead', 'notes'));
 	}
     /**
      * Display a listing of the resource.

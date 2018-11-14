@@ -145,8 +145,8 @@
           </a>
         </li>
 		<li class="nav-item {{ Request::is('cases') ? 'active' : '' }}">
-          <a class="nav-link" href="index.html">
-            <i class="fa fa-archive" ></i> Cases
+          <a class="nav-link" href="{{ url('cases') }}">
+            <i class="fa fa-suitcase"></i> Cases
           </a>
         </li>
 		<li class="nav-item {{ Request::is('tasks') ? 'active' : '' }}">

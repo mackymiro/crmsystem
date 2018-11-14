@@ -389,6 +389,47 @@
 							</div>
 						</div>
 					</div>
+					<div class="card mb-3">
+						<div class="card-header">
+						  <i class="fa fa-suitcase"></i>
+							Cases
+						</div>
+						<div class="card-body">
+							<div class="col-md-12">
+								<div class="pull-right">
+									<a href="" class="btn btn-success pull-right"><i class="fa fa-suitcase"></i> Add New Case</a>
+								</div>
+								<div class="table-responsive">
+									<table class="table table-bordered display"  width="100%" cellspacing="0">
+										<thead>
+											<tr>
+											  <th >Code</th>
+											  <th>Name</th>
+											  <th>Stage</th>
+											  <th>Description</th>
+											  <th>Est.Amount</th>
+											  <th>Actual Amount</th>
+											  <th>Created Date</th>
+											  <th>Last Modified By</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+											  <th>Code</th>
+											  <th>Name</th>
+											  <th>Stage</th>
+											  <th>Description</th>
+											  <th>Est.Amount</th>
+											  <th>Actual Amount</th>
+											  <th>Created Date</th>
+											  <th>Last Modified By</th>
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 			</div>

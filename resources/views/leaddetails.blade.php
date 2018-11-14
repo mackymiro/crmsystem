@@ -60,6 +60,9 @@
 							<a href="{{ url('leads') }}" class="pull-right">Back to Leads</a>
 						</div>
 						<div class="card-body">
+							<a href="{{ action('LeadController@edit', $lead['id']) }}" class="pull-right btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</a>
+							<br>
+							<br>
 							<div class="form-group">
 								<div class="form-row">
 									<div class="col-md-6">
@@ -206,17 +209,21 @@
 											</tr>
 										</tfoot>
 										<tbody>
-											
+											@foreach($notes as $note)
 											<tr>
-												<td></td>
-												<td></td>
+												<td>{{ $note->notes_date_time }}</td>
+												<td>{{ $note->notes }}</td>
 												<td>
-													
-													
+													<a href="{{ url('/') }}/uploads/notes/{{ $note->filename }}" target="_blank">
+														<?php if($note->filename != NULL): ?>
+														 <i class="fa fa-paperclip" aria-hidden="true"></i> 
+														<?php endif; ?>
+														{{ $note->filename }}</a>
+													<br>	
 												</td>
-												<td></td>
+												<td>{{ $note->posted_by }}</td>
 											</tr>
-											
+											@endforeach
 										</tbody>
 									</table>
 								</div>

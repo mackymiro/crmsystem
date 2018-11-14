@@ -67,7 +67,6 @@ Route::get('/clients/add-new-notes/id/{id}', 'ClientController@addNewNotes')->na
 Route::post('/clients/store-notes/id/{id}', 'ClientController@storeNotes')->name('addnewnotes.storeNotes');
 
 
-
 // Route for tasks
 Route::get('/tasks', 'TaskController@index')->name('task');
 Route::get('/tasks/create', 'TaskController@create')->name('createtask');
@@ -75,3 +74,8 @@ Route::post('/tasks/store', 'TaskController@store')->name('createtask.store');
 Route::get('/tasks/edit/id/{id}', 'TaskController@edit')->name('createtask.edit');
 Route::patch('/tasks/update/{id}', 'TaskController@update')->name('createtask.update');
 Route::delete('/tasks/delete/{id}', 'TaskController@destroy')->name('createtask.delete');
+
+//Route for cases
+Route::get('/cases', 'CaseController@index')->name('case');
+Route::get('/cases/create', 'CaseController@create')->name('createcase');
+Route::post('/cases/store', 'CaseController@store')->name('createcase.store');

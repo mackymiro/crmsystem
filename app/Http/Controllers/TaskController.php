@@ -71,7 +71,7 @@ class TaskController extends Controller
 			$name = $request->get('leads'); 
 		}
 		
-	
+		//get the user account login 
 		$fName =  Auth::user()->first_name;
 		$lName = Auth::user()->last_name;
 		

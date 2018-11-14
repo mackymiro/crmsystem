@@ -84,11 +84,7 @@ class ClientController extends Controller
 			Session::flash('notesAdded', 'Successfully added notes.');
 			return redirect('clients/add-new-notes/id/'.$id);
 		}
-		
-		
 	
-		
-		exit; 
 	}
 	
 	
