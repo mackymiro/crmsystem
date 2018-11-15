@@ -46,6 +46,21 @@
 									  <th>Created Date</th>
 									</tr>
 								</tfoot>
+								<tbody>
+									@foreach($opps as $opp)
+									<tr>
+										<td><a href="{{ url('cases/case-details/id', $opp['id']) }}" >OPP-{{ $opp['code'] }}</a></td>
+										<td>{{ $opp['case_name'] }}</td>
+										<td>{{ $opp['contacts'] }}</td>
+										<td>{{ $opp['case_stage'] }}</td>
+										<td>{{ $opp['description'] }}</td>
+										<td>{{ $opp['estimated_amount'] }}</td>
+										<td>{{ $opp['actual_amount'] }}</td>
+										<td>{{ $opp['owner'] }}</td>
+										<td>{{ $opp['created_at'] }}</td>
+									</tr>
+									@endforeach
+								</tbody>
 							</table>
 						</div>
 					  </div>

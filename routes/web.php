@@ -79,3 +79,5 @@ Route::delete('/tasks/delete/{id}', 'TaskController@destroy')->name('createtask.
 Route::get('/cases', 'CaseController@index')->name('case');
 Route::get('/cases/create', 'CaseController@create')->name('createcase');
 Route::post('/cases/store', 'CaseController@store')->name('createcase.store');
+Route::get('/cases/case-details/id/{id}', 'CaseController@casesDetails')->name('createcase.casesDetails');
+Route::get('/cases/edit/id/{id}', 'CaseController@edit')->name('createcase.edit');

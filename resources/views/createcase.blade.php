@@ -121,6 +121,7 @@
 		  
 	</div>
 </div>
+
 <script>
 	//case stage
 	new Vue({

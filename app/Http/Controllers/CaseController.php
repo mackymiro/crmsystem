@@ -14,6 +14,14 @@ use Response;
 
 class CaseController extends Controller
 {
+	
+	public function casesDetails($id){
+		$opp = Opp::find($id);
+		
+		return view('casesdetails', compact('opp'));
+	}
+	
+	
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +30,9 @@ class CaseController extends Controller
     public function index()
     {
         //
-		return view('case');
+		$opps = Opp::all()->toArray();
+		
+		return view('case', compact('opps'));
     }
 
     /**
@@ -75,7 +85,6 @@ class CaseController extends Controller
 			$uNum = sprintf("%06d",$newNum);
 		}
 			
-		
 		$clientName = $request->get('contacts');
 		
 		$contact = explode("-", $clientName);
@@ -97,7 +106,6 @@ class CaseController extends Controller
 		$case->save();
 		$retId = $case->id;
 		Response::json(['success' => true,'id' => $retId], 200); 
-		
 		
 		Session::flash('caseCreated', 'Successfully created cases');
 		return redirect('cases/create');
@@ -123,7 +131,11 @@ class CaseController extends Controller
     public function edit($id)
     {
         //
-    }
+		$opp = Opp::find($id);
+		
+		return view('editcase', compact('opp','id'));
+		
+	}
 
     /**
      * Update the specified resource in storage.

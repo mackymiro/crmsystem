@@ -23,6 +23,12 @@ class CreateOppsTable extends Migration
 			$table->string('description');
 			$table->decimal('estimated_amount', 10, 2);
 			$table->decimal('actual_amount', 10, 2);
+			$table->string('national_insurance');
+			$table->string('registered');
+			$table->string('charge_percentage');
+			$table->string('utr');
+			$table->string('authority_letter');
+			$table->string('bank_authority');
 			$table->string('owner');
             $table->timestamps();
         });
