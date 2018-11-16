@@ -19,24 +19,49 @@
 						  <a href="{{ url('cases/case-details/id', $id) }}" class="pull-right">Back to Case Profile</a>
 						</div>
 						<div class="card-body">
+							<form action="{{ action('CaseController@update', $id) }}" method="POST">
+							{{csrf_field()}}
+							<input name="_method" type="hidden" value="PATCH">
 							<div class="form-group">
+								<div class="pull-right">
+								<button type="submit" class="btn btn-success">
+									<i class="fa fa-refresh" aria-hidden="true" style="font-size:24px"></i> Update Case
+								</button>
+									<br>
+									<br>
+									<br>
+								</div>
+								<br>
+								<br>
+								@if(session('clientUpdated'))
+									<p class="alert alert-success">{{ Session::get('clientUpdated') }}</p>
+								@endif
 								<div class="form-row">
 									<div class="col-md-3">
 										<label>Contacts; </label>
+										<?php 
+											$contacts =  $opp->contacts;
+											
+										?>
 										<select name="contacts" class="form-control">
-											<option></option>
+											<option value="0">--Please Select--</option>
+											@foreach($clients as $client)
+												<option value="{{ $client['id'] }}-{{ $client['first_name'] }} {{ $client['last_name'] }}"
+												<?php echo ($contacts == $client['first_name']." ".$client['last_name']) ? 'selected="selected"' : '' ?>  >{{ $client['first_name'] }} {{ $client['last_name'] }}</option>
+											@endforeach
 										</select>
 									</div>
 									<div class="col-md-3">
 										<label>Case Name; </label>
-										<input type="text" name="caseName" class="form-control" value=""  />
+										<input type="text" name="caseName" class="form-control" value="{{ $opp->case_name }}"  />
 									</div>
 									<div class="col-md-3">
 										<label>Case Stage; </label>
 										<div id="app-caseStage">
 											<select name="caseStage" class="form-control">
 												<option value="0">--Please Select--</option>
-												<option v-for="caseStage in caseStages" v-bind:value="caseStage.value">
+												<option v-for="caseStage in caseStages" v-bind:value="caseStage.value"
+													:selected="caseStage.value=={{json_encode($opp->case_stage)}}?true : false">
 													@{{ caseStage.text }}
 												</option>
 											</select>
@@ -78,19 +103,19 @@
 								<div class="form-row">
 									<div class="col-md-3">
 										<label>Charge Percentage; </label>
-										<input type="text" name="chargePercentage" class="form-control" value=""  />
+										<input type="text" name="chargePercentage" class="form-control" value="{{ $opp->charge_percentage }}"  />
 									</div>
 									<div class="col-md-3">
 										<label>UTR; </label>
-										<input type="text" name="utr" class="form-control" value=""  />
+										<input type="text" name="utr" class="form-control" value="{{ $opp->utr }}"  />
 									</div>
 									<div class="col-md-3">
 										<label>Authority Letter; </label>
-										<input type="text" name="authLetter" class="form-control" value=""  />
+										<input type="text" name="authLetter" class="form-control" value="{{ $opp->authority_letter }}"  />
 									</div>
 									<div class="col-md-3">
 										<label>Bank Authority; </label>
-										<input type="text" name="bankAuth" class="form-control" value=""  />
+										<input type="text" name="bankAuth" class="form-control" value="{{ $opp->bank_authority }}"  />
 									</div>
 								</div>
 							</div>
@@ -98,32 +123,20 @@
 								<div class="form-row">
 									<div class="col-md-3">
 										<label>Email Adress; </label>
-										<input type="text" name="email" class="form-control" value=""  />
+										<input type="text" name="email" class="form-control" value="{{ $opp->email }}"  />
 									</div>
 									<div class="col-md-3">
 										<label>Phone Number; </label>
-										<input type="text" name="phoneNumber" class="form-control" value=""  />
+										<input type="text" name="phoneNumber" class="form-control" value="{{ $opp->phone_number }}"  />
 									</div>
 									<div class="col-md-3">
 										<label>Company; </label>
-										<input type="text" name="company" class="form-control" value=""  />
+										<input type="text" name="company" class="form-control" value="{{ $opp->company }}"  />
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
-								<div class="form-row">
-									<div class="col-md-12">
-										<div class="pull-right">
-										<button type="submit" class="btn btn-success">
-											<i class="fa fa-refresh" aria-hidden="true" style="font-size:24px"></i> Update Case
-											</button>
-											<br>
-											<br>
-											<br>
-										</div>
-									</div>
-								</div>
-							</div>
+							
+							</form>
 						</div>
 					</div>
 				</div>

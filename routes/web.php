@@ -73,7 +73,7 @@ Route::get('/tasks/create', 'TaskController@create')->name('createtask');
 Route::post('/tasks/store', 'TaskController@store')->name('createtask.store');
 Route::get('/tasks/edit/id/{id}', 'TaskController@edit')->name('createtask.edit');
 Route::patch('/tasks/update/{id}', 'TaskController@update')->name('createtask.update');
-Route::delete('/tasks/delete/{id}', 'TaskController@destroy')->name('createtask.delete');
+Route::delete('/tasks/delete/{id}', 'TaskController@destroy')->name('createtask.destroy');
 
 //Route for cases
 Route::get('/cases', 'CaseController@index')->name('case');
@@ -81,3 +81,7 @@ Route::get('/cases/create', 'CaseController@create')->name('createcase');
 Route::post('/cases/store', 'CaseController@store')->name('createcase.store');
 Route::get('/cases/case-details/id/{id}', 'CaseController@casesDetails')->name('createcase.casesDetails');
 Route::get('/cases/edit/id/{id}', 'CaseController@edit')->name('createcase.edit');
+Route::patch('/cases/update/{id}', 'CaseController@update')->name('createcase.update');
+Route::delete('/cases/delete/{id}', 'CaseController@destroy')->name('createcase.destroy');
+Route::get('/cases/add-new-notes/id/{id}', 'CaseController@addNewNotes')->name('addnewnotescases');
+Route::post('/cases/store-notes/id/{id}', 'CaseController@storeNotes')->name('addnewnotescases.StoreNotes');

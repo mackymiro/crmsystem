@@ -34,7 +34,7 @@
 							<i class="fa fa-envelope fa-lg" style="font-size:20px" aria-hidden="true"></i><strong> {{ $opp->email }} </strong>
 						  </div>
 						  <div class="card-footer small text-muted">
-							<i class="fa fa-phone fa-lg" style="font-size:20px" aria-hidden="true"></i><strong> {{ $opp->phone_number}} </strong>
+							<i class="fa fa-phone fa-lg" style="font-size:20px" aria-hidden="true"></i><strong> {{ $opp->phone_number }} </strong>
 						  </div>
 						   <div class="card-footer small text-muted">
 							<i class="fa fa-building-o" style="font-size:20px" aria-hidden="true"></i><strong> {{ $opp->company }} </strong>
@@ -50,7 +50,7 @@
 						</div> 
 						<div class="card-body">
 							<a href="{{ action('CaseController@edit', $opp['id']) }}" class="pull-right btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Case</a>
-							<a href="" class="pull-right btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete Case</a>
+							
 							<br>
 							<br>
 							<div class="form-group">
@@ -196,7 +196,7 @@
 						<div class="card-body">
 							<div class="col-md-12">
 								<div class="pull-right">
-									<a href="" class="btn btn-success pull-right"><i class="fa fa-sticky-note-o" aria-hidden="true"></i> Add New Notes</a>
+									<a href="{{ url('cases/add-new-notes/id', $opp['id']) }}" class="btn btn-success pull-right"><i class="fa fa-sticky-note-o" aria-hidden="true"></i> Add New Notes</a>
 								</div>
 								<div class="table-responsive">
 									<table class="table table-bordered display"  width="100%" cellspacing="0">
@@ -221,14 +221,21 @@
 											</tr>
 										</tfoot>
 										<tbody>
+											@foreach($notes as $note)
 											<tr>
-												<td></td>
-												<td></td>
+												<td>{{ $note->notes_date_time }}</td>
+												<td>{{ $note->notes }}</td>
 												<td>
-													
+													<a href="{{ url('/') }}/uploads/notes/{{ $note->filename }}" target="_blank">
+														<?php if($note->filename != NULL): ?>
+														 <i class="fa fa-paperclip" aria-hidden="true"></i> 
+														<?php endif; ?>
+														{{ $note->filename }}</a>
+													<br>
 												</td>
-												<td></td>
+												<td>{{ $note->posted_by }}</td>
 											</tr>
+											@endforeach
 										</tbody>
 									</table>
 								</div>

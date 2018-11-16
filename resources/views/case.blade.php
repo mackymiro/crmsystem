@@ -1,6 +1,33 @@
 @extends('layouts.app')
 @section('title', 'Cases | RMTG')
 @section('content')
+<script type="text/javascript">
+	function confirmDelete(id){
+		var x =confirm("Do you want to delete this?");
+		if(x){
+			$.ajax({
+				type: "DELETE",
+				url: '/cases/delete/' + id,
+				data:{
+					_method: 'delete',
+					"_token": "{{ csrf_token() }}",
+					"id": id
+					
+				},
+				success:function(data){
+					console.log(data);
+					$("#deletedId"+id).fadeOut('slow');
+				},
+				error: function(data){
+					console.log('Error:', data);
+				}
+				
+			});
+		}else{
+			return false;
+		}
+	}
+</script>
 <div id="content-wrapper">
 	<div class="container-fluid">
 		<!-- Breadcrumbs-->
@@ -22,6 +49,9 @@
 							<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 								<thead>
 									<tr>
+									  @if(Auth::user()->role_type == 2)
+										<th>Action</th>
+									  @endif
 									  <th>Code</th>
 									  <th>Case Name</th>
 									  <th>Contact Name</th>
@@ -35,6 +65,9 @@
 								</thead>
 								<tfoot>
 									<tr>
+									  @if(Auth::user()->role_type == 2)
+										<th>Action</th>
+									  @endif
 									  <th>Code</th>
 									  <th>Case Name</th>
 									  <th>Contact Name</th>
@@ -48,8 +81,13 @@
 								</tfoot>
 								<tbody>
 									@foreach($opps as $opp)
-									<tr>
-										<td><a href="{{ url('cases/case-details/id', $opp['id']) }}" >OPP-{{ $opp['code'] }}</a></td>
+									<tr id="deletedId{{ $opp['id'] }}">	
+										@if(Auth::user()->role_type == 2)
+											<td>
+												<a title="Delete" onclick="confirmDelete('{{ $opp['id'] }}')" href="javascript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
+											</td>
+										@endif
+										<td><a title="OPP-{{ $opp['code'] }}" href="{{ url('cases/case-details/id', $opp['id']) }}" >OPP-{{ $opp['code'] }}</a></td>
 										<td>{{ $opp['case_name'] }}</td>
 										<td>{{ $opp['contacts'] }}</td>
 										<td>{{ $opp['case_stage'] }}</td>

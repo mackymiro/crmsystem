@@ -53,7 +53,7 @@ class LeadController extends Controller
 		}else{
 			//validate fields
 			$this->validate($request, [
-				'files' =>'required|mimes:pdf,csv,xlsx,doc,docx,txt',
+				'files' =>'required|mimes:pdf,csv,xls,doc,docx',
 			]);
 			
 			//get the filename 

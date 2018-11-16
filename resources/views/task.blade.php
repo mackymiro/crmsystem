@@ -76,12 +76,12 @@
 								</tfoot>
 								<tbody>
 									@foreach($tasks as $task)
-									<tr id="deletedId<?php echo $task['id']?>">
+									<tr id="deletedId{{ $task['id'] }}">
 										<td>
 											<a title="Edit" href="{{ action('TaskController@edit', $task['id']) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-							
-											<a title="Delete" onclick="confirmDelete('<?php echo $task['id']?>');" href="javascript:void(0);" ><i class="fa fa-trash" aria-hidden="true"></i></a>
-											
+											@if(Auth::user()->role_type == 2)
+												<a title="Delete" onclick="confirmDelete('{{ $task['id'] }}');" href="javascript:void(0);" ><i class="fa fa-trash" aria-hidden="true"></i></a>
+											@endif 
 										</td>
 										<td>{{ ucfirst($task['assigned_to']) }}</td>
 										<td>{{ ucfirst($task['name']) }}</td>

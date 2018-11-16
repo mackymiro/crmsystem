@@ -52,7 +52,7 @@
 										<td>
 											<a href="{{ action('ClientController@edit', $client['id']) }}" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 										</td>
-										<td><a href="{{ url('clients/client-details/id', $client['id']) }}">{{ ucfirst($client['first_name']) }} {{ ucfirst($client['middle_name']) }} {{ ucfirst($client['last_name']) }}</a></td>
+										<td><a title="{{ ucfirst($client['first_name']) }} {{ ucfirst($client['middle_name']) }} {{ ucfirst($client['last_name']) }}" href="{{ url('clients/client-details/id', $client['id']) }}">{{ ucfirst($client['first_name']) }} {{ ucfirst($client['middle_name']) }} {{ ucfirst($client['last_name']) }}</a></td>
 										<td>{{ $client['email'] }}</td>
 										<td>{{ $client['phone_number'] }}</td>
 										<td>{{ $client['mobile_number'] }}</td>

@@ -52,7 +52,7 @@ class ClientController extends Controller
 		}else{
 			//validate fields
 			$this->validate($request, [
-				'files' =>'required|mimes:pdf,csv,xls,doc,docx,txt',
+				'files' =>'required|mimes:pdf,csv,xls,doc,docx',
 			]);
 			
 			
@@ -104,12 +104,14 @@ class ClientController extends Controller
 		$clientId = json_encode($client->id);
 		
 	
-		//query to notes table to get the client id per client profile
+		//query from notes table to get the client id per client profile
 		$notes = DB::table('notes')->where('client_id', $clientId)->get()->toArray();
 		
+		//query from case table to get the client id
+		$cases = DB::table('opps')->where('client_id', $clientId)->get()->toArray();
 		
-
-		return view('clientdetails', compact('client', 'notes'));
+		
+		return view('clientdetails', compact('client', 'notes', 'cases'));
 		
 	}
 	

@@ -18,6 +18,9 @@ class CreateOppsTable extends Migration
 			$table->integer('client_id');
 			$table->string('code');
 			$table->string('contacts');
+			$table->string('email');
+			$table->string('phone_number');
+			$table->string('company');
 			$table->string('case_name');
 			$table->string('case_stage');
 			$table->string('description');

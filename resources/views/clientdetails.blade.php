@@ -403,7 +403,7 @@
 									<table class="table table-bordered display"  width="100%" cellspacing="0">
 										<thead>
 											<tr>
-											  <th >Code</th>
+											  <th width="140px;">Code</th>
 											  <th>Name</th>
 											  <th>Stage</th>
 											  <th>Description</th>
@@ -425,6 +425,20 @@
 											  <th>Last Modified By</th>
 											</tr>
 										</tfoot>
+										<tbody>
+											@foreach($cases as $case)
+											<tr>
+												<td><a href="" title="OPP-{{ $case->code }}" >OPP-{{ $case->code }}</a></td>
+												<td>{{ $case->contacts }}</td>
+												<td>{{ $case->case_stage }}</td>
+												<td>{{ $case->description }}</td>
+												<td>{{ $case->estimated_amount }}</td>
+												<td>{{ $case->actual_amount }}</td>
+												<td>{{ $case->created_at }}</td>
+												<td>{{ $case->email }}</td>
+											</tr>
+											@endforeach
+										</tbody>
 									</table>
 								</div>
 							</div>
