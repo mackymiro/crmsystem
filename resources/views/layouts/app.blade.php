@@ -154,6 +154,11 @@
            <i class="fa fa-tasks" aria-hidden="true"></i> Tasks
           </a>
         </li>
+		<li class="nav-item {{ Request::is('invoices') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ url('invoices') }}">
+           <i class="fa fa-money" aria-hidden="true"></i> Invoices
+          </a>
+        </li>
        
        
       </ul>
@@ -209,6 +214,21 @@
 	
 	<?php $req = request()->route('id'); ?>
 	<?php if(Request::is('tasks/edit/id/'.$req)): ?>		
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+		<script type="text/javascript">
+
+			$('.date').datepicker({  
+				format: 'dd-mm-yyyy',
+				todayHighlight: true,
+				
+			 });  
+
+		</script>  
+	
+	<?php endif; ?>
+	<?php if(Request::is('clients/add-task/id/'.$req)): ?>		
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>

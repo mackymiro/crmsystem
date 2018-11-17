@@ -63,6 +63,7 @@
 							<br>
 							<br>
 							<a href="{{ action('ClientController@edit', $client['id']) }}" class="pull-right btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</a>
+							<a href="{{ url('clients/add-task/id', $client['id']) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-tasks" aria-hidden="true"></i> Add New Task</a>
 							<br>
 							<br>
 							<div style="clear:both"></div>
@@ -397,7 +398,7 @@
 						<div class="card-body">
 							<div class="col-md-12">
 								<div class="pull-right">
-									<a href="" class="btn btn-success pull-right"><i class="fa fa-suitcase"></i> Add New Case</a>
+									<a href="{{ url('clients/add-new-case/id', $client['id']) }}" class="btn btn-success pull-right"><i class="fa fa-suitcase"></i> Add New Case</a>
 								</div>
 								<div class="table-responsive">
 									<table class="table table-bordered display"  width="100%" cellspacing="0">

@@ -52,7 +52,7 @@
 									  @if(Auth::user()->role_type == 2)
 										<th>Action</th>
 									  @endif
-									  <th>Code</th>
+									  <th width="140px;">Code</th>
 									  <th>Case Name</th>
 									  <th>Contact Name</th>
 									  <th>Stage</th>

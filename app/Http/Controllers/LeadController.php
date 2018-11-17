@@ -16,6 +16,15 @@ use Auth;
 
 class LeadController extends Controller
 {
+	//addtask
+	public function addTask($id){
+		$lead = Lead::find($id);
+		
+		$users = User::all()->toArray();
+		
+		return view('addtasklead', compact('lead', 'users'));
+	}
+	
 	public function storeNotes(Request $request, $id){
 		date_default_timezone_set('Europe/London');
 		

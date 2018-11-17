@@ -5,15 +5,128 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-use App\Client; 
+use App\Client;
+use App\Opp; 
 use App\User;
 use App\Note;
+use App\Task;
 
 use Session;
 use Auth;
+use Response;
 
 class ClientController extends Controller
 {
+	
+	//store task
+	public function storeTask(Request $request, $id){
+		//validate fields
+		$this->validate($request, [
+			'assignedTo' => 'required|not_in:0',
+			'status' => 'required|not_in:0',
+			'subject' => 'required|string|max:255',
+			'priority' => 'required|not_in:0',
+			'type' => 'required|not_in:0',
+		]);
+		
+		$client = Client::find($id);
+		$clientId = json_encode($client->id);		
+		
+		
+		//get the user account login 
+		$fName =  Auth::user()->first_name;
+		$lName = Auth::user()->last_name;
+		
+		$owner = $fName." ".$lName; 
+		
+		$task = new Task([
+			'assigned_to'=>$request->get('assignedTo'),
+			'name'=>$request->get('clientName'),
+			'status'=>$request->get('status'),
+			'subject'=>$request->get('subject'),
+			'priority'=>$request->get('priority'),
+			'due_date'=>$request->get('dueDate'),
+			'type'=>$request->get('type'),
+			'comments'=>$request->get('comments'),
+			'created_by'=>$owner,
+		]);
+		
+		$task->save();
+		
+		Session::flash('clientTaskCreated', 'Successfully created task');
+		return redirect('clients/add-task/id/'.$clientId);
+	}
+	
+	//add task
+	public function addTask($id){	
+		$client = Client::find($id);
+		
+		$users = User::all()->toArray();
+		
+		return view('addtask', compact('client', 'users'));
+	}
+	
+	//store add new case 
+	public function storeCase(Request $request){
+		//validate fields
+		$this->validate($request, [
+			'caseName'=>'required|string|max:255',
+			'caseStage'=>'required|not_in:0',
+			'description'=>'required|string|max:255',
+			'estimatedAmount'=>'numeric|min:2|max:10000',
+			'actualAmount'=>'numeric|min:2|max:10000',
+		]);
+		
+		//get the user account login 
+		$fName =  Auth::user()->first_name;
+		$lName = Auth::user()->last_name;
+		
+		$owner = $fName." ".$lName; 
+		
+		//get the last insert id query in table opps
+		$data = DB::select('SELECT id, code FROM opps ORDER BY id DESC LIMIT 1');
+		
+		if(isset($data[0]->code) != 0){
+			//if code is not 0
+			$newNum = $data[0]->code +1;
+			$uNum = sprintf("%06d",$newNum);	
+		}else{
+			//if code is 0 
+			$newNum = 1;
+			$uNum = sprintf("%06d",$newNum);
+		}
+		
+		$case = new Opp([
+			'code'=>$uNum,
+			'client_id'=>$request->get('clientId'),
+			'contacts'=>$request->get('contacts'),
+			'case_name'=>$request->get('caseName'),
+			'case_stage'=>$request->get('caseStage'),
+			'description'=>$request->get('description'),
+			'estimated_amount'=>$request->get('estimatedAmount'),
+			'actual_amount'=>$request->get('actualAmount'),
+			'owner'=>$owner,
+		]);
+		
+		$case->save();
+		$retId = $case->id;
+		Response::json(['success' => true,'id' => $retId], 200); 
+		
+		Session::flash('clientCase', 'Successfully created cases');
+		
+		return redirect('clients/add-new-case/id/'.$request->get('clientId'));
+	}
+	
+	
+	//addNewCase 
+	public function addNewCase($id){
+		$client = Client::find($id);
+		
+		
+		return view('addnewcase', compact('client', 'id'));
+	}
+	
+	
 	//store notes
 	public function storeNotes(Request $request, $id){
 		date_default_timezone_set('Europe/London');

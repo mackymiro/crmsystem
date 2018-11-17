@@ -155,7 +155,7 @@ class CaseController extends Controller
 		$data = DB::select('SELECT id, code FROM opps ORDER BY id DESC LIMIT 1');
 
 		if(isset($data[0]->code) != 0){
-			//if code is note 0
+			//if code is not 0
 			$newNum = $data[0]->code +1;
 			$uNum = sprintf("%06d",$newNum);	
 		}else{

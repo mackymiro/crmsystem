@@ -23,6 +23,7 @@ class CreateTasksTable extends Migration
 				$table->string('due_date');
 				$table->string('priority');
 				$table->string('type');
+				$table->text('comments');
 				$table->timestamps();
 			});
 		}

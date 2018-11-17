@@ -102,7 +102,7 @@
 											{{ $task['status'] }}
 									
 										</td>
-										<td></td>
+										<td>{{ $task['comments'] }}</td>
 										<td>{{ $task['created_by'] }}</td>
 										
 									</tr>

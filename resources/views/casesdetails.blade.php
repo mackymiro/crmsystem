@@ -134,7 +134,9 @@
 						  </div>
 						  <div class="card-body">
 								<div class="col-md-12">
-									
+									<div class="pull-right">
+										<a href="" class="btn btn-success pull-right"><i class="fa fa-file"></i> New Invoice</a>
+									</div>
 									<div class="table-responsive">
 										<table class="table table-bordered display" width="100%" cellspacing="0">
 											<thead>
@@ -180,7 +182,7 @@
 													<td></td>
 													<td></td>
 													<td>
-													  <a href="" class="btn btn-success"><i class="fa fa-file"></i> Pay Invoices</a>
+													  <a href="" class="btn btn-success"><i class="fa fa-money" aria-hidden="true"></i>  Pay Invoices</a>
 													</td>
 												</tr>
 											</tbody>

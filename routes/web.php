@@ -52,6 +52,7 @@ Route::get('/leads/lead-details/id/{id}', 'LeadController@leadDetails')->name('l
 
 Route::get('/leads/add-new-notes/id/{id}', 'LeadController@addNewNotes')->name('addnewnoteslead');
 Route::post('/leads/store-notes/id/{id}', 'LeadController@storeNotes')->name('addnewnoteslead.storeNotes');
+Route::get('/leads/add-task/id/{id}', 'LeadController@addTask')->name('addtasklead');
 
 // Route for clients
 
@@ -65,7 +66,10 @@ Route::get('/clients/client-details/id/{id}', 'ClientController@clientDetails')-
 
 Route::get('/clients/add-new-notes/id/{id}', 'ClientController@addNewNotes')->name('addnewnotes');
 Route::post('/clients/store-notes/id/{id}', 'ClientController@storeNotes')->name('addnewnotes.storeNotes');
-
+Route::get('/clients/add-new-case/id/{id}', 'ClientController@addNewCase')->name('addnewcase.addNewCase');
+Route::post('/clients/store-case', 'ClientController@storeCase')->name('addnewcase.storeCase');
+Route::get('/clients/add-task/id/{id}', 'ClientController@addTask')->name('addtask');
+Route::post('/clients/store-task/id/{id}', 'ClientController@storeTask')->name('addtask.storeTask');
 
 // Route for tasks
 Route::get('/tasks', 'TaskController@index')->name('task');
