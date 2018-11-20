@@ -20,16 +20,22 @@
 					  <a href="{{ url('leads/lead-details/id', $lead['id']) }}" class="pull-right">Back to Leads Profile</a>
 					</div>
 					<div class="card-body">
-						<div class="form-group">
-							<div class="form-row">
-								<div class="col-md-12">
-									<div class="pull-right">
-										<button type="submit" class="btn btn-success">
-											<i class="fa fa-save" aria-hidden="true"></i> Add Task
-										</button>
+						<form action="{{ action('LeadController@storeTask', $lead['id']) }}" method="POST">
+							{{csrf_field()}}
+							<div class="form-group">
+								<div class="form-row">
+									<div class="col-md-12">
+										<div class="pull-right">
+											<button type="submit" class="btn btn-success">
+												<i class="fa fa-save" aria-hidden="true"></i> Add Task
+											</button>
+										</div>
 									</div>
 								</div>
 							</div>
+							@if(session('leadTaskCreated'))
+								<p class="alert alert-success">{{ Session::get('leadTaskCreated') }}</p>
+							@endif
 							<div class="form-group">
 								<div class="form-row">
 									<div class="col-md-4">
@@ -68,7 +74,7 @@
 								<div class="form-row">
 									<div class="col-md-4">
 										<label>Subject;</label>
-										<input type="text" name="subject" class="form-control"  required />
+										<input type="text" name="subject" class="form-control" value="{{ old('subject') }}" required />
 									</div>
 									<div class="col-md-4">
 										<label>Priority; </label>
@@ -92,11 +98,37 @@
 								<div class="form-row">
 									<div class="col-md-4">
 										<label>Due Date;</label>
-										<input type="text" name="dueDate" class="date form-control"   required />
+										<input type="text" name="dueDate" class="date form-control" value="{{ old('dueDate') }}" required />
+									</div>
+									<div class="col-md-4">
+										<label>Type; </label>
+										<div id="app-type">
+											<select name="type" class="form-control">
+												<option value="0">--Please Select--</option>
+												<option v-for="type in types" v-bind:value="type.value">
+													@{{ type.text }}
+												</option>
+											</select>
+											@if ($errors->has('type'))
+												<div class="alert alert-danger">
+													<strong>{{ $errors->first('type') }}</strong>
+												</div>
+											@endif
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+							<div class="form-group">
+								<div class="form-row">
+									<div class="col-md-8">
+										<label>Comments; </label>
+										<textarea name="comments" class="form-control" cols="5" rows="5">{{ old('comments') }}</textarea>
+									</div>
+								</div>
+							</div>
+							<input type="hidden" name="clientName" value="{{ $lead['first_name'] }} {{ $lead['last_name'] }}" />
+						</form>
+						
 					</div>
 				</div>
 			</div>
@@ -126,6 +158,19 @@
 				{ text:'High', value: 'High' },
 				{ text:'Medium', value: 'Medium'},
 				{ text:'Low', value: 'Low'}
+				
+			]
+		}
+	})
+	
+	//type data
+	new Vue({
+	el: '#app-type',
+		data: {
+			types:[
+				{ text:'Call', value: 'Call' },
+				{ text:'E-mail', value: 'E-mail'},
+				{ text:'Meeting', value: 'Meeting'}
 				
 			]
 		}

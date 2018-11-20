@@ -53,7 +53,8 @@ Route::get('/leads/lead-details/id/{id}', 'LeadController@leadDetails')->name('l
 Route::get('/leads/add-new-notes/id/{id}', 'LeadController@addNewNotes')->name('addnewnoteslead');
 Route::post('/leads/store-notes/id/{id}', 'LeadController@storeNotes')->name('addnewnoteslead.storeNotes');
 Route::get('/leads/add-task/id/{id}', 'LeadController@addTask')->name('addtasklead');
-
+Route::post('/leads/store-task/id/{id}', 'LeadController@storeTask')->name('addtasklead.storeTask');
+Route::get('/leads/convert/id/{id}', 'LeadController@convert')->name('convert');
 // Route for clients
 
 Route::get('/clients', 'ClientController@index')->name('client');

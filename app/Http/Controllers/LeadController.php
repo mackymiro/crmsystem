@@ -10,12 +10,61 @@ use App\Client;
 
 use App\User;
 use App\Note;
+use App\Task;
+
 use Session; 
 
 use Auth;
 
 class LeadController extends Controller
 {
+	//convert page
+	public function convert($id){
+		$lead = Lead::find($id);
+		
+		return view('convert', compact('lead'));
+	}
+	
+	//store task
+	public function storeTask(Request $request, $id){
+		//validate fields
+		$this->validate($request, [
+			'assignedTo' => 'required|not_in:0',
+			'status' => 'required|not_in:0',
+			'subject' => 'required|string|max:255',
+			'priority' => 'required|not_in:0',
+			'type' => 'required|not_in:0',
+		]);
+		
+		$lead = Lead::find($id);
+		$leadId = json_encode($lead->id);
+		
+		//get the user account login
+		$fName =  Auth::user()->first_name;
+		$lName = Auth::user()->last_name;
+		
+		$owner = $fName." ".$lName; 
+		
+		$task = new Task([
+			'assigned_to'=>$request->get('assignedTo'),
+			'name'=>$request->get('clientName'),
+			'status'=>$request->get('status'),
+			'subject'=>$request->get('subject'),
+			'priority'=>$request->get('priority'),
+			'due_date'=>$request->get('dueDate'),
+			'type'=>$request->get('type'),
+			'comments'=>$request->get('comments'),
+			'created_by'=>$owner,
+		]);
+		
+		$task->save();
+		
+		Session::flash('leadTaskCreated', 'Successfully created task');
+		return redirect('leads/add-task/id/'. $leadId);
+		
+	}
+	
+	
 	//addtask
 	public function addTask($id){
 		$lead = Lead::find($id);
@@ -118,6 +167,33 @@ class LeadController extends Controller
 		
 		return view('leaddetails', compact('lead', 'notes'));
 	}
+	
+	
+	//update assign to owners 
+	public function updateAssign(Request $request, $id){
+	  
+		$lead = Lead::find($id);
+		
+		$lead->owner = $request->get('users');
+		$lead->save();
+		
+		
+		return redirect('/leads');
+		
+	}
+	
+	
+	//assign to owners
+	public function assign($id){
+		//get all users 
+		$users = User::all()->toArray();
+		
+		//get lead id
+		$leadID  = Lead::find($id);
+		
+		return view('assignlead', compact('users', 'leadID'));
+	}
+	
     /**
      * Display a listing of the resource.
      *
@@ -307,29 +383,4 @@ class LeadController extends Controller
         //
     }
 	
-	
-	//update assign to owners 
-	public function updateAssign(Request $request, $id){
-	  
-		$lead = Lead::find($id);
-		
-		$lead->owner = $request->get('users');
-		$lead->save();
-		
-		
-		return redirect('/leads');
-		
-	}
-	
-	
-	//assign to owners
-	public function assign($id){
-		//get all users 
-		$users = User::all()->toArray();
-		
-		//get lead id
-		$leadID  = Lead::find($id);
-		
-		return view('assignlead', compact('users', 'leadID'));
-	}
 }

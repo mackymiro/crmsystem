@@ -26,7 +26,7 @@
 	
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 	<script src="{{ asset('js/jquery.min.js') }}"></script>
-	
+	<?php $req = request()->route('id'); ?>
 </head>
 <body id="page-top">
 	<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -134,32 +134,141 @@
             <span>Dashboard</span>
           </a>
         </li>
+		<?php if(Request::is('leads/create')): ?>
+		<li class="nav-item {{ Request::is('leads/create') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ url('leads') }}">
+            <i class="fa fa-line-chart" ></i> Leads
+          </a>
+        </li>
+		<?php elseif(Request::is('leads/edit/id/'.$req)): ?>
+		<li class="nav-item active">
+          <a class="nav-link" href="{{ url('leads') }}">
+            <i class="fa fa-line-chart" ></i> Leads
+          </a>
+        </li>
+		<?php elseif(Request::is('leads/lead-details/id/'.$req)): ?>
+		<li class="nav-item active">
+          <a class="nav-link" href="{{ url('leads') }}">
+            <i class="fa fa-line-chart" ></i> Leads
+          </a>
+        </li>
+		<?php elseif(Request::is('leads/add-new-notes/id/'.$req)): ?>
+		<li class="nav-item active">
+          <a class="nav-link" href="{{ url('leads') }}">
+            <i class="fa fa-line-chart" ></i> Leads
+          </a>
+        </li>
+		<?php elseif(Request::is('leads/add-task/id/'.$req)): ?>
+		<li class="nav-item active">
+          <a class="nav-link" href="{{ url('leads') }}">
+            <i class="fa fa-line-chart" ></i> Leads
+          </a>
+        </li>
+		<?php else: ?>
 		<li class="nav-item {{ Request::is('leads') ? 'active' : '' }}">
           <a class="nav-link" href="{{ url('leads') }}">
             <i class="fa fa-line-chart" ></i> Leads
           </a>
         </li>
+		<?php endif; ?>
+		
+		<?php if(Request::is('clients/create')): ?>
+		<li class="nav-item {{ Request::is('clients/create') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ url('clients') }}">
+            <i class="fa fa-black-tie"></i> Clients
+          </a>
+        </li>
+		<?php elseif(Request::is('clients/edit/id/'.$req)): ?>
+		<li class="nav-item active">
+          <a class="nav-link" href="{{ url('clients') }}">
+            <i class="fa fa-black-tie"></i> Clients
+          </a>
+        </li>
+		<?php elseif(Request::is('clients/client-details/id/'.$req)): ?>
+		<li class="nav-item active">
+          <a class="nav-link" href="{{ url('clients') }}">
+            <i class="fa fa-black-tie"></i> Clients
+          </a>
+        </li>
+		<?php elseif(Request::is('clients/add-task/id/'.$req)): ?>
+		<li class="nav-item active">
+          <a class="nav-link" href="{{ url('clients') }}">
+            <i class="fa fa-black-tie"></i> Clients
+          </a>
+        </li>
+		<?php elseif(Request::is('clients/add-new-notes/id/'.$req)): ?>
+		<li class="nav-item active">
+          <a class="nav-link" href="{{ url('clients') }}">
+            <i class="fa fa-black-tie"></i> Clients
+          </a>
+        </li>
+		<?php elseif(Request::is('clients/add-new-case/id/'.$req)): ?>
+		<li class="nav-item active">
+          <a class="nav-link" href="{{ url('clients') }}">
+            <i class="fa fa-black-tie"></i> Clients
+          </a>
+        </li>
+		
+		<?php else: ?>
 		<li class="nav-item {{ Request::is('clients') ? 'active' : '' }}">
           <a class="nav-link" href="{{ url('clients') }}">
             <i class="fa fa-black-tie"></i> Clients
           </a>
         </li>
+		<?php endif; ?>
+		
+		<?php if(Request::is('cases/edit/id/'.$req)): ?>
+		<li class="nav-item active">
+          <a class="nav-link" href="{{ url('cases') }}">
+            <i class="fa fa-suitcase"></i> Cases
+          </a>
+        </li>
+		<?php elseif(Request::is('cases/case-details/id/'.$req)): ?>
+		<li class="nav-item active">
+          <a class="nav-link" href="{{ url('cases') }}">
+            <i class="fa fa-suitcase"></i> Cases
+          </a>
+        </li>
+		<?php elseif(Request::is('cases/add-new-notes/id/'.$req)): ?>
+		<li class="nav-item active">
+          <a class="nav-link" href="{{ url('cases') }}">
+            <i class="fa fa-suitcase"></i> Cases
+          </a>
+        </li>
+		<?php else: ?>
 		<li class="nav-item {{ Request::is('cases') ? 'active' : '' }}">
           <a class="nav-link" href="{{ url('cases') }}">
             <i class="fa fa-suitcase"></i> Cases
           </a>
         </li>
+		<?php endif; ?>
+		
+		<?php if(Request::is('tasks/create')): ?>
+		<li class="nav-item active">
+          <a class="nav-link" href="{{ url('tasks') }}">
+           <i class="fa fa-tasks" aria-hidden="true"></i> Tasks
+          </a>
+        </li>
+		
+		<?php else: ?>
 		<li class="nav-item {{ Request::is('tasks') ? 'active' : '' }}">
           <a class="nav-link" href="{{ url('tasks') }}">
            <i class="fa fa-tasks" aria-hidden="true"></i> Tasks
           </a>
         </li>
+		<?php endif; ?>
+		
 		<li class="nav-item {{ Request::is('invoices') ? 'active' : '' }}">
           <a class="nav-link" href="{{ url('invoices') }}">
            <i class="fa fa-money" aria-hidden="true"></i> Invoices
           </a>
         </li>
-       
+        
+		<li class="nav-item ">
+          <a class="nav-link" href="#">
+           <i class="fa fa-history" aria-hidden="true"></i> RECENTLY VIEWED
+          </a>
+        </li>
        
       </ul>
 	  @yield('content')
@@ -212,7 +321,7 @@
 	
 	@endif
 	
-	<?php $req = request()->route('id'); ?>
+	
 	<?php if(Request::is('tasks/edit/id/'.$req)): ?>		
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -229,6 +338,22 @@
 	
 	<?php endif; ?>
 	<?php if(Request::is('clients/add-task/id/'.$req)): ?>		
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+		<script type="text/javascript">
+
+			$('.date').datepicker({  
+				format: 'dd-mm-yyyy',
+				todayHighlight: true,
+				
+			 });  
+
+		</script>  
+	
+	<?php endif; ?>
+	
+	<?php if(Request::is('leads/add-task/id/'.$req)): ?>		
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>

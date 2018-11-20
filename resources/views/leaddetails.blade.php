@@ -60,8 +60,10 @@
 							<a href="{{ url('leads') }}" class="pull-right">Back to Leads</a>
 						</div>
 						<div class="card-body">
-							<a href="{{ action('LeadController@edit', $lead['id']) }}" class="pull-right btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</a>
+							<a href="{{ url('leads/convert/id', $lead['id']) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-exchange" aria-hidden="true"></i> Convert</a>
+							<a href="{{ action('LeadController@edit', $lead['id']) }}" style="margin-right:8px;" class="pull-right btn btn-success" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</a>
 							<a href="{{ url('leads/add-task/id', $lead['id']) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-tasks" aria-hidden="true"></i> Add New Task</a>
+							
 							<br>
 							<br>
 							<div class="form-group">
