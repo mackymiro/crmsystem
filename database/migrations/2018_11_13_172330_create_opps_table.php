@@ -13,28 +13,30 @@ class CreateOppsTable extends Migration
      */
     public function up()
     {
-        Schema::create('opps', function (Blueprint $table) {
-            $table->increments('id');
-			$table->integer('client_id');
-			$table->string('code');
-			$table->string('contacts');
-			$table->string('email');
-			$table->string('phone_number');
-			$table->string('company');
-			$table->string('case_name');
-			$table->string('case_stage');
-			$table->string('description');
-			$table->decimal('estimated_amount', 10, 2);
-			$table->decimal('actual_amount', 10, 2);
-			$table->string('national_insurance');
-			$table->string('registered');
-			$table->string('charge_percentage');
-			$table->string('utr');
-			$table->string('authority_letter');
-			$table->string('bank_authority');
-			$table->string('owner');
-            $table->timestamps();
-        });
+		if(!Schema::hasTable('opps')) {
+			Schema::create('opps', function (Blueprint $table) {
+				$table->increments('id');
+				$table->integer('client_id');
+				$table->string('code');
+				$table->string('contacts');
+				$table->string('email');
+				$table->string('phone_number');
+				$table->string('company');
+				$table->string('case_name');
+				$table->string('case_stage');
+				$table->string('description');
+				$table->decimal('estimated_amount', 10, 2);
+				$table->decimal('actual_amount', 10, 2);
+				$table->string('national_insurance');
+				$table->string('registered');
+				$table->string('charge_percentage');
+				$table->string('utr');
+				$table->string('authority_letter');
+				$table->string('bank_authority');
+				$table->string('owner');
+				$table->timestamps();
+			});
+		}
     }
 
     /**

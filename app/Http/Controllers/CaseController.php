@@ -154,6 +154,7 @@ class CaseController extends Controller
 		//get the last insert id query in table opps
 		$data = DB::select('SELECT id, code FROM opps ORDER BY id DESC LIMIT 1');
 
+		//if code is not zero add plus 1
 		if(isset($data[0]->code) != 0){
 			//if code is not 0
 			$newNum = $data[0]->code +1;

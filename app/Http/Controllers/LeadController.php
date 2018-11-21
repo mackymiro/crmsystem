@@ -11,13 +11,177 @@ use App\Client;
 use App\User;
 use App\Note;
 use App\Task;
+use App\Opp;
+use App\RecentlyViewed;
 
 use Session; 
 
 use Auth;
+use Response;
 
 class LeadController extends Controller
 {
+	
+	//store case
+	public function storeCase(Request $request, $id){
+		$lead = Lead::find($id);
+		$leadId = json_encode($lead->id);
+		 
+		
+		//validate fields
+		$this->validate($request, [
+			'caseStage'=>'required|not_in:0',
+			'estimatedAmount'=>'numeric|min:2|max:10000',
+			'finalAmount'=>'numeric|min:2|max:10000',
+			
+		]);
+		
+		//get the user account login
+		$fName =  Auth::user()->first_name;
+		$lName = Auth::user()->last_name;
+		
+		$owner = $fName." ".$lName; 
+		
+		
+		$checkbox = $request->get('createCase');
+		
+		//get the last insert id query in table opps
+		$data = DB::select('SELECT id, code FROM opps ORDER BY id DESC LIMIT 1');
+		
+		//if code is not zero add plus 1
+		if(isset($data[0]->code) != 0){
+			//if code is not 0
+			$newNum = $data[0]->code +1;
+			$uNum = sprintf("%06d",$newNum);	
+		}else{
+			//if code is 0 
+			$newNum = 1;
+			$uNum = sprintf("%06d",$newNum);
+		}
+		
+		
+		$checkbox = $request->get('createCase');
+		
+		//if user checks the checkbox will not create a case 
+		if($checkbox == "on"){
+			//save to clients table
+			$client = new Client([
+				'title'=>$request->get('title'),
+				'first_name' =>$request->get('firstName'),
+				'middle_name'=>$request->get('middleName'),
+				'last_name'=>$request->get('lastName'),
+				'contact_status'=>$request->get('leadStatus'),
+				'dob'=>$request->get('dob'),
+				'profession'=>$request->get('profession'),
+				'phone_number'=>$request->get('phoneNumber'),
+				'email'=>$request->get('email'),
+				'mobile_number'=>$request->get('mobileNumber'),
+				'referral'=>$request->get('referral'),
+				'employment_type'=>$request->get('employmentType'),
+				'national_insurance'=>$request->get('nationalInsurance'),
+				'utr'=>$request->get('utr'),
+				'registered'=>$request->get('648reg'),
+				'authority_letter'=>$request->get('authLetter'),
+				'bank_authority'=>$request->get('bankAuth'),
+				'street'=>$request->get('streets'),
+				'city'=>$request->get('city'),
+				'province'=>$request->get('province'),
+				'zip'=>$request->get('zip'),
+				'country'=>$request->get('country'),
+				'description'=>$request->get('description'),
+				'owner'=>$owner,
+		
+			]);
+			
+			$client->save();
+			
+			$flag = 1;
+			
+			//update leads table
+			$lead->lead_status = $request->get('leadStatus');
+			$lead->flag = $flag;
+			
+			$lead->save();
+			
+			Session::flash('convertCreated', 'Successfully converted as clients');
+			
+			return redirect('leads/convert/id/'.$leadId);
+			
+			
+		}else{
+			//create a case in table opps
+			$client = new Client([
+				'title'=>$request->get('title'),
+				'first_name' =>$request->get('firstName'),
+				'middle_name'=>$request->get('middleName'),
+				'last_name'=>$request->get('lastName'),
+				'contact_status'=>$request->get('leadStatus'),
+				'dob'=>$request->get('dob'),
+				'profession'=>$request->get('profession'),
+				'phone_number'=>$request->get('phoneNumber'),
+				'email'=>$request->get('email'),
+				'mobile_number'=>$request->get('mobileNumber'),
+				'referral'=>$request->get('referral'),
+				'employment_type'=>$request->get('employmentType'),
+				'national_insurance'=>$request->get('nationalInsurance'),
+				'utr'=>$request->get('utr'),
+				'registered'=>$request->get('648reg'),
+				'authority_letter'=>$request->get('authLetter'),
+				'bank_authority'=>$request->get('bankAuth'),
+				'street'=>$request->get('streets'),
+				'city'=>$request->get('city'),
+				'province'=>$request->get('province'),
+				'zip'=>$request->get('zip'),
+				'country'=>$request->get('country'),
+				'description'=>$request->get('description'),
+				'owner'=>$owner,
+		
+			]);
+			
+			$client->save();
+			$retId = $client->id;
+			Response::json(['success' => true,'id' => $retId], 200); 
+			
+			$firstName = $request->get('firstName');
+			$lastName = $request->get('lastName');
+			
+			$contactName = $firstName." ".$lastName; 
+			
+			//save to cases table/ opp
+			$case = new Opp([
+				'code'=>$uNum,
+				'client_id'=>$retId,
+				'contacts'=>$contactName,
+				'case_name'=>$request->get('caseName'),
+				'case_stage'=>$request->get('caseStage'),
+				'estimated_amount'=>$request->get('estimatedAmount'),
+				'actual_amount'=>$request->get('finalAmount'),
+				'owner'=>$owner,
+			]);
+			
+			$case->save();
+			
+			
+			$flag = 1;
+			
+			//update leads table
+			$lead->lead_status = $request->get('leadStatus');
+			$lead->flag = $flag;
+			
+			$lead->save();
+			
+			Session::flash('convertCreated', 'Successfully converted as clients');
+			return redirect('leads/convert/id/'.$leadId);
+			
+			
+		}
+		
+	
+		
+		
+		
+	}
+	
 	//convert page
 	public function convert($id){
 		$lead = Lead::find($id);
@@ -160,10 +324,22 @@ class LeadController extends Controller
 		$lead = Lead::find($id);
 		
 		$leadId = json_encode($lead->id);
-		
+		$leadFirstName = json_encode($lead->first_name);
+		$leadLastName = json_encode($lead->last_name);
+		//echo $leadId; 
+		//echo $lead;
 		//query to notes table to get the lead id per lead profile
 		$notes = DB::table('notes')->where('lead_id', $leadId)->get()->toArray();
 		
+		//save the lead details per visit in recently viewed table
+
+		$status = "leads";
+		$recently = new RecentlyViewed([
+			'flag_id'=>$leadId,
+			'status'=>$status,
+			'first_name'=>$leadFirstName,
+			'last_name'=>$leadLastName,
+		]);
 		
 		return view('leaddetails', compact('lead', 'notes'));
 	}

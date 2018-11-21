@@ -42,6 +42,8 @@ class CreateLeadsTable extends Migration
 				$table->string('country');
 				$table->string('lead_assignment');
 				$table->text('description');
+				$table->integer('flag');
+				$table->string('owner');
 				$table->timestamps();
 			});
 		}

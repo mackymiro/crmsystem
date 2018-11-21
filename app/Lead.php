@@ -33,6 +33,7 @@ class Lead extends Model
 		'country',
 		'lead_assignment',
 		'description',
+		'flag',
 		'owner',
 	];
 }
