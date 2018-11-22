@@ -50,17 +50,13 @@
 								<thead>
 									<tr>
 									  @if(Auth::user()->role_type == 2)
-										<th>Action</th>
+										<th width="10px;">Action</th>
 									  @endif
 									  <th width="140px;">Code</th>
-									  <th>Case Name</th>
-									  <th>Contact Name</th>
-									  <th>Stage</th>
-									  <th>Description</th>
-									  <th>Estimated Amount</th>
-									  <th>Actual Amount</th>
-									  <th>Owner</th>
-									  <th>Created Date</th>
+									  <th width="120px;">Tax Year</th>
+									  <th width="200px;">Contact Name</th>
+									  <th width="130px;">Owner</th>
+									  <th width="130px;">Created Date</th>
 									</tr>
 								</thead>
 								<tfoot>
@@ -69,12 +65,8 @@
 										<th>Action</th>
 									  @endif
 									  <th>Code</th>
-									  <th>Case Name</th>
+									  <th>Tax Year</th>
 									  <th>Contact Name</th>
-									  <th>Stage</th>
-									  <th>Description</th>
-									  <th>Estimated Amount</th>
-									  <th>Actual Amount</th>
 									  <th>Owner</th>
 									  <th>Created Date</th>
 									</tr>
@@ -88,12 +80,9 @@
 											</td>
 										@endif
 										<td><a title="OPP-{{ $opp['code'] }}" href="{{ url('cases/case-details/id', $opp['id']) }}" >OPP-{{ $opp['code'] }}</a></td>
-										<td>{{ $opp['case_name'] }}</td>
+										<td>{{ $opp['tax_year'] }}</td>
 										<td>{{ $opp['contacts'] }}</td>
-										<td>{{ $opp['case_stage'] }}</td>
-										<td>{{ $opp['description'] }}</td>
-										<td>{{ $opp['estimated_amount'] }}</td>
-										<td>{{ $opp['actual_amount'] }}</td>
+									
 										<td>{{ $opp['owner'] }}</td>
 										<td>{{ $opp['created_at'] }}</td>
 									</tr>

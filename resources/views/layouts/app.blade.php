@@ -269,7 +269,32 @@
            <i class="fa fa-history" aria-hidden="true"></i> RECENTLY VIEWED
           </a>
         </li>
-       
+		<?php 
+			//get the date today
+			$date = date('Y-m-d');
+			
+		?>
+		
+		<?php foreach($views as $view): ?>
+			<?php
+				$createdAt = $view['created_at'];
+				$cAt = explode(" ", $createdAt);
+			?>
+			<?php if($cAt[0] == $date): ?>
+			<li class="nav-item ">
+			  <?php if($view['status'] == "leads"): ?>
+				  <a class="nav-link" href="{{ url('leads/lead-details/id/'.$view['lead_id']) }}">
+				   <i class="fa fa-user-circle"></i> {{ $view['first_name']}} {{ $view['last_name']}}
+				  </a>
+			  <?php else: ?>
+				<a class="nav-link" href="{{ url('clients/client-details/id/'.$view['client_id']) }}">
+				   <i class="fa fa-user-circle"></i> {{ $view['first_name']}} {{ $view['last_name']}}
+				</a>
+			   <?php endif; ?>
+			</li>
+			<?php endif; ?>
+		<?php endforeach; ?>
+		
       </ul>
 	  @yield('content')
 	  

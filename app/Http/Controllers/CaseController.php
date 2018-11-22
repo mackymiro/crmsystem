@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Client; 
 use App\Opp;
 use App\Note;
+use App\RecentlyViewed;
 
 use Session; 
 use Auth;
@@ -86,7 +87,10 @@ class CaseController extends Controller
 	public function addNewNotes($id){
 		$opp = Opp::find($id);
 		
-		return view('addnewnotescase', compact('id'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('addnewnotescase', compact('id', 'views'));
 	}
 
 	public function casesDetails($id){
@@ -97,7 +101,10 @@ class CaseController extends Controller
 		//query to notes table to get the case id per case profile
 		$notes = DB::table('notes')->where('case_id', $caseId)->get()->toArray();
 		
-		return view('casesdetails', compact('opp', 'notes'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('casesdetails', compact('opp', 'notes', 'views'));
 	}
 	
 	
@@ -111,7 +118,10 @@ class CaseController extends Controller
         //
 		$opps = Opp::all()->toArray();
 		
-		return view('case', compact('opps'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('case', compact('opps', 'views' ));
     }
 
     /**
@@ -124,7 +134,10 @@ class CaseController extends Controller
         //
 		$clients = Client::all()->toArray();
 		
-		return view('createcase', compact('clients'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('createcase', compact('clients', 'views'));
     }
 
     /**
@@ -138,11 +151,7 @@ class CaseController extends Controller
         //validate fields
 		$this->validate($request, [
 			'contacts' =>'required|not_in:0',
-			'caseName'=>'required|string|max:255',
-			'caseStage'=>'required|not_in:0',
-			'description'=>'required|string|max:255',
-			'estimatedAmount'=>'numeric|min:2|max:10000',
-			'actualAmount'=>'numeric|min:2|max:10000',
+			'taxYear'=>'required|not_in:0',
 		]);
 		
 		//get the user account login 
@@ -167,6 +176,7 @@ class CaseController extends Controller
 			
 		$clientName = $request->get('contacts');
 		
+		
 		$contact = explode("-", $clientName);
 		$cName_0 = $contact[0];
 		$cName = $contact[1];
@@ -175,11 +185,7 @@ class CaseController extends Controller
 			'code'=>$uNum,
 			'client_id'=>$cName_0,
 			'contacts'=>$cName,
-			'case_name'=>$request->get('caseName'),
-			'case_stage'=>$request->get('caseStage'),
-			'description'=>$request->get('description'),
-			'estimated_amount'=>$request->get('estimatedAmount'),
-			'actual_amount'=>$request->get('actualAmount'),
+			'tax_year'=>$request->get('taxYear'),
 			'owner'=>$owner,
 		]);
 		
@@ -214,7 +220,10 @@ class CaseController extends Controller
 		$opp = Opp::find($id);
 		$clients = Client::all()->toArray();
 		
-		return view('editcase', compact('opp','id', 'clients'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('editcase', compact('opp','id', 'clients', 'views'));
 		
 	}
 
@@ -238,10 +247,7 @@ class CaseController extends Controller
 		
 		$opp->client_id = $cName_0;
 		$opp->contacts = $cName;
-		$opp->case_stage = $request->get('caseStage');
-		$opp->description = $request->get('description');
-		$opp->estimated_amount = $request->get('estimatedAmount');
-		$opp->actual_amount = $request->get('actualAmount');
+		$opp->tax_year = $request->get('taxYear');
 		$opp->national_insurance = $request->get('nationalInsurance');
 		$opp->registered = $request->get('648reg');
 		$opp->charge_percentage = $request->get('chargePercentage');

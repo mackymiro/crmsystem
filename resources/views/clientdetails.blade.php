@@ -54,6 +54,48 @@
 				<div class="col-lg-8">
 					<div class="card mb-3">
 						<div class="card-header">
+							<i class="fa fa-cog"></i>
+							Process
+						</div> 
+						<div class="card-body">
+							<div class="form-group">
+								<div class="form-row">
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="table table-bordered"  width="100%" cellspacing="0">
+												<thead>
+													<tr >
+													  <th width="120px;" class="alert alert-success">Profiled </th>
+													  <th >Pack Out </th>
+													  <th >Pack Received </th>
+													  <th>In Processing</th>
+													  <th>Submitted</th>
+													  <th>Money Received</th>
+													  <th>Client on Paylist</th>
+													  <th>Client Paid</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="alert alert-danger">7 days</td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card mb-3">
+						<div class="card-header">
 							<i class="fa fa-user-plus"></i>
 							Client Detail
 							<a href="{{ url('clients') }}" class="pull-right">Back to Clients</a>
@@ -64,6 +106,7 @@
 							<br>
 							<a href="{{ action('ClientController@edit', $client['id']) }}" class="pull-right btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</a>
 							<a href="{{ url('clients/add-task/id', $client['id']) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-tasks" aria-hidden="true"></i> Add New Task</a>
+							
 							<br>
 							<br>
 							<div style="clear:both"></div>
@@ -406,10 +449,7 @@
 											<tr>
 											  <th width="140px;">Code</th>
 											  <th>Name</th>
-											  <th>Stage</th>
-											  <th>Description</th>
-											  <th>Est.Amount</th>
-											  <th>Actual Amount</th>
+											  <th>Tax Year</th>
 											  <th>Created Date</th>
 											  <th>Last Modified By</th>
 											</tr>
@@ -418,10 +458,8 @@
 											<tr>
 											  <th>Code</th>
 											  <th>Name</th>
-											  <th>Stage</th>
-											  <th>Description</th>
-											  <th>Est.Amount</th>
-											  <th>Actual Amount</th>
+											  <th>Tax Year</th>
+											 
 											  <th>Created Date</th>
 											  <th>Last Modified By</th>
 											</tr>
@@ -429,12 +467,10 @@
 										<tbody>
 											@foreach($cases as $case)
 											<tr>
-												<td><a href="" title="OPP-{{ $case->code }}" >OPP-{{ $case->code }}</a></td>
+												<td><a href="{{ url('cases/case-details/id', $case->id) }}" title="OPP-{{ $case->code }}" >OPP-{{ $case->code }}</a></td>
 												<td>{{ $case->contacts }}</td>
-												<td>{{ $case->case_stage }}</td>
-												<td>{{ $case->description }}</td>
-												<td>{{ $case->estimated_amount }}</td>
-												<td>{{ $case->actual_amount }}</td>
+												<td>{{ $case->tax_year }}</td>
+												
 												<td>{{ $case->created_at }}</td>
 												<td>{{ $case->email }}</td>
 											</tr>

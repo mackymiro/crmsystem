@@ -60,13 +60,10 @@
 											<table class="table table-bordered"  width="100%" cellspacing="0">
 												<thead>
 													<tr>
-														<th width="150px;">Case Name: </th>
-														<td>{{ $opp->case_name }}</td>
+														<th width="150px;">Tax Year: </th>
+														<td>{{ $opp->tax_year }}</td>
 													</tr>
-													<tr>
-													  <th>Estimated Amount: </th>
-													  <td>{{ $opp->estimated_amount }}</td>					
-													</tr>
+													
 													<tr>
 													  <th>National Insurance: </th>
 													  <td>{{ $opp->national_insurance }}</td>					
@@ -79,10 +76,7 @@
 													  <th>Charge Percentage: </th>
 													  <td>{{ $opp->charge_percentage }}</td>					
 													</tr>
-													<tr>
-													  <th>Description: </th>
-													  <td>{{ $opp->description }}</td>					
-													</tr>
+													
 													<tr>
 													  <th>Created By: </th>
 													  <td>{{ $opp->created_at }}</td>					
@@ -99,10 +93,7 @@
 														<th width="150px;">Case Storage: </th>
 														<td>{{ $opp->case_stage }}</td>
 													</tr>
-													<tr>
-														<th>Actual Amount: </th>
-														<td>{{ $opp->actual_amount }}</td>
-													</tr>
+													
 													<tr>
 														<th>UTR: </th>
 														<td>{{ $opp->utr }}</td>

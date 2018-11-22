@@ -175,10 +175,7 @@ class LeadController extends Controller
 			
 			
 		}
-		
 	
-		
-		
 		
 	}
 	
@@ -186,7 +183,9 @@ class LeadController extends Controller
 	public function convert($id){
 		$lead = Lead::find($id);
 		
-		return view('convert', compact('lead'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		return view('convert', compact('lead', 'views'));
 	}
 	
 	//store task
@@ -234,8 +233,10 @@ class LeadController extends Controller
 		$lead = Lead::find($id);
 		
 		$users = User::all()->toArray();
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
 		
-		return view('addtasklead', compact('lead', 'users'));
+		return view('addtasklead', compact('lead', 'users', 'views'));
 	}
 	
 	public function storeNotes(Request $request, $id){
@@ -316,7 +317,10 @@ class LeadController extends Controller
 	public function addNewNotes($id){	
 		$lead = Lead::find($id);
 		
-		return view('addnewnoteslead', compact('id'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('addnewnoteslead', compact('id', 'views'));
 	}
 
 	//lead detail profile
@@ -324,24 +328,43 @@ class LeadController extends Controller
 		$lead = Lead::find($id);
 		
 		$leadId = json_encode($lead->id);
-		$leadFirstName = json_encode($lead->first_name);
-		$leadLastName = json_encode($lead->last_name);
-		//echo $leadId; 
-		//echo $lead;
+		
+	
 		//query to notes table to get the lead id per lead profile
 		$notes = DB::table('notes')->where('lead_id', $leadId)->get()->toArray();
 		
-		//save the lead details per visit in recently viewed table
-
-		$status = "leads";
-		$recently = new RecentlyViewed([
-			'flag_id'=>$leadId,
-			'status'=>$status,
-			'first_name'=>$leadFirstName,
-			'last_name'=>$leadLastName,
-		]);
+		//query from recently viewed tables if already exists
+		$views = DB::table('recently_vieweds')->where('lead_id', $leadId)->get()->toArray();
 		
-		return view('leaddetails', compact('lead', 'notes'));
+		//get the date today
+		$date = date('Y-m-d H:i:s');
+	
+		//print_r($views[0]->created_at);
+
+		
+		//check if exists to table recently viewed
+		
+		if($date != isset($views[0]->created_at)){
+			
+			//save the lead details per visit in recently viewed table
+			$status = "leads";
+			$client_id = 0;
+			$recently = new RecentlyViewed([
+				'lead_id'=>$leadId,
+				'client_id'=>$client_id,
+				'status'=>$status,
+				'first_name'=>$lead->first_name,
+				'last_name'=>$lead->last_name,
+			]);
+			
+			$recently->save();
+		}
+		
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		
+		return view('leaddetails', compact('lead', 'notes', 'views'));
 	}
 	
 	
@@ -367,7 +390,10 @@ class LeadController extends Controller
 		//get lead id
 		$leadID  = Lead::find($id);
 		
-		return view('assignlead', compact('users', 'leadID'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('assignlead', compact('users', 'leadID', 'views'));
 	}
 	
     /**
@@ -380,7 +406,10 @@ class LeadController extends Controller
         //
 		$leads = Lead::all()->toArray();
 		
-		return view('lead', compact('leads'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('lead', compact('leads', 'views'));
     }
 
     /**
@@ -395,8 +424,10 @@ class LeadController extends Controller
 		
 		$users = User::all()->toArray();
 		
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
 			
-		return view('createlead', compact('referralPersons', 'users'));
+		return view('createlead', compact('referralPersons', 'users', 'views'));
     }
 
     /**
@@ -495,7 +526,10 @@ class LeadController extends Controller
 		
 		$users = User::all()->toArray();
 		
-		return view('editlead', compact('lead', 'id', 'referralPersons', 'users'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('editlead', compact('lead', 'id', 'referralPersons', 'users', 'views'));
     }
 
     /**

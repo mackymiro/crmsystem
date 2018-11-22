@@ -10,6 +10,7 @@ use App\Opp;
 use App\User;
 use App\Note;
 use App\Task;
+use App\RecentlyViewed;
 
 use Session;
 use Auth;
@@ -63,18 +64,17 @@ class ClientController extends Controller
 		
 		$users = User::all()->toArray();
 		
-		return view('addtask', compact('client', 'users'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('addtask', compact('client', 'users', 'views'));
 	}
 	
 	//store add new case 
 	public function storeCase(Request $request){
 		//validate fields
 		$this->validate($request, [
-			'caseName'=>'required|string|max:255',
-			'caseStage'=>'required|not_in:0',
-			'description'=>'required|string|max:255',
-			'estimatedAmount'=>'numeric|min:2|max:10000',
-			'actualAmount'=>'numeric|min:2|max:10000',
+			'taxYear'=>'required|not_in:0',
 		]);
 		
 		//get the user account login 
@@ -100,11 +100,7 @@ class ClientController extends Controller
 			'code'=>$uNum,
 			'client_id'=>$request->get('clientId'),
 			'contacts'=>$request->get('contacts'),
-			'case_name'=>$request->get('caseName'),
-			'case_stage'=>$request->get('caseStage'),
-			'description'=>$request->get('description'),
-			'estimated_amount'=>$request->get('estimatedAmount'),
-			'actual_amount'=>$request->get('actualAmount'),
+			'tax_year'=>$request->get('taxYear'),
 			'owner'=>$owner,
 		]);
 		
@@ -122,8 +118,10 @@ class ClientController extends Controller
 	public function addNewCase($id){
 		$client = Client::find($id);
 		
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
 		
-		return view('addnewcase', compact('client', 'id'));
+		return view('addnewcase', compact('client', 'id', 'views'));
 	}
 	
 	
@@ -205,8 +203,10 @@ class ClientController extends Controller
 	public function addNewNotes($id){
 		$client = Client::find($id);
 		
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
 	
-		return view('addnewnotes', compact('id'));
+		return view('addnewnotes', compact('id', 'views'));
 	}
 	
 	//client details
@@ -223,8 +223,37 @@ class ClientController extends Controller
 		//query from case table to get the client id
 		$cases = DB::table('opps')->where('client_id', $clientId)->get()->toArray();
 		
+		//query from recently viewed tables if already exists
 		
-		return view('clientdetails', compact('client', 'notes', 'cases'));
+		$recent = DB::table('recently_vieweds')->where('client_id', $clientId)->get()->toArray();
+		
+		//get the date today
+		$date = date('Y-m-d');
+	
+		echo $date; 
+		
+		if($date){
+			//save the client details per visit in recently viewed table
+			$status = "clients";
+			$lead_id = 0;
+			$recently = new RecentlyViewed([
+				'lead_id'=>$lead_id,
+				'client_id'=>$clientId,
+				'status'=>$status,
+				'first_name'=>$client->first_name,
+				'last_name'=>$client->last_name,
+				'date'=>$date,
+			]);
+			
+			$recently->save();	
+			
+		}
+	
+	
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+
+		return view('clientdetails', compact('client', 'notes', 'cases', 'views'));
 		
 	}
 	
@@ -238,7 +267,10 @@ class ClientController extends Controller
         //
 		$clients = Client::all()->toArray();
 		
-		return view('client', compact('clients'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('client', compact('clients', 'views'));
     }
 
     /**
@@ -250,8 +282,10 @@ class ClientController extends Controller
     {
         //
 		$referralPersons = Client::all()->toArray();
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
 		
-		return view('createclient', compact('referralPersons'));
+		return view('createclient', compact('referralPersons', 'views'));
     }
 
     /**
@@ -353,9 +387,11 @@ class ClientController extends Controller
 		$client = Client::find($id);
 		
 		$referralPersons = Client::all()->toArray();
-			
 		
-		return view('editclient', compact('client', 'id', 'referralPersons'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('editclient', compact('client', 'id', 'referralPersons', 'views'));
     }
 
     /**

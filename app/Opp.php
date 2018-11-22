@@ -11,11 +11,7 @@ class Opp extends Model
 		'client_id',
 		'code',
 		'contacts',
-		'case_name',
-		'case_stage',
-		'description',
-		'estimated_amount',
-		'actual_amount',
+		'tax_year',
 		'owner',
 	];
 }

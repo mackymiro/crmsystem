@@ -47,36 +47,17 @@
 										@if(session('convertCreated'))
 											<p class="alert alert-success">{{ Session::get('convertCreated') }}</p>
 										@endif	
-										<label>Case Name; </label>
-										<input type="text" name="caseName" class="form-control" value="{{ old('caseName') }}" required />
-										<label>Case Stage; </label>
-										<div id="app-caseStage">
-											<select name="caseStage" class="form-control">
+										<label>Tax Year; </label>
+										<div id="app-taxYear">
+											<select name="taxYear" class="form-control">
 												<option value="0">--Please Select--</option>
-												<option v-for="caseStage in caseStages" v-bind:value="caseStage.value">
-													@{{ caseStage.text }}
+												<option v-for="taxYear in taxYears" v-bind:value="taxYear.value">
+													@{{ taxYear.text }}
 												</option>
 											</select>
-											@if ($errors->has('caseStage'))
-												<div class="alert alert-danger">
-													<strong>{{ $errors->first('caseStage') }}</strong>
-												</div>
-											@endif
 										</div>
-										<label>Estimated Amount; </label>
-										<input type="text" name="estimatedAmount" value="{{ old('estimatedAmount') }}" class="form-control" />
-										@if ($errors->has('estimatedAmount'))
-											<div class="alert alert-danger">
-												<strong>{{ $errors->first('estimatedAmount') }}</strong>
-											</div>
-										@endif
-										<label>Final Amount; </label>
-										<input type="text" name="finalAmount" value="{{ old('finalAmount') }}" class="form-control" />
-										@if ($errors->has('finalAmount'))
-											<div class="alert alert-danger">
-												<strong>{{ $errors->first('finalAmount') }}</strong>
-											</div>
-										@endif
+										
+										
 										<br>
 										<input type="checkbox" name="createCase"> <i>Do Not Create Case</i>
 										<input type="hidden" name="title" value="{{ $lead->title }}" />
@@ -120,25 +101,23 @@
 	</div>
 </div>
 <script>
-	//case stage
+	//tax year
 	new Vue({
-	el: '#app-caseStage',
+	el: '#app-taxYear',
 		data: {
-			caseStages:[
-				{ text:'STG-000001, collecting information', value: 'STG-000001, collecting information' },
-				{ text:'STG-000002, earnings and expenses collecting', value: 'STG-000002, earnings and expenses collecting'},
-				{ text:'STG-000003, awaiting 64/8 authorization', value: 'STG-000003, awaiting 64/8 authorization' },
-				{ text:'STG-000004, submitted to HRMC', value: 'STG-000004,  submitted to HRMC' },
-				{ text:'STG-000005, awaiting payment', value: 'STG-000005, awaiting payment' },
-				{ text:'STG-000006, case completed', value: 'STG-000006, case completed' },
-				{ text:'STG-000007, client paid', value: 'STG-000007, client paid' },
-				{ text:'STG-000008, chosen for audit', value: 'STG-000008, chosen for audit' },
-				{ text:'STG-000009, audit completed', value: 'STG-000009, audit completed' },
-				{ text:'STG-0000010, invoice paid', value: 'STG-0000010, invoice paid' },
-				{ text:'STG-0000011, for invoice', value: 'STG-0000011, for invoice' }	
+			taxYears:[
+				{ text:'2011-2012', value: '2011-2012' },
+				{ text:'2012-2013', value: '2012-2013'},
+				{ text:'2013-2014', value: '2013-2014' },
+				{ text:'2014-2015', value: '2014-2015' },
+				{ text:'2015-2016', value: '2015-2016' },
+				{ text:'2016-2017', value: '2016-2017' },
+				{ text:'2017-2018', value: '2017-2018' },
+				{ text:'UTR & Online set up', value: 'UTR & Online set up' },
+				{ text:'HMRC Online set up', value: 'HMRC Online set up' },
+				{ text:'PAYE charge', value: 'PAYE charge' },
 			]
 		}
-		
 	})
 </script>
 @endsection

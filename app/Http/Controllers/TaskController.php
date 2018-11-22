@@ -8,6 +8,8 @@ use App\Lead;
 use App\Client;
 use App\User; 
 use App\Task;
+use App\RecentlyViewed;
+
 use Session; 
 use Auth;
 
@@ -23,7 +25,10 @@ class TaskController extends Controller
         //
 		$tasks = Task::all()->toArray();
 		
-		return view('task', compact('tasks'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('task', compact('tasks', 'views'));
     }
 
     /**
@@ -38,7 +43,10 @@ class TaskController extends Controller
 		$clients = Client::all()->toArray();
 		$users = User::all()->toArray();
 		
-		return view('createtask', compact('leads', 'clients', 'users'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('createtask', compact('leads', 'clients', 'users', 'views'));
     }
 
     /**
@@ -124,7 +132,10 @@ class TaskController extends Controller
 		
 		$users = User::all()->toArray();
 		
-		return view('edittask', compact('task', 'leads', 'clients', 'users', 'id'));
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('edittask', compact('task', 'leads', 'clients', 'users', 'id', 'views'));
     }
 
     /**

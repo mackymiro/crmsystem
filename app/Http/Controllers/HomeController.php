@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\RecentlyViewed;
+
 
 class HomeController extends Controller
 {
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+        return view('home', compact('views'));
     }
 }

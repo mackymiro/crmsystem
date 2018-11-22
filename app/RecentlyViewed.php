@@ -8,10 +8,12 @@ class RecentlyViewed extends Model
 {
     //
 	protected $fillable = [
-		'flag_id',
+		'lead_id',
+		'client_id',
 		'status',
 		'first_name',
 		'last_name',
+		'date',
 	];
 	
 }
