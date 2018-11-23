@@ -21,6 +21,7 @@ class CreateRecentlyViewedsTable extends Migration
 			$table->string('first_name');
 			$table->string('last_name');
 			$table->date('date');
+			$table->string('flag_status');
             $table->timestamps();
         });
     }

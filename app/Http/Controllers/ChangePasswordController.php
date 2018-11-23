@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
+use App\RecentlyViewed;
+
 use Hash;
 
 class ChangePasswordController extends Controller
@@ -18,7 +20,11 @@ class ChangePasswordController extends Controller
     {
         //
 		$id =  Auth::user()->id;
-		return view('changepassword', compact('id'));
+		
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('changepassword', compact('id', 'views'));
 		
 		
 

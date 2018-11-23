@@ -148,11 +148,14 @@ class CaseController extends Controller
      */
     public function store(Request $request)
     {
+	
         //validate fields
 		$this->validate($request, [
 			'contacts' =>'required|not_in:0',
 			'taxYear'=>'required|not_in:0',
 		]);
+		
+
 		
 		//get the user account login 
 		$fName =  Auth::user()->first_name;
@@ -181,11 +184,21 @@ class CaseController extends Controller
 		$cName_0 = $contact[0];
 		$cName = $contact[1];
 		
+		$taxes = $request->get('taxYear');
+		
+		$mulTax = '';
+		
+		foreach($taxes as $key=>$tax){
+			$mulTax = $mulTax . $tax.",";
+			
+		}
+		
+		
 		$case = new Opp([
 			'code'=>$uNum,
 			'client_id'=>$cName_0,
 			'contacts'=>$cName,
-			'tax_year'=>$request->get('taxYear'),
+			'tax_year'=>rtrim($mulTax,','),
 			'owner'=>$owner,
 		]);
 		

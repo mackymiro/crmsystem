@@ -49,12 +49,18 @@
 										@endif	
 										<label>Tax Year; </label>
 										<div id="app-taxYear">
-											<select name="taxYear" class="form-control">
+											<select multiple name="taxYear[]" class="form-control">
 												<option value="0">--Please Select--</option>
 												<option v-for="taxYear in taxYears" v-bind:value="taxYear.value">
 													@{{ taxYear.text }}
 												</option>
 											</select>
+											@if ($errors->has('taxYear'))
+												<div class="alert alert-danger">
+													<strong>{{ $errors->first('taxYear') }}</strong>
+												</div>
+											@endif
+											<i style="color:red;">you can select multiple tax year. To do: Ctrl + Click</i>
 										</div>
 										
 										
@@ -112,10 +118,7 @@
 				{ text:'2014-2015', value: '2014-2015' },
 				{ text:'2015-2016', value: '2015-2016' },
 				{ text:'2016-2017', value: '2016-2017' },
-				{ text:'2017-2018', value: '2017-2018' },
-				{ text:'UTR & Online set up', value: 'UTR & Online set up' },
-				{ text:'HMRC Online set up', value: 'HMRC Online set up' },
-				{ text:'PAYE charge', value: 'PAYE charge' },
+				{ text:'2017-2018', value: '2017-2018' }
 			]
 		}
 	})

@@ -47,12 +47,18 @@
 									<div class="col-md-3">
 										<label>Tax Year; </label>
 										<div id="app-taxYear">
-											<select name="taxYear" class="form-control">
+											<select multiple name="taxYear[]" class="form-control">
 												<option value="0">--Please Select--</option>
 												<option v-for="taxYear in taxYears" v-bind:value="taxYear.value">
 													@{{ taxYear.text }}
 												</option>
 											</select>
+											<i style="color:red;">you can select multiple tax year</i>
+											@if ($errors->has('taxYear'))
+												<div class="alert alert-danger">
+													<strong>{{ $errors->first('taxYear') }}</strong>
+												</div>
+											@endif
 										</div>
 									</div>
 									

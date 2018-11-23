@@ -223,16 +223,19 @@ class ClientController extends Controller
 		//query from case table to get the client id
 		$cases = DB::table('opps')->where('client_id', $clientId)->get()->toArray();
 		
-		//query from recently viewed tables if already exists
-		
-		$recent = DB::table('recently_vieweds')->where('client_id', $clientId)->get()->toArray();
-		
 		//get the date today
 		$date = date('Y-m-d');
-	
-		echo $date; 
+
 		
-		if($date){
+		//query recently viewd tables check if date is the same
+		$view = DB::table('recently_vieweds')
+                    ->where('client_id', $clientId)
+                    ->where('date', $date)
+                    ->get()->toArray();
+					
+	
+		
+		if($date != isset($view[0]->date)){
 			//save the client details per visit in recently viewed table
 			$status = "clients";
 			$lead_id = 0;
@@ -248,8 +251,7 @@ class ClientController extends Controller
 			$recently->save();	
 			
 		}
-	
-	
+
 		//recently viewed
 		$views = RecentlyViewed::all()->toArray();
 

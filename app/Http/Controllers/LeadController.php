@@ -21,7 +21,7 @@ use Response;
 
 class LeadController extends Controller
 {
-	
+
 	//store case
 	public function storeCase(Request $request, $id){
 		$lead = Lead::find($id);
@@ -30,9 +30,7 @@ class LeadController extends Controller
 		
 		//validate fields
 		$this->validate($request, [
-			'caseStage'=>'required|not_in:0',
-			'estimatedAmount'=>'numeric|min:2|max:10000',
-			'finalAmount'=>'numeric|min:2|max:10000',
+			'taxYear'=>'required|not_in:0',
 			
 		]);
 		
@@ -57,6 +55,16 @@ class LeadController extends Controller
 			//if code is 0 
 			$newNum = 1;
 			$uNum = sprintf("%06d",$newNum);
+		}
+		
+		$taxes = $request->get('taxYear');
+		
+		$mulTax = '';
+		
+		//loop tax year
+		foreach($taxes as $key=>$tax){
+			$mulTax = $mulTax . $tax.",";
+			
 		}
 		
 		
@@ -102,6 +110,28 @@ class LeadController extends Controller
 			$lead->flag = $flag;
 			
 			$lead->save();
+			
+			//update recently viewed table
+			//get the date today
+			$date = date('Y-m-d');
+			
+			//query recently viewd tables check if date is the same
+			$view = DB::table('recently_vieweds')
+                    ->where('lead_id', $leadId)
+                    ->where('date', $date)
+                    ->get()->toArray();
+					
+			if($date  == $view[0]->date){
+				//update recently viewed tables
+				
+				$recent = RecentlyViewed::find($leadId);
+				$status = "Close/Converted";
+				
+				$recent->flag_status = $status;
+				$recent->save();
+			
+			}
+				
 			
 			Session::flash('convertCreated', 'Successfully converted as clients');
 			
@@ -152,10 +182,7 @@ class LeadController extends Controller
 				'code'=>$uNum,
 				'client_id'=>$retId,
 				'contacts'=>$contactName,
-				'case_name'=>$request->get('caseName'),
-				'case_stage'=>$request->get('caseStage'),
-				'estimated_amount'=>$request->get('estimatedAmount'),
-				'actual_amount'=>$request->get('finalAmount'),
+				'tax_year'=>rtrim($mulTax,','),
 				'owner'=>$owner,
 			]);
 			
@@ -170,13 +197,35 @@ class LeadController extends Controller
 			
 			$lead->save();
 			
+			
+			//update recently viewed table
+			//get the date today
+			$date = date('Y-m-d');
+		
+			//query recently viewd tables check if date is the same
+			$view = DB::table('recently_vieweds')
+                    ->where('lead_id', $leadId)
+                    ->where('date', $date)
+                    ->get()->toArray();
+			
+			if($date  == $view[0]->date){
+				//update recently viewed tables
+				
+				$recent = RecentlyViewed::find($leadId);
+				$status = "Close/Converted";
+				
+				$recent->flag_status = $status;
+				$recent->save();
+				
+			}
+			
+			
 			Session::flash('convertCreated', 'Successfully converted as clients');
 			return redirect('leads/convert/id/'.$leadId);
 			
 			
 		}
 	
-		
 	}
 	
 	//convert page
@@ -333,18 +382,17 @@ class LeadController extends Controller
 		//query to notes table to get the lead id per lead profile
 		$notes = DB::table('notes')->where('lead_id', $leadId)->get()->toArray();
 		
-		//query from recently viewed tables if already exists
-		$views = DB::table('recently_vieweds')->where('lead_id', $leadId)->get()->toArray();
-		
 		//get the date today
-		$date = date('Y-m-d H:i:s');
+		$date = date('Y-m-d');
+		
 	
-		//print_r($views[0]->created_at);
-
+		//query recently viewd tables check if date is the same
+		$view = DB::table('recently_vieweds')
+                    ->where('lead_id', $leadId)
+                    ->where('date', $date)
+                    ->get()->toArray();
 		
-		//check if exists to table recently viewed
-		
-		if($date != isset($views[0]->created_at)){
+		if($date != isset($view[0]->date)){
 			
 			//save the lead details per visit in recently viewed table
 			$status = "leads";
@@ -355,6 +403,7 @@ class LeadController extends Controller
 				'status'=>$status,
 				'first_name'=>$lead->first_name,
 				'last_name'=>$lead->last_name,
+				'date'=>$date,
 			]);
 			
 			$recently->save();

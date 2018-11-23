@@ -52,48 +52,51 @@
 					</div>
 				</div>
 				<div class="col-lg-8">
-					<div class="card mb-3">
-						<div class="card-header">
-							<i class="fa fa-cog"></i>
-							Process
-						</div> 
-						<div class="card-body">
-							<div class="form-group">
-								<div class="form-row">
-									<div class="col-md-12">
-										<div class="table-responsive">
-											<table class="table table-bordered"  width="100%" cellspacing="0">
-												<thead>
-													<tr >
-													  <th width="120px;" class="alert alert-success">Profiled </th>
-													  <th >Pack Out </th>
-													  <th >Pack Received </th>
-													  <th>In Processing</th>
-													  <th>Submitted</th>
-													  <th>Money Received</th>
-													  <th>Client on Paylist</th>
-													  <th>Client Paid</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td class="alert alert-danger">7 days</td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-													</tr>
-												</tbody>
-											</table>
+					@if($client->contact_status == "Close/Converted")
+						<div class="card mb-3">
+							<div class="card-header">
+								<i class="fa fa-cog"></i>
+								Process
+							</div> 
+							<div class="card-body">
+								<div class="form-group">
+									<div class="form-row">
+										<div class="col-md-12">
+											<div class="table-responsive">
+												<table class="table table-bordered"  width="100%" cellspacing="0">
+													<thead>
+														<tr >
+														  <th width="120px;" class="alert alert-success">Profiled </th>
+														  <th >Pack Out </th>
+														  <th >Pack Received </th>
+														  <th>In Processing</th>
+														  <th>Submitted</th>
+														  <th>Money Received</th>
+														  <th>Client on Paylist</th>
+														  <th>Client Paid</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="alert alert-danger">7 days</td>
+															<td></td>
+															<td></td>
+															<td></td>
+															<td></td>
+															<td></td>
+															<td></td>
+															<td></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<a href="" class="pull-right btn btn-success"><i class="fa fa-info"></i> Profiled</a>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					@endif
 					<div class="card mb-3">
 						<div class="card-header">
 							<i class="fa fa-user-plus"></i>

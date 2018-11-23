@@ -69,12 +69,8 @@
 								</div>
 								<div class="col-md-2">
 									<label>Middle Name; </label>
-									<input type="text" name="middleName" class="form-control" required />
-									@if ($errors->has('middleName'))
-										<div class="alert alert-danger">
-											<strong>{{ $errors->first('middleName') }}</strong>
-										</div>
-									@endif
+									<input type="text" name="middleName" class="form-control" />
+									
 								</div>
 							</div>
 						</div>

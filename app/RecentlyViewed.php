@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class RecentlyViewed extends Model
 {
+	
+	protected $primaryKey = "lead_id";
+	
     //
 	protected $fillable = [
 		'lead_id',
@@ -14,6 +17,7 @@ class RecentlyViewed extends Model
 		'first_name',
 		'last_name',
 		'date',
+		'flag_status',
 	];
 	
 }

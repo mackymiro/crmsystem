@@ -66,13 +66,24 @@
 									<div class="col-md-6">
 										<label>Contact Status; </label>
 										<div id="app-contactStatus">
-											<select name="contactStatus" class="form-control">
-												<option value="0">--Please Select--</option>
-												<option v-for="contactStatus in contactStatuses" v-bind:value="contactStatus.value"
-													:selected="contactStatus.value=={{json_encode($client->contact_status)}}?true : false">
-													@{{ contactStatus.text }}
-												</option>
-											</select>
+											@if($client->contact_status == "Close/Converted")
+												<select  disabled name="contactStatus" class="form-control">
+													<option value="0">--Please Select--</option>
+													<option v-for="contactStatus in contactStatuses" v-bind:value="contactStatus.value"
+														:selected="contactStatus.value=={{json_encode($client->contact_status)}}?true : false">
+														@{{ contactStatus.text }}
+													</option>
+												</select>
+											@else
+												<select name="contactStatus" class="form-control">
+													<option value="0">--Please Select--</option>
+													<option v-for="contactStatus in contactStatuses" v-bind:value="contactStatus.value"
+														:selected="contactStatus.value=={{json_encode($client->contact_status)}}?true : false">
+														@{{ contactStatus.text }}
+													</option>
+												</select>
+
+											@endif
 										</div>
 									</div>
 									<div class="col-md-2">
