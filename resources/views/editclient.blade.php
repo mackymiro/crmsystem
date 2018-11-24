@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Edit Clients | RMTG')
 @section('content')
+<?php error_reporting(0);?>
 <div id="content-wrapper">
 	<div class="container-fluid">
 		<!-- Breadcrumbs-->

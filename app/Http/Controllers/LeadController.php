@@ -102,6 +102,8 @@ class LeadController extends Controller
 			]);
 			
 			$client->save();
+			$retId = $client->id;
+			Response::json(['success' => true,'id' => $retId], 200); 
 			
 			$flag = 1;
 			
@@ -133,10 +135,9 @@ class LeadController extends Controller
 			}
 				
 			
-			Session::flash('convertCreated', 'Successfully converted as clients');
-			
-			return redirect('leads/convert/id/'.$leadId);
-			
+			//Session::flash('convertCreated', 'Successfully converted as clients');
+			//return redirect('leads/convert/id/'.$leadId);
+			return redirect('clients/client-details/id/'.$retId);
 			
 		}else{
 			//create a case in table opps
@@ -171,6 +172,8 @@ class LeadController extends Controller
 			$client->save();
 			$retId = $client->id;
 			Response::json(['success' => true,'id' => $retId], 200); 
+			
+			
 			
 			$firstName = $request->get('firstName');
 			$lastName = $request->get('lastName');
@@ -220,8 +223,9 @@ class LeadController extends Controller
 			}
 			
 			
-			Session::flash('convertCreated', 'Successfully converted as clients');
-			return redirect('leads/convert/id/'.$leadId);
+			//Session::flash('convertCreated', 'Successfully converted as clients');
+			//return redirect('leads/convert/id/'.$leadId);
+			return redirect('clients/client-details/id/'.$retId);
 			
 			
 		}

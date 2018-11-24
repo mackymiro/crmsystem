@@ -266,7 +266,7 @@
         
 		<li class="nav-item ">
           <a class="nav-link" href="#">
-           <i class="fa fa-history" aria-hidden="true"></i> RECENTLY VIEWED
+           <i class="fa fa-history" aria-hidden="true"></i> RECENTLY VIEWED (TODAY)
           </a>
         </li>
 		<?php 

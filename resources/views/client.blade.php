@@ -26,10 +26,10 @@
 								<thead>
 									<tr>
 									  <th>Action</th>
-									  <th>Name</th>
-									  <th>Email</th>
-									  <th>Phone</th>
-									  <th>Mobile</th>
+									  <th width="200px;">Name</th>
+									  <th width="200px;">Email</th>
+									  <th width="200px;">Phone</th>
+									  <th width="190px;">Mobile</th>
 									  <th>Created Date</th>
 									  <th>Owner</th>
 									</tr>

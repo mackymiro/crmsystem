@@ -90,7 +90,15 @@
 													</tbody>
 												</table>
 											</div>
-											<a href="" class="pull-right btn btn-success"><i class="fa fa-info"></i> Profiled</a>
+											<a href="" class="pull-right btn btn-success"><i class="fa fa-info"></i> Client Paid</a>
+											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Client on Paylist</a>
+											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Money Received</a>
+											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Submitted</a>
+											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> In Processing</a>
+											<a  href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Pack Received</a>
+											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Pack Out</a>
+											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Profiled</a>
+											
 										</div>
 									</div>
 								</div>
