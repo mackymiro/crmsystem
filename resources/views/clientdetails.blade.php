@@ -62,11 +62,40 @@
 								<div class="form-group">
 									<div class="form-row">
 										<div class="col-md-12">
+										
+						
 											<div class="table-responsive">
 												<table class="table table-bordered"  width="100%" cellspacing="0">
 													<thead>
 														<tr >
-														  <th width="120px;" class="alert alert-success">Profiled </th>
+															<?php
+																$date = date('Y-m-d');
+																echo $date;
+																echo "<br>";
+																//echo strtotime($date);
+																$startTimeStamp = strtotime($client->updated_at);
+																$endTimeStamp = strtotime($date);
+																//echo $startTimeStamp; 
+																
+																$timeDiff = abs($endTimeStamp - $startTimeStamp);
+																
+																$numberDays = $timeDiff/86400;  // 86400 seconds in one day
+																
+																$numberDays = intval($numberDays);
+																echo $numberDays; 
+																echo "<br>";
+															
+															?>
+															
+															<?php if($numberDays >= 2): ?>
+																<th width="120px;" class="">Profiled </th>
+															<?php elseif($numberDays <= 3): ?>
+																<th width="120px;" class="alert alert-warning">Profiled </th>
+															<?php elseif($numberDays >= 7): ?>
+																 <th width="120px;" class="alert alert-danger">Profiled </th>
+															<?php elseif($numberDays == 0): ?>
+																 <th width="120px;" >Profiled </th>	
+															<?php endif; ?>
 														  <th >Pack Out </th>
 														  <th >Pack Received </th>
 														  <th>In Processing</th>
@@ -78,7 +107,16 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="alert alert-danger">7 days</td>
+															<?php if($numberDays >= 2): ?>
+																<td class=""><?php echo $numberDays; ?> days</td>
+															<?php elseif($numberDays <= 3): ?>
+																<td class="alert alert-warning"><?php echo $numberDays; ?> days</td>
+															<?php elseif($numberDays >= 7): ?>
+																<td class="alert alert-danger"><?php echo $numberDays; ?> days</td>
+															<?php else: ?>
+															    <td ></td>
+															<?php endif; ?>
+										
 															<td></td>
 															<td></td>
 															<td></td>
