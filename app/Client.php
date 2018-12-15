@@ -40,5 +40,9 @@ class Client extends Model
 		'country',
 		'description',
 		'owner',
+		'process_profiled',
+		'process_packout',
+		'process_pack_received',
+		'process_in_processing',
 	];
 }

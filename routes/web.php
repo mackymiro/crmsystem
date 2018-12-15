@@ -73,6 +73,9 @@ Route::get('/clients/add-new-case/id/{id}', 'ClientController@addNewCase')->name
 Route::post('/clients/store-case', 'ClientController@storeCase')->name('addnewcase.storeCase');
 Route::get('/clients/add-task/id/{id}', 'ClientController@addTask')->name('addtask');
 Route::post('/clients/store-task/id/{id}', 'ClientController@storeTask')->name('addtask.storeTask');
+Route::get('/clients/profiled/id/{id}', 'ClientController@profiled')->name('clientdetails.profiled');
+Route::get('/clients/pack-out/id/{id}', 'ClientController@packOut')->name('clientdetails.packOut');
+Route::get('/clients/pack-received/id/{id}', 'ClientController@packReceived')->name('clientdetails.packreceived');
 
 // Route for tasks
 Route::get('/tasks', 'TaskController@index')->name('task');
@@ -92,3 +95,7 @@ Route::patch('/cases/update/{id}', 'CaseController@update')->name('createcase.up
 Route::delete('/cases/delete/{id}', 'CaseController@destroy')->name('createcase.destroy');
 Route::get('/cases/add-new-notes/id/{id}', 'CaseController@addNewNotes')->name('addnewnotescases');
 Route::post('/cases/store-notes/id/{id}', 'CaseController@storeNotes')->name('addnewnotescases.StoreNotes');
+
+
+//Route for invoices
+Route::get('/invoices', 'InvoiceController@index')->name('invoices');

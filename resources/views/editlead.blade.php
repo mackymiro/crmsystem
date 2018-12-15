@@ -335,7 +335,7 @@
 						<div class="form-group">
 							<div class="form-row">
 								<div class="col-md-4">
-									<label>Zip;</label>
+									<label>Postcode;</label>
 									<input type="text" name="zip" class="form-control" value="{{ $lead->zip }}" />
 								</div>
 								<div class="col-md-4">

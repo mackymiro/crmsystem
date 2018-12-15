@@ -19,6 +19,48 @@ use Response;
 class ClientController extends Controller
 {
 	
+	//pack received users
+	public function packReceived($id){
+		$client = Client::find($id);
+		$clientId = json_encode($client->id);
+		
+		//update the client process pack received to 1
+		$process = 1;
+		$client->process_pack_received = $process;
+		
+		$client->save();
+		return redirect('clients/client-details/id/'. $clientId);
+	}
+	
+	//pack out user
+	public function packOut($id){
+		$client = Client::find($id);
+		$clientId = json_encode($client->id);
+		
+		//update the client process pack out to 1
+		$process = 1;
+		$client->process_packout = $process;
+		
+		$client->save();
+		return redirect('clients/client-details/id/'. $clientId);
+		
+	}
+
+	
+	//profiled user
+	public function profiled($id){
+
+		$client = Client::find($id);;
+		$clientId = json_encode($client->id);	
+		
+		//update the client process profiled to 1
+		$process = 1;
+		$client->process_profiled = $process;
+		
+		$client->save();
+		return redirect('clients/client-details/id/'. $clientId);
+	}
+	
 	//store task
 	public function storeTask(Request $request, $id){
 		//validate fields

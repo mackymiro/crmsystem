@@ -49,6 +49,10 @@ class CreateClientsTable extends Migration
 				$table->string('country');
 				$table->text('description');
 				$table->string('owner');
+				$table->integer('process_profiled');
+				$table->integer('process_packout');
+				$table->integer('process_pack_received');
+				$table->integer('process_in_processing');
 				$table->timestamps();
 			});
 		}

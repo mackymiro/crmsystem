@@ -62,16 +62,14 @@
 								<div class="form-group">
 									<div class="form-row">
 										<div class="col-md-12">
-										
-						
 											<div class="table-responsive">
 												<table class="table table-bordered"  width="100%" cellspacing="0">
 													<thead>
 														<tr >
 															<?php
 																$date = date('Y-m-d');
-																echo $date;
-																echo "<br>";
+																//echo $date;
+																//echo "<br>";
 																//echo strtotime($date);
 																$startTimeStamp = strtotime($client->updated_at);
 																$endTimeStamp = strtotime($date);
@@ -82,44 +80,148 @@
 																$numberDays = $timeDiff/86400;  // 86400 seconds in one day
 																
 																$numberDays = intval($numberDays);
-																echo $numberDays; 
-																echo "<br>";
+																//echo $numberDays; 
+																//echo "<br>";
 															
 															?>
-															
-															<?php if($numberDays >= 2): ?>
-																<th width="120px;" class="">Profiled </th>
-															<?php elseif($numberDays <= 3): ?>
-																<th width="120px;" class="alert alert-warning">Profiled </th>
-															<?php elseif($numberDays >= 7): ?>
-																 <th width="120px;" class="alert alert-danger">Profiled </th>
-															<?php elseif($numberDays == 0): ?>
-																 <th width="120px;" >Profiled </th>	
+															<?php if($client->process_profiled == 1): ?>
+																<th class="alert alert-success">Profiled</th>
+															<?php else: ?>
+																<?php if($numberDays <= 2): ?>
+																	<th width="120px;" class="">Profiled </th>
+																<?php elseif($numberDays <= 3): ?>
+																	<th width="120px;" class="alert alert-warning">Profiled </th>
+																<?php elseif($numberDays >= 7): ?>
+																	 <th width="120px;" class="alert alert-danger">Profiled </th>
+																<?php elseif($numberDays == 1): ?>
+																	 <th width="120px;" >Profiled </th>	
+																<?php endif; ?>
 															<?php endif; ?>
-														  <th >Pack Out </th>
-														  <th >Pack Received </th>
-														  <th>In Processing</th>
-														  <th>Submitted</th>
-														  <th>Money Received</th>
-														  <th>Client on Paylist</th>
-														  <th>Client Paid</th>
+									
+															<?php if($client->process_packout  == 1): ?>
+																<th class="alert alert-success">Pack Out</th>
+															<?php else: ?>
+																<?php if($numberDays >= 2): ?>
+																	<th width="120px;" class="">Pack Out </th>
+																<?php elseif($numberDays >= 3): ?>
+																	<th width="120px;" class="alert alert-warning">Pack Out </th>
+																<?php elseif($numberDays >= 7): ?>
+																	 <th width="120px;" class="alert alert-danger">Pack Out </th>
+																<?php elseif($numberDays == 1): ?>
+																	<th width="120px;" >Pack Out</th>	
+																<?php else: ?>
+																	<th>Pack Out</th>
+																<?php endif; ?>
+															
+															<?php endif; ?>
+															
+															<?php if($client->process_pack_received == 1): ?>
+																<th class="alert alert-success">Pack Received </th>
+															<?php else: ?>
+																<?php if($numberDays >= 2): ?>
+																	<th width="120px;" class="">Pack Received </th>
+																<?php elseif($numberDays >= 3): ?>
+																	<th width="120px;" class="alert alert-warning">Pack Received </th>
+																<?php elseif($numberDays >= 7): ?>
+																	 <th width="120px;" class="alert alert-danger">Pack Received </th>
+																<?php elseif($numberDays == 1): ?>
+																	<th  >Pack Received</th>	
+																<?php else: ?>
+																	<th  >Pack Received</th>
+																<?php endif; ?>
+															
+															<?php endif; ?>
+															
+															<?php if($client->process_in_processing): ?>
+																<th>In Processing</th>
+															<?php else: ?>
+																<?php if($numberDays >= 2): ?>
+																	<th width="120px;" class="">In Processing </th>
+																<?php elseif($numberDays >= 3): ?>
+																	<th width="120px;" class="alert alert-warning">In Processing </th>
+																<?php elseif($numberDays >= 7): ?>
+																	 <th width="120px;" class="alert alert-danger">In Processing </th>
+																<?php elseif($numberDays == 1): ?>
+																	<th  >In Processing</th>	
+																<?php else: ?>
+																	<th  >In Processing</th>
+																<?php endif; ?>
+															<?php endif; ?>
+															<th>Submitted</th>
+															<th>Money Received</th>
+															<th>Client on Paylist</th>
+															<th>Client Paid</th>
 														</tr>
 													</thead>
 													<tbody>
 														<tr>
-															<?php if($numberDays >= 2): ?>
-																<td class=""><?php echo $numberDays; ?> days</td>
-															<?php elseif($numberDays <= 3): ?>
-																<td class="alert alert-warning"><?php echo $numberDays; ?> days</td>
-															<?php elseif($numberDays >= 7): ?>
-																<td class="alert alert-danger"><?php echo $numberDays; ?> days</td>
+															<?php if($client->process_profiled == 1): ?>
+																<td class="alert alert-success">OK</td>
 															<?php else: ?>
-															    <td ></td>
+																
+																<?php if($numberDays <= 2): ?>
+																	<td class=""><?php echo $numberDays; ?> day(s)</td>
+																<?php elseif($numberDays <= 3): ?>
+																	<td class="alert alert-warning"><?php echo $numberDays; ?> day(s)</td>
+																<?php elseif($numberDays >= 7): ?>
+																	<td class="alert alert-danger"><?php echo $numberDays; ?> day(s)</td>
+																<?php else: ?>
+																	<td ></td>
+																<?php endif; ?>
 															<?php endif; ?>
-										
-															<td></td>
-															<td></td>
-															<td></td>
+															
+															
+															<?php if($client->process_packout == 1): ?>
+																<td class="alert alert-success"><span>OK</span></td>
+															<?php else: ?>
+																<?php if($client->process_profiled == 1): ?>
+																	<?php if($numberDays  <= 2): ?>
+																		<td class=""><?php echo $numberDays; ?> day(s)</td>
+																	<?php elseif(3 >= $numberDays): ?>
+																		<td class="alert alert-warning"><?php echo $numberDays; ?> day(s)</td>
+																	<?php elseif($numberDays <= 7): ?>
+																		<td class="alert alert-danger"><?php echo $numberDays; ?> day(s)</td>
+																	<?php else: ?>
+																		<td ></td>
+																	<?php endif; ?>
+																<?php endif; ?>
+															<?php endif; ?>
+															
+																		
+															<?php if($client->process_pack_received == 1): ?>
+																<td class="alert alert-success">OK</td>
+															<?php else: ?>
+																<?php if($client->process_packout == 1): ?>
+																	
+																	<?php if($numberDays <= 2): ?>
+																		<td class=""><?php echo $numberDays; ?> day(s)</td>
+																	<?php elseif($numberDays <= 3): ?>
+																		<td class="alert alert-warning"><?php echo $numberDays; ?> day(s)</td>
+																	<?php elseif($numberDays >= 7): ?>
+																		<td class="alert alert-danger"><?php echo $numberDays; ?> days(s)</td>
+																	<?php else: ?>
+																		<td ></td>
+																	<?php endif; ?>
+																<?php endif; ?>
+															<?php endif; ?>
+															
+															<?php if($client->process_in_processing == 1): ?>
+																<td class="alert alert-success">OK</td>
+															<?php else: ?>
+																	<?php if($client->process_pack_received == 1): ?>
+																	
+																	<?php if($numberDays <= 2): ?>
+																		<td class=""><?php echo $numberDays; ?> day(s)</td>
+																	<?php elseif($numberDays <= 3): ?>
+																		<td class="alert alert-warning"><?php echo $numberDays; ?> day(s)</td>
+																	<?php elseif($numberDays >= 7): ?>
+																		<td class="alert alert-danger"><?php echo $numberDays; ?> days(s)</td>
+																	<?php else: ?>
+																		<td ></td>
+																	<?php endif; ?>
+																<?php endif; ?>
+															
+															<?php endif; ?>
 															<td></td>
 															<td></td>
 															<td></td>
@@ -128,15 +230,25 @@
 													</tbody>
 												</table>
 											</div>
-											<a href="" class="pull-right btn btn-success"><i class="fa fa-info"></i> Client Paid</a>
+											<!--<a href="" class="pull-right btn btn-success"><i class="fa fa-info"></i> Client Paid</a>
 											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Client on Paylist</a>
 											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Money Received</a>
-											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Submitted</a>
-											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> In Processing</a>
-											<a  href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Pack Received</a>
-											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Pack Out</a>
-											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Profiled</a>
+											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Submitted</a>-->
+											<a href="{{ url('clients/in-processing/id', $client->id ) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> In Processing</a>
+											<?php if($client->process_pack_received != 1): ?>
+												<?php if($client->process_packout == 1): ?>
+												<a  href="{{ url('clients/pack-received/id', $client->id ) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Pack Received</a>
+												<?php endif; ?>
+											<?php endif; ?>
 											
+											<?php if($client->process_packout != 1): ?>					
+												<?php if($client->process_profiled == 1): ?>
+													<a href="{{ url('clients/pack-out/id', $client->id ) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Pack Out</a>
+												<?php endif; ?>
+											<?php endif; ?>
+											<?php if($client->process_profiled != 1): ?>
+												<a href="{{ url('clients/profiled/id', $client->id ) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Profiled</a>
+											<?php endif; ?>
 										</div>
 									</div>
 								</div>
@@ -153,9 +265,10 @@
 							<strong>Personal Info</strong>
 							<br>
 							<br>
+
 							<a href="{{ action('ClientController@edit', $client['id']) }}" class="pull-right btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</a>
 							<a href="{{ url('clients/add-task/id', $client['id']) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-tasks" aria-hidden="true"></i> Add New Task</a>
-							
+							<a href="{{ url('clients/add-task/id', $client['id']) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info" aria-hidden="true"></i> TOE</a>
 							<br>
 							<br>
 							<div style="clear:both"></div>
@@ -179,7 +292,16 @@
 													</tr>
 													<tr>
 													  <th>Birthday: </th>
-													  <td>{{ $client->dob }} </td>					
+													  <td>
+														
+														<?php $dob = $client->dob ?> 
+														<?php
+															$birthDate = explode("-", $dob);
+															echo $birthDate[2]. "-";
+															echo $birthDate[1]. "-";	
+															echo $birthDate[0];
+														?>
+													  </td>					
 													</tr>
 													<tr>
 													  <th>Profession: </th>
