@@ -53,6 +53,10 @@ class CreateClientsTable extends Migration
 				$table->integer('process_packout');
 				$table->integer('process_pack_received');
 				$table->integer('process_in_processing');
+				$table->integer('process_submitted');
+				$table->integer('process_money_received');
+				$table->integer('process_client_on_paylist');
+				$table->integer('process_client_paid');
 				$table->timestamps();
 			});
 		}

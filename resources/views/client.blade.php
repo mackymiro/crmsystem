@@ -30,6 +30,7 @@
 									  <th width="200px;">Email</th>
 									  <th width="200px;">Phone</th>
 									  <th width="190px;">Mobile</th>
+									  <th width="190px;">UTR</th>
 									  <th>Created Date</th>
 									  <th>Owner</th>
 									</tr>
@@ -41,6 +42,7 @@
 									  <th>Email</th>
 									  <th>Phone</th>
 									  <th>Mobile</th>
+									  <th >UTR</th>
 									  <th>Created Date</th>
 									  <th>Owner</th>
 									</tr>
@@ -56,6 +58,7 @@
 										<td>{{ $client['email'] }}</td>
 										<td>{{ $client['phone_number'] }}</td>
 										<td>{{ $client['mobile_number'] }}</td>
+										<td>{{ $client['utr']}}</td>
 										<td>{{ $client['created_at'] }}</td>
 										<td>{{ $client['owner'] }}</td>
 									</tr>

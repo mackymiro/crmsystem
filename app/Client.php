@@ -44,5 +44,7 @@ class Client extends Model
 		'process_packout',
 		'process_pack_received',
 		'process_in_processing',
+		'process_client_on_paylist',
+		'process_client_paid',
 	];
 }

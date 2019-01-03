@@ -76,6 +76,12 @@ Route::post('/clients/store-task/id/{id}', 'ClientController@storeTask')->name('
 Route::get('/clients/profiled/id/{id}', 'ClientController@profiled')->name('clientdetails.profiled');
 Route::get('/clients/pack-out/id/{id}', 'ClientController@packOut')->name('clientdetails.packOut');
 Route::get('/clients/pack-received/id/{id}', 'ClientController@packReceived')->name('clientdetails.packreceived');
+Route::get('/clients/in-processing/id/{id}', 'ClientController@inProcessing')->name('clientdetails.inprocessing');
+Route::get('/clients/submitted/id/{id}', 'ClientController@submitted')->name('clientdetails.submitted');
+Route::get('/clients/money-received/id/{id}', 'ClientController@moneyReceived')->name('clientdetails.moneyreceived');
+Route::get('/clients/clients-on-paylist/id/{id}', 'ClientController@clientOnPaylist')->name('clientdetails.clientonpaylist');
+Route::get('/clients/client-paid/id/{id}', 'ClientController@clientPaid')->name('clientdetails.clientpaid');
+Route::get('/clients/new-invoice/id/{id}', 'ClientController@newInvoice')->name('clientdetails.newinvoice');
 
 // Route for tasks
 Route::get('/tasks', 'TaskController@index')->name('task');

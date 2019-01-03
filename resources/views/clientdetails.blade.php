@@ -132,25 +132,87 @@
 															
 															<?php endif; ?>
 															
-															<?php if($client->process_in_processing): ?>
-																<th>In Processing</th>
+															<?php if($client->process_in_processing == 1): ?>
+																<th class="alert alert-success">In Processing</th>
 															<?php else: ?>
 																<?php if($numberDays >= 2): ?>
 																	<th width="120px;" class="">In Processing </th>
 																<?php elseif($numberDays >= 3): ?>
-																	<th width="120px;" class="alert alert-warning">In Processing </th>
+																	<th width="120px;" class="alert alert-warning">In Processing</th>
 																<?php elseif($numberDays >= 7): ?>
-																	 <th width="120px;" class="alert alert-danger">In Processing </th>
+																	 <th width="120px;" class="alert alert-danger">In Processing</th>
 																<?php elseif($numberDays == 1): ?>
-																	<th  >In Processing</th>	
+																	<th  width="120px;" class="alert alert-success" >In Processing</th>	
 																<?php else: ?>
 																	<th  >In Processing</th>
 																<?php endif; ?>
 															<?php endif; ?>
-															<th>Submitted</th>
-															<th>Money Received</th>
-															<th>Client on Paylist</th>
-															<th>Client Paid</th>
+															
+															<?php if($client->process_submitted == 1): ?>
+																<th class="alert alert-success">Submitted</th>
+															<?php else: ?>
+																<?php if($numberDays >= 2): ?>
+																	<th width="120px;" class="">Submitted </th>
+																<?php elseif($numberDays >= 3): ?>
+																	<th width="120px;" class="alert alert-warning">Submitted</th>
+																<?php elseif($numberDays >= 7): ?>
+																	 <th width="120px;" class="alert alert-danger">Submitted</th>
+																<?php elseif($numberDays == 1): ?>
+																	<th  width="120px;" class="alert alert-success" >Submitted</th>	
+																<?php else: ?>
+																	<th>Submitted</th>
+																<?php endif; ?>
+															<?php endif; ?>
+															
+															<?php if($client->process_money_received ==1 ): ?>
+																<th  class="alert alert-success">Money Received</th>
+															<?php else: ?>
+																<?php if($numberDays >= 2): ?>
+																	<th width="120px;" class="">Money Received </th>
+																<?php elseif($numberDays >= 3): ?>
+																	<th width="120px;" class="alert alert-warning">Money Received</th>
+																<?php elseif($numberDays >= 7): ?>
+																	 <th width="120px;" class="alert alert-danger">Money Received</th>
+																<?php elseif($numberDays == 1): ?>
+																	<th  width="120px;" class="alert alert-success" >Money Received</th>	
+																<?php else: ?>
+																	<th>Money Received</th>
+																<?php endif; ?>
+															<?php endif; ?>
+															
+															<?php if($client->process_client_on_paylist ==1 ): ?>
+																<th  class="alert alert-success">Client on Paylist</th>
+															<?php else: ?>
+																<?php if($numberDays >= 2): ?>
+																	<th width="120px;" class="">Client on Paylist </th>
+																<?php elseif($numberDays >= 3): ?>
+																	<th width="120px;" class="alert alert-warning">Client on Paylist</th>
+																<?php elseif($numberDays >= 7): ?>
+																	 <th width="120px;" class="alert alert-danger">Client on Paylist</th>
+																<?php elseif($numberDays == 1): ?>
+																	<th  width="120px;" class="alert alert-success" >Client on Paylist</th>	
+																<?php else: ?>
+																	<th>Client on Paylist</th>
+																<?php endif; ?>
+															
+															<?php endif; ?>
+															
+															<?php if($client->process_client_paid == 1): ?>
+																<th  class="alert alert-success">Client Paid</th>
+															<?php else: ?>
+																<?php if($numberDays >= 2): ?>
+																	<th width="120px;" class="">Client Paid </th>
+																<?php elseif($numberDays >= 3): ?>
+																	<th width="120px;" class="alert alert-warning">Client Paid</th>
+																<?php elseif($numberDays >= 7): ?>
+																	 <th width="120px;" class="alert alert-danger">Client Paid</th>
+																<?php elseif($numberDays == 1): ?>
+																	<th  width="120px;" class="alert alert-success" >Client Paid</th>	
+																<?php else: ?>
+																	<th>Client Paid</th>
+																<?php endif; ?>
+															
+															<?php endif; ?>
 														</tr>
 													</thead>
 													<tbody>
@@ -192,7 +254,6 @@
 																<td class="alert alert-success">OK</td>
 															<?php else: ?>
 																<?php if($client->process_packout == 1): ?>
-																	
 																	<?php if($numberDays <= 2): ?>
 																		<td class=""><?php echo $numberDays; ?> day(s)</td>
 																	<?php elseif($numberDays <= 3): ?>
@@ -208,7 +269,7 @@
 															<?php if($client->process_in_processing == 1): ?>
 																<td class="alert alert-success">OK</td>
 															<?php else: ?>
-																	<?php if($client->process_pack_received == 1): ?>
+																<?php if($client->process_pack_received == 1): ?>
 																	
 																	<?php if($numberDays <= 2): ?>
 																		<td class=""><?php echo $numberDays; ?> day(s)</td>
@@ -222,19 +283,105 @@
 																<?php endif; ?>
 															
 															<?php endif; ?>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
+															
+															<?php if($client->process_submitted == 1): ?>
+																<td class="alert alert-success">OK</td>
+															<?php else: ?>
+																<?php if($client->process_in_processing == 1): ?>
+																	<?php if($numberDays <= 2): ?>
+																		<td class=""><?php echo $numberDays; ?> day(s)</td>
+																	<?php elseif($numberDays <= 3): ?>
+																		<td class="alert alert-warning"><?php echo $numberDays; ?> day(s)</td>
+																	<?php elseif($numberDays >= 7): ?>
+																		<td class="alert alert-danger"><?php echo $numberDays; ?> days(s)</td>
+																	<?php else: ?>
+																		<td ></td>
+																	<?php endif; ?>
+																<?php endif; ?>
+															<?php endif; ?>
+															
+															
+															<?php if($client->process_money_received == 1): ?>
+																<td class="alert alert-success">OK</td>
+															<?php else: ?>
+																<?php if($client->process_submitted  == 1): ?>
+																		<?php if($numberDays <= 2): ?>
+																			<td class=""><?php echo $numberDays; ?> day(s)</td>
+																		<?php elseif($numberDays <= 3): ?>
+																			<td class="alert alert-warning"><?php echo $numberDays; ?> day(s)</td>
+																		<?php elseif($numberDays >= 7): ?>
+																			<td class="alert alert-danger"><?php echo $numberDays; ?> days(s)</td>
+																		<?php else: ?>
+																			<td ></td>
+																		<?php endif; ?>
+																<?php endif; ?>
+															<?php endif; ?>
+															
+															<?php if($client->process_client_on_paylist == 1): ?>
+																<td class="alert alert-success">OK</td>
+															<?php else: ?>
+																<?php if($client->process_money_received == 1): ?>
+																	<?php if($numberDays <= 2): ?>
+																		<td class=""><?php echo $numberDays; ?> day(s)</td>
+																	<?php elseif($numberDays <= 3): ?>
+																		<td class="alert alert-warning"><?php echo $numberDays; ?> day(s)</td>
+																	<?php elseif($numberDays >= 7): ?>
+																		<td class="alert alert-danger"><?php echo $numberDays; ?> days(s)</td>
+																	<?php else: ?>
+																		<td ></td>
+																	<?php endif; ?>
+																<?php endif; ?>
+															<?php endif; ?>
+															
+															<?php if($client->process_client_paid): ?>
+																<td class="alert alert-success">OK</td>
+															<?php else: ?>
+																<?php if($client->process_client_on_paylist == 1): ?>
+																	<?php if($numberDays <= 2): ?>
+																		<td class=""><?php echo $numberDays; ?> day(s)</td>
+																	<?php elseif($numberDays <= 3): ?>
+																		<td class="alert alert-warning"><?php echo $numberDays; ?> day(s)</td>
+																	<?php elseif($numberDays >= 7): ?>
+																		<td class="alert alert-danger"><?php echo $numberDays; ?> days(s)</td>
+																	<?php else: ?>
+																		<td ></td>
+																	<?php endif; ?>
+																<?php endif; ?>
+															<?php endif; ?>			
 														</tr>
 													</tbody>
 												</table>
 											</div>
-											<!--<a href="" class="pull-right btn btn-success"><i class="fa fa-info"></i> Client Paid</a>
-											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Client on Paylist</a>
-											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Money Received</a>
-											<a href="" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Submitted</a>-->
-											<a href="{{ url('clients/in-processing/id', $client->id ) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> In Processing</a>
+											
+											<?php if($client->process_client_paid != 1): ?>
+												<?php if($client->process_client_on_paylist == 1): ?>
+													<a href="{{ url('clients/client-paid/id', $client->id) }}" class="pull-right btn btn-success"><i class="fa fa-info"></i> Client Paid</a>
+												<?php endif; ?>
+											<?php endif; ?>
+											
+											<?php if($client->process_client_on_paylist != 1): ?>
+												<?php if($client->process_money_received == 1): ?>
+													<a href="{{ url('clients/clients-on-paylist/id', $client->id) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Client on Paylist</a>
+												<?php endif; ?>
+											<?php endif; ?>
+											<?php if($client->process_money_received != 1): ?>
+												<?php if($client->process_submitted == 1): ?>
+												<a href="{{ url('clients/money-received/id', $client->id) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Money Received</a>
+												<?php endif; ?>
+											<?php endif; ?>
+											
+											<?php if($client->process_submitted != 1): ?>
+												<?php if($client->process_in_processing == 1): ?>
+													<a href="{{ url('clients/submitted/id', $client->id ) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Submitted</a>
+												<?php endif; ?>
+											<?php endif; ?>
+											
+											<?php if($client->process_in_processing != 1): ?>
+												<?php if($client->process_packout == 1): ?>
+													<a href="{{ url('clients/in-processing/id', $client->id ) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> In Processing</a>
+												<?php endif; ?>
+											<?php endif; ?>
+											
 											<?php if($client->process_pack_received != 1): ?>
 												<?php if($client->process_packout == 1): ?>
 												<a  href="{{ url('clients/pack-received/id', $client->id ) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info"></i> Pack Received</a>
@@ -494,7 +641,9 @@
 						  </div>
 						  <div class="card-body">
 								<div class="col-md-12">
-									
+									<div class="pull-right">
+										<a href="{{ url('clients/new-invoice/id', $client['id']) }}" class="btn btn-success pull-right"><i class="fa fa-file" aria-hidden="true"></i> New Invoice</a>
+									</div>
 									<div class="table-responsive">
 										<table class="table table-bordered display" width="100%" cellspacing="0">
 											<thead>

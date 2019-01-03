@@ -18,6 +18,70 @@ use Response;
 
 class ClientController extends Controller
 {
+	//client paid
+	public function clientPaid($id){
+		echo "test";
+		$client = Client::find($id);
+		$clientId = json_encode($client->id);
+		
+		//update the client paid to 1
+		$process = 1;
+		$client->process_client_paid = $process;
+		$client->save();
+		
+		return redirect('clients/client-details/id/'. $clientId);
+	}
+	
+	//client on paylist
+	public function clientOnPaylist($id){
+		$client = Client::find($id);
+		$clientId = json_encode($client->id);
+		
+		//update the client on paylist to 1
+		$process = 1;
+		$client->process_client_on_paylist = $process;
+		$client->save();
+		return redirect('clients/client-details/id/'. $clientId);
+	}
+	
+	//money received
+	public function moneyReceived($id){
+		$client = Client::find($id);
+		$clientId = json_encode($client->id);
+		
+		//update the client money received to 1
+		$process = 1;
+		$client->process_money_received = $process;
+		
+		$client->save();
+		return redirect('clients/client-details/id/'. $clientId);
+	}
+	
+	//submitted
+	public function submitted($id){
+		$client = Client::find($id);
+		$clientId = json_encode($client->id);
+		
+		//update the client in submitted to 1 
+		$process = 1;
+		$client->process_submitted = $process;
+		
+		$client->save();
+		return redirect('clients/client-details/id/'. $clientId);
+	}
+	
+	//in processing users
+	public function inProcessing($id){
+		$client = Client::find($id);
+		$clientId = json_encode($client->id);
+		
+		//update the client in processing to 1
+		$process = 1;
+		$client->process_in_processing = $process;
+		
+		$client->save();
+		return redirect('clients/client-details/id/'. $clientId);
+	}
 	
 	//pack received users
 	public function packReceived($id){
@@ -205,7 +269,7 @@ class ClientController extends Controller
 		}else{
 			//validate fields
 			$this->validate($request, [
-				'files' =>'required|mimes:pdf,csv,xls,doc,docx',
+				'files' =>'required|mimes:pdf,csv,xls,doc,docx,png,jpg,JPG,jpeg',
 			]);
 			
 			
