@@ -9,6 +9,7 @@ use App\Client;
 use App\Opp;
 use App\Note;
 use App\RecentlyViewed;
+use App\Invoice;
 
 use Session; 
 use Auth;
@@ -16,6 +17,71 @@ use Response;
 
 class CaseController extends Controller
 {
+	//addNewInvoice
+	public function addNewInvoice(Request $request, $id){
+		$opp = Opp::find($id);
+		
+		$id = json_encode($opp->id);
+		
+		//get the user account login 
+		$fName =  Auth::user()->first_name;
+		$lName = Auth::user()->last_name;
+		
+		$owner = $fName." ".$lName; 
+	
+		//get the amount and vat amount 
+		$amt = $request->get('amount');
+		$vatAmt = $request->get('vatAmount');
+	
+		$sum = $amt + $vatAmt;
+		
+		//get the last insert id query in table invoices
+		$data = DB::select('SELECT id, invoice_number FROM invoices ORDER BY id DESC LIMIT 1');
+		
+		//if code is not zero add plus 1
+		if(isset($data[0]->invoice_number) != 0){
+			//if code is not 0
+			$newNum = $data[0]->invoice_number +1;
+			$uNum = sprintf("%06d",$newNum);	
+		}else{
+			//if code is 0 
+			$newNum = 1;
+			$uNum = sprintf("%06d",$newNum);
+		}
+		
+		$invoice = new Invoice([
+			'case_id'=>$id,
+			'invoice_number'=>$uNum,
+			'contact_name'=>$request->get('contactName'),
+			'case_name'=>$request->get('caseName'),
+			'item_code'=>$request->get('itemCode'),
+			'reference'=>$request->get('notes'),
+			'amount'=>$request->get('amount'),
+			'vat_amount'=>$request->get('vatAmount'),
+			'total_amount'=>$sum,
+			'amount_due'=>$sum,
+			'status'=>1,
+			'created_by'=>$owner,
+		]);
+		
+		$invoice->save();
+		Session::flash('casesNewInvoice', 'Successfully added invoice.');
+		return redirect('cases/new-invoices/id/'.$id);
+		
+	}
+	
+	//new invoices
+	public function newInvoice($id){
+		$opp = Opp::find($id);
+		
+		$id = json_encode($opp->id);
+		
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		return view('casenewinvoice', compact('views', 'opp', 'id'));
+	}
+	
 	//save notes
 	public function storeNotes(Request $request, $id){
 		date_default_timezone_set('Europe/London');
@@ -101,10 +167,14 @@ class CaseController extends Controller
 		//query to notes table to get the case id per case profile
 		$notes = DB::table('notes')->where('case_id', $caseId)->get()->toArray();
 		
+		//query to invoices table to get the case id 
+		$invoices = DB::table('invoices')->where('case_id', $caseId)->get()->toArray();
+		
+		
 		//recently viewed
 		$views = RecentlyViewed::all()->toArray();
 		
-		return view('casesdetails', compact('opp', 'notes', 'views'));
+		return view('casesdetails', compact('opp', 'notes', 'views', 'invoices'));
 	}
 	
 	
@@ -156,7 +226,6 @@ class CaseController extends Controller
 		]);
 		
 
-		
 		//get the user account login 
 		$fName =  Auth::user()->first_name;
 		$lName = Auth::user()->last_name;

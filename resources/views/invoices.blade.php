@@ -38,6 +38,7 @@
 									</tr>
 								</thead>
 								<tfoot>
+									
 									<tr>
 									  <th>Invoice</th>
 									  <th>Name</th>
@@ -48,7 +49,28 @@
 									  <th>Created Date</th>
 									  <th>Created By</th>
 									</tr>
+									
 								</tfoot>
+								<tbody>
+									@foreach($invoices as $invoice)
+									<tr>
+										<td>INV-{{ $invoice['invoice_number'] }}</td>
+										<td>{{ $invoice['contact_name'] }}</td>
+										<td>{{ $invoice['case_name'] }}</td>
+										<td>{{ $invoice['item_code'] }}</td>
+										<td>{{ $invoice['amount_due'] }}</td>
+										<td>
+											<?php if($invoice['status'] == 1): ?>
+												<p class="alert alert-warning">Awaiting Payment</p>
+											<?php else: ?>
+												<p class="alert alert-success">Paid</p>
+											<?php endif; ?>
+										</td>
+										<td>{{ $invoice['created_at'] }}</td>
+										<td>{{ $invoice['created_by'] }}</td>
+									</tr>
+									@endforeach
+								</tbody>
 							</table>
 						</div>
 					</div>

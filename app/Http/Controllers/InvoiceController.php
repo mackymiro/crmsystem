@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\RecentlyViewed;
-
+use App\Invoice;
 
 class InvoiceController extends Controller
 {
@@ -16,11 +16,12 @@ class InvoiceController extends Controller
     public function index()
     {
         //
+		$invoices = Invoice::all()->toArray();
 		
 		//recently viewed
 		$views = RecentlyViewed::all()->toArray();
 		
-		return view('invoices', compact('views'));
+		return view('invoices', compact('views', 'invoices'));
     }
 
     /**

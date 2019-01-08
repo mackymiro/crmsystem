@@ -13,17 +13,19 @@ class CreateRecentlyViewedsTable extends Migration
      */
     public function up()
     {
-        Schema::create('recently_vieweds', function (Blueprint $table) {
-            $table->increments('id');
-			$table->integer('lead_id');
-			$table->integer('client_id');
-			$table->string('status');
-			$table->string('first_name');
-			$table->string('last_name');
-			$table->date('date');
-			$table->string('flag_status');
-            $table->timestamps();
-        });
+		if(!Schema::hasTable('recently_vieweds')) {
+			Schema::create('recently_vieweds', function (Blueprint $table) {
+				$table->increments('id');
+				$table->integer('lead_id');
+				$table->integer('client_id');
+				$table->string('status');
+				$table->string('first_name');
+				$table->string('last_name');
+				$table->date('date');
+				$table->string('flag_status');
+				$table->timestamps();
+			});
+		}
     }
 
     /**

@@ -126,7 +126,7 @@
 						  <div class="card-body">
 								<div class="col-md-12">
 									<div class="pull-right">
-										<a href="" class="btn btn-success pull-right"><i class="fa fa-file"></i> New Invoice</a>
+										<a href="{{ url('cases/new-invoices/id', $opp['id']) }}" class="btn btn-success pull-right"><i class="fa fa-file"></i> New Invoice</a>
 									</div>
 									<div class="table-responsive">
 										<table class="table table-bordered display" width="100%" cellspacing="0">
@@ -142,7 +142,7 @@
 												  <th>Status</th>
 												  <th>Created Date</th>
 												  <th>Created By</th>
-												  <th>Action</th>
+												  
 												</tr>
 											</thead>
 											<tfoot>
@@ -157,25 +157,32 @@
 												  <th>Status</th>
 												  <th>Created Date</th>
 												  <th>Created By</th>
-												  <th>Action</th>
+												 
 												</tr>
 											</tfoot>
 											<tbody>
+												@foreach($invoices as $invoice)
 												<tr>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
+													<td>INV-{{ $invoice->invoice_number }}</td>
+													<td>{{ $invoice->item_code }}</td>
+													<td>{{ $invoice->reference }}</td>
+													<td>{{ $invoice->amount }}</td>
+													<td>{{ $invoice->vat_amount }}</td>
+													<td>{{ $invoice->total_amount }}</td>
+													<td>{{ $invoice->amount_due }}</td>
 													<td>
-													  <a href="" class="btn btn-success"><i class="fa fa-money" aria-hidden="true"></i>  Pay Invoices</a>
+														<?php if($invoice->status == 1): ?>
+															<p class="alert alert-warning">Awaiting Payment</p>
+														<?php else: ?>
+															<p class="alert alert-success">Paid</p>
+														<?php endif; ?>
 													</td>
+													<td>{{ $invoice->created_at }}</td>
+													<td>{{ $invoice->created_by }}</td>
+													
 												</tr>
+												@endforeach
+												
 											</tbody>
 										</table>
 									</div>

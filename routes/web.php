@@ -83,6 +83,7 @@ Route::get('/clients/clients-on-paylist/id/{id}', 'ClientController@clientOnPayl
 Route::get('/clients/client-paid/id/{id}', 'ClientController@clientPaid')->name('clientdetails.clientpaid');
 Route::get('/clients/new-invoice/id/{id}', 'ClientController@newInvoice')->name('clientdetails.newinvoice');
 
+
 // Route for tasks
 Route::get('/tasks', 'TaskController@index')->name('task');
 Route::get('/tasks/create', 'TaskController@create')->name('createtask');
@@ -101,6 +102,8 @@ Route::patch('/cases/update/{id}', 'CaseController@update')->name('createcase.up
 Route::delete('/cases/delete/{id}', 'CaseController@destroy')->name('createcase.destroy');
 Route::get('/cases/add-new-notes/id/{id}', 'CaseController@addNewNotes')->name('addnewnotescases');
 Route::post('/cases/store-notes/id/{id}', 'CaseController@storeNotes')->name('addnewnotescases.StoreNotes');
+Route::get('/cases/new-invoices/id/{id}', 'CaseController@newInvoice')->name('addnewinvoice.newInvoice'); 
+Route::post('/cases/add-new-invoice/id/{id}', 'CaseController@addNewInvoice')->name('addnewinvoice.addNewInvoice');
 
 
 //Route for invoices

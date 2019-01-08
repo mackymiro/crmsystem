@@ -642,7 +642,7 @@
 						  <div class="card-body">
 								<div class="col-md-12">
 									<div class="pull-right">
-										<a href="{{ url('clients/new-invoice/id', $client['id']) }}" class="btn btn-success pull-right"><i class="fa fa-file" aria-hidden="true"></i> New Invoice</a>
+										<a href="{{ url('clients/new-invoice/id', $client['id']) }}" class="btn btn-success pull-right"><i class="fa fa-file" aria-hidden="true"></i> New Invoice </a>
 									</div>
 									<div class="table-responsive">
 										<table class="table table-bordered display" width="100%" cellspacing="0">

@@ -18,9 +18,21 @@ use Response;
 
 class ClientController extends Controller
 {
+	//new invoice
+	public function newInvoice($id){
+		
+		$client = Client::find($id);
+		
+		//recently viewed
+		$views = RecentlyViewed::all()->toArray();
+		
+		
+		return view('newinvoice', compact('views', 'client'));
+	}
+	
 	//client paid
 	public function clientPaid($id){
-		echo "test";
+		
 		$client = Client::find($id);
 		$clientId = json_encode($client->id);
 		
