@@ -108,3 +108,4 @@ Route::post('/cases/add-new-invoice/id/{id}', 'CaseController@addNewInvoice')->n
 
 //Route for invoices
 Route::get('/invoices', 'InvoiceController@index')->name('invoices');
+Route::get('/invoices/pay-invoices/id/{id}', 'InvoiceController@payInvoices')->name('invoices.payinvoices');

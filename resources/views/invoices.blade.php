@@ -35,6 +35,7 @@
 									  <th width="190px;">Status</th>
 									  <th>Created Date</th>
 									  <th>Created By</th>
+									  <th>Action</th>
 									</tr>
 								</thead>
 								<tfoot>
@@ -48,13 +49,15 @@
 									  <th >Status</th>
 									  <th>Created Date</th>
 									  <th>Created By</th>
+									  <th>Action</th>
 									</tr>
 									
 								</tfoot>
 								<tbody>
 									@foreach($invoices as $invoice)
+									<?php if($invoice['status'] == 1): ?>
 									<tr>
-										<td>INV-{{ $invoice['invoice_number'] }}</td>
+										<td><a href="{{ url('cases/case-details/id', $invoice['case_id']) }}" >INV-{{ $invoice['invoice_number'] }}</a></td>
 										<td>{{ $invoice['contact_name'] }}</td>
 										<td>{{ $invoice['case_name'] }}</td>
 										<td>{{ $invoice['item_code'] }}</td>
@@ -62,13 +65,16 @@
 										<td>
 											<?php if($invoice['status'] == 1): ?>
 												<p class="alert alert-warning">Awaiting Payment</p>
-											<?php else: ?>
-												<p class="alert alert-success">Paid</p>
+											
 											<?php endif; ?>
 										</td>
 										<td>{{ $invoice['created_at'] }}</td>
 										<td>{{ $invoice['created_by'] }}</td>
+										<td>
+											<a href="{{ url('invoices/pay-invoices/id', $invoice['id']) }}" class="btn btn-success"><i class="fa fa-money" aria-hidden="true"></i> Pay Invoice(s)</a>
+										</td>
 									</tr>
+									<?php endif; ?>
 									@endforeach
 								</tbody>
 							</table>
@@ -108,6 +114,27 @@
 									  <th>Created By</th>
 									</tr>
 								</tfoot>
+								<tbody>
+									@foreach($invoices as $invoice)
+									<?php if($invoice['status'] == 2): ?>
+									<tr>
+										<td><a href="{{ url('cases/case-details/id', $invoice['case_id']) }}">INV-{{ $invoice['invoice_number'] }}</a></td>
+										<td>{{ $invoice['contact_name'] }}</td>
+										<td>{{ $invoice['case_name'] }}</td>
+										<td>{{ $invoice['item_code'] }}</td>
+										<td>{{ $invoice['amount_due'] }}</td>
+										<td>
+											<?php if($invoice['status'] == 2): ?>
+												<p class="alert alert-success">Paid</p>
+											
+											<?php endif; ?>
+										</td>
+										<td>{{ $invoice['created_at'] }}</td>
+										<td>{{ $invoice['created_by'] }}</td>
+									</tr>
+									<?php endif; ?>
+									@endforeach
+								</tbody>
 							</table>
 						</div>
 					</div>

@@ -8,6 +8,19 @@ use App\Invoice;
 
 class InvoiceController extends Controller
 {
+	
+	public function payInvoices($id){
+		
+		$invoice = Invoice::find($id);
+		
+		
+		//update the invoice status to paid
+		$status = 2;
+		$invoice->status = $status;
+		
+		$invoice->save();
+		return redirect('invoices');
+	}
     /**
      * Display a listing of the resource.
      *
