@@ -50,6 +50,7 @@ class CaseController extends Controller
 		}
 		
 		$invoice = new Invoice([
+			'client_id'=>$request->get('clientId'),
 			'case_id'=>$id,
 			'invoice_number'=>$uNum,
 			'contact_name'=>$request->get('contactName'),
@@ -73,7 +74,7 @@ class CaseController extends Controller
 	//new invoices
 	public function newInvoice($id){
 		$opp = Opp::find($id);
-		
+		 
 		$id = json_encode($opp->id);
 		
 		//recently viewed

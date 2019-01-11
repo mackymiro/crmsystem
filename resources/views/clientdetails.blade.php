@@ -415,7 +415,7 @@
 
 							<a href="{{ action('ClientController@edit', $client['id']) }}" class="pull-right btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</a>
 							<a href="{{ url('clients/add-task/id', $client['id']) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-tasks" aria-hidden="true"></i> Add New Task</a>
-							<a href="{{ url('clients/add-task/id', $client['id']) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info" aria-hidden="true"></i> TOE</a>
+							<a href="http://system.returnmytax.co.uk/terms-of-engagement-new/?&salutation={{ $client['title'] }}&firstName={{ $client['first_name'] }}&middleName={{ $client['middle_name'] }}&lastName={{ $client['last_name'] }}&address={{ $client['street'] }} {{ $client['city'] }} {{ $client['zip']}}&postcode={{ $client['zip'] }}&phoneNumber={{ $client['phone_number'] }}" target="_blank"" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info" aria-hidden="true"></i> TOE</a>
 							<br>
 							<br>
 							<div style="clear:both"></div>
@@ -641,9 +641,7 @@
 						  </div>
 						  <div class="card-body">
 								<div class="col-md-12">
-									<div class="pull-right">
-										<a href="{{ url('clients/new-invoice/id', $client['id']) }}" class="btn btn-success pull-right"><i class="fa fa-file" aria-hidden="true"></i> New Invoice </a>
-									</div>
+									
 									<div class="table-responsive">
 										<table class="table table-bordered display" width="100%" cellspacing="0">
 											<thead>
@@ -677,21 +675,29 @@
 												</tr>
 											</tfoot>
 											<tbody>
+												@foreach($invoices as $invoice)
 												<tr>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
+													<td>INV-{{ $invoice->invoice_number }}</td>
+													<td>{{ $invoice->item_code }}</td>
+													<td>{{ $invoice->reference }}</td>
+													<td>{{ $invoice->amount }}</td>
+													<td>{{ $invoice->vat_amount }}</td>
+													<td>{{ $invoice->total_amount }}</td>
+													<td>{{ $invoice->amount_due }}</td>
 													<td>
-													  <a href="" class="btn btn-success"><i class="fa fa-file"></i> Pay Invoices</a>
+														<?php if($invoice->status == 1): ?>
+															<p class="alert alert-warning">Awaiting Payment</p>
+														<?php else: ?>
+															<p class="alert alert-success">Paid</p>
+														<?php endif; ?>
+													</td>
+													<td>{{ $invoice->created_at }}</td>
+													<td>{{ $invoice->created_by }}</td>
+													<td>
+													  <a href="{{ url('invoices/pay-invoices/id', $invoice->id) }}" class="btn btn-success"><i class="fa fa-file"></i> Pay Invoices</a>
 													</td>
 												</tr>
+												@endforeach
 											</tbody>
 										</table>
 									</div>

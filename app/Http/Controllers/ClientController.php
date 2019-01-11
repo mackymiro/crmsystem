@@ -11,6 +11,7 @@ use App\User;
 use App\Note;
 use App\Task;
 use App\RecentlyViewed;
+use App\Invoice;
 
 use Session;
 use Auth;
@@ -331,15 +332,17 @@ class ClientController extends Controller
 	public function clientDetails($id){
 		
 		$client = Client::find($id);
-		
+
 		$clientId = json_encode($client->id);
-		
 	
 		//query from notes table to get the client id per client profile
 		$notes = DB::table('notes')->where('client_id', $clientId)->get()->toArray();
 		
 		//query from case table to get the client id
 		$cases = DB::table('opps')->where('client_id', $clientId)->get()->toArray();
+		
+		//query from invoices table to get the client id
+		$invoices = DB::table('invoices')->where('client_id', $clientId)->get()->toArray();
 		
 		//get the date today
 		$date = date('Y-m-d');
@@ -373,7 +376,7 @@ class ClientController extends Controller
 		//recently viewed
 		$views = RecentlyViewed::all()->toArray();
 
-		return view('clientdetails', compact('client', 'notes', 'cases', 'views'));
+		return view('clientdetails', compact('client', 'notes', 'cases', 'views', 'invoices'));
 		
 	}
 	

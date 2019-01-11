@@ -86,6 +86,7 @@
 										<div class="pull-right">
 											<input type="hidden" name="contactName" value="{{ $opp->contacts }}" />
 											<input type="hidden" name="caseName" value="{{ $opp->tax_year }}" />
+											<input type="hidden" name="clientId" value="{{ $opp->client_id }}" />
 											<button type="submit" class="btn btn-success">
 												<i class="fa fa-save" aria-hidden="true" style="font-size:24px"></i> Save
 											</button>
