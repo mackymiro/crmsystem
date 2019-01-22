@@ -19,12 +19,12 @@
               <div class="card text-white bg-primary o-hidden h-100">
                 <div class="card-body">
                   <div class="card-body-icon">
-                    <i class="fa fa-fw fa-comments"></i>
+                    <i class="fa fa-line-chart"></i>
                   </div>
-                  <div class="mr-5">26 New Messages!</div>
+                  <div class="mr-5">{{ $leads }} Assigned Leads To You!</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
-                  <span class="float-left">View Details</span>
+                <a class="card-footer text-white clearfix small z-1" href="{{ url('leads') }}">
+                  <span class="float-left">View Leads Details</span>
                   <span class="float-right">
                     <i class="fa fa-angle-right"></i>
                   </span>
@@ -35,12 +35,12 @@
               <div class="card text-white bg-warning o-hidden h-100">
                 <div class="card-body">
                   <div class="card-body-icon">
-                    <i class="fa fa-fw fa-list"></i>
+                    <i class="fa fa-black-tie"></i>
                   </div>
-                  <div class="mr-5">11 New Tasks!</div>
+                  <div class="mr-5">{{ $clients }} Assigned Clients To You!</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
-                  <span class="float-left">View Details</span>
+                <a class="card-footer text-white clearfix small z-1" href="{{ url('clients') }}">
+                  <span class="float-left">View Clients Details</span>
                   <span class="float-right">
                     <i class="fa fa-angle-right"></i>
                   </span>
@@ -51,12 +51,12 @@
               <div class="card text-white bg-success o-hidden h-100">
                 <div class="card-body">
                   <div class="card-body-icon">
-                    <i class="fa fa-fw fa-shopping-cart"></i>
+                    <i class="fa fa-suitcase"></i>
                   </div>
-                  <div class="mr-5">123 New Orders!</div>
+                  <div class="mr-5">{{ $cases }} Assigned Cases To You!</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
-                  <span class="float-left">View Details</span>
+                <a class="card-footer text-white clearfix small z-1" href="{{ url('cases') }}">
+                  <span class="float-left">View Cases Details</span>
                   <span class="float-right">
                     <i class="fa fa-angle-right"></i>
                   </span>
@@ -67,12 +67,12 @@
               <div class="card text-white bg-danger o-hidden h-100">
                 <div class="card-body">
                   <div class="card-body-icon">
-                    <i class="fa fa-fw fa-life-ring"></i>
+                    <i class="fa fa-tasks"></i>
                   </div>
-                  <div class="mr-5">13 New Tickets!</div>
+                  <div class="mr-5">{{ $tasks }} Assigned Tasks To You!</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
-                  <span class="float-left">View Details</span>
+                <a class="card-footer text-white clearfix small z-1" href="{{ url('tasks') }}">
+                  <span class="float-left">View Tasks Details</span>
                   <span class="float-right">
                     <i class="fa fa-angle-right"></i>
                   </span>
@@ -80,7 +80,116 @@
               </div>
             </div>
           </div>
-
+		  
+		  <div class="form-group">
+			<div class="form-row">
+				<div class="col-lg-12">
+					<div class="card mb-3">
+						<div class="card-header">
+					  <i class="fa fa-list-ul"></i>
+					   Pipeline</div>
+					   <div class="card-body">
+							<table class="table table-bordered" width="100%" cellspacing="0">
+							  <thead>
+								<tr>
+								  <th>Stage</th>
+								  <th>Record Count</th>
+								  
+								</tr>
+							  </thead>
+							  <tfoot>
+								<tr>
+								  <th>Stage</th>
+								  <th>Record Count</th>
+								 
+								</tr>
+							  </tfoot>
+							  <tbody>
+								<tr>
+									<td>Collecting Information</td>
+									<td>259</td>
+								</tr>
+								<tr>
+									<td>Earnings and Expenses Collecting</td>
+									<td>89</td>
+								</tr>
+								<tr>
+									<td>Collecting Information</td>
+									<td>259</td>
+								</tr>
+								<tr>
+									<td>Awaiting 64/8 Authorisation</td>
+									<td>627</td>
+								</tr>
+								<tr>
+									<td>Submitted to HRMC</td>
+									<td>1849</td>
+								</tr>
+								<tr>
+									<td>Awaiting Payment</td>
+									<td>2285</td>
+								</tr>
+							  </tbody>
+							</table>
+					   </div>			
+					</div>
+				</div>
+			</div>
+		  </div>
+		  
+		  <!-- Activities -->
+		  <div class="form-group">
+			<div class="form-row">
+				<div class="col-lg-6">
+				  <div class="card mb-3">
+					<div class="card-header">
+					  <i class="fa fa-list-ul"></i>
+					   Activities (Top 10 Most Active Salespeople)</div>
+					   <div class="card-body">
+							
+					   </div>
+				  </div>
+			  </div>
+		  
+			  <div class="col-lg-6">
+				  <div class="card mb-3">
+					<div class="card-header">
+					  <i class="fa fa-list-ul"></i>
+					   Activities (Top 10 Least Active)</div>
+					   <div class="card-body">
+					   
+					   </div>
+				  </div>
+			  </div>
+			 
+			</div>
+		  </div>
+		  
+		  <div class="form-group">
+			<div class="form-row">
+				<div class="col-lg-6">
+				  <div class="card mb-3">
+					<div class="card-header">
+					  <i class="fa fa-suitcase"></i>
+					   Open Cases</div>
+					   <div class="card-body">
+					   
+					   </div>
+				  </div>
+				</div>
+				<div class="col-lg-6">
+				  <div class="card mb-3">
+					<div class="card-header">
+					  <i class="fa fa-suitcase"></i>
+					   Close Deals Leader Board</div>
+					   <div class="card-body">
+					   
+					   </div>
+				  </div>
+				</div>	
+				
+			</div>
+		  </div>
           <!-- Area Chart Example-->
           <div class="card mb-3">
             <div class="card-header">

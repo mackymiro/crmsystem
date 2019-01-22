@@ -69,7 +69,7 @@
 								<div class="form-row">
 									<div class="col-md-12">
 										<div class="pull-right">
-											<input type>
+											
 											<button type="submit" class="btn btn-success">
 												<i class="fa fa-save" style="font-size:24px"></i> Add Cases
 											</button>

@@ -415,7 +415,9 @@
 
 							<a href="{{ action('ClientController@edit', $client['id']) }}" class="pull-right btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</a>
 							<a href="{{ url('clients/add-task/id', $client['id']) }}" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-tasks" aria-hidden="true"></i> Add New Task</a>
+							<a href="" class="pull-right btn btn-success" style="margin-right:8px;">Forms</a>
 							<a href="http://system.returnmytax.co.uk/terms-of-engagement-new/?&salutation={{ $client['title'] }}&firstName={{ $client['first_name'] }}&middleName={{ $client['middle_name'] }}&lastName={{ $client['last_name'] }}&address={{ $client['street'] }} {{ $client['city'] }} {{ $client['zip']}}&postcode={{ $client['zip'] }}&phoneNumber={{ $client['phone_number'] }}" target="_blank"" class="pull-right btn btn-success" style="margin-right:8px;"><i class="fa fa-info" aria-hidden="true"></i> TOE</a>
+							
 							<br>
 							<br>
 							<div style="clear:both"></div>

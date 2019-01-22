@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\RecentlyViewed;
+use Illuminate\Support\Facades\DB;
 
+use App\RecentlyViewed;
+use App\User;
+use App\Lead;
+
+use Auth;
 
 class HomeController extends Controller
 {
@@ -28,6 +33,26 @@ class HomeController extends Controller
 		//recently viewed
 		$views = RecentlyViewed::all()->toArray();
 		
-        return view('home', compact('views'));
+		
+		//get the user account login 
+		$fName =  Auth::user()->first_name;
+		$lName = Auth::user()->last_name;
+		$owner = $fName." ".$lName; 
+
+		$ownerName = $owner;
+		
+		//count the clients owner data
+		$clients = DB::table('clients')->where('owner', $ownerName)->get()->count();
+        
+		//count the leads owner data
+		$leads = DB::table('leads')->where('owner', $ownerName)->get()->count();
+		
+		//count the cases owner data
+		$cases = DB::table('opps')->where('owner', $ownerName)->get()->count();
+		
+		//count tasks owner data
+		$tasks = DB::table('tasks')->where('assigned_to', $ownerName)->get()->count();
+		
+		return view('home', compact('views', 'clients', 'leads', 'cases', 'tasks'));
     }
 }
