@@ -129,6 +129,14 @@
 									<td>Awaiting Payment</td>
 									<td>2285</td>
 								</tr>
+								<tr>
+									<td>Case Completed</td>
+									<td>15</td>
+								</tr>
+								<tr>
+									<td>Client Paid</td>
+									<td>390</td>
+								</tr>
 							  </tbody>
 							</table>
 					   </div>			
