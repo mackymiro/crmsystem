@@ -137,6 +137,18 @@
 									<td>Client Paid</td>
 									<td>390</td>
 								</tr>
+								<tr>
+									<td>Audit Completed</td>
+									<td>1</td>
+								</tr>
+								<tr>
+									<td>Invoice Paid</td>
+									<td>1501</td>
+								</tr>
+								<tr>
+									<td>For Invoice</td>
+									<td>432</td>
+								</tr>
 							  </tbody>
 							</table>
 					   </div>			
@@ -199,7 +211,7 @@
 			</div>
 		  </div>
           <!-- Area Chart Example-->
-          <div class="card mb-3">
+          <!--<div class="card mb-3">
             <div class="card-header">
               <i class="fa fa-chart-area"></i>
               Area Chart Example</div>
@@ -208,7 +220,7 @@
             </div>
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
           </div>
-
+			-->
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
